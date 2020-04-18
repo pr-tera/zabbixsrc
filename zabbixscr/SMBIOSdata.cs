@@ -75,11 +75,11 @@ namespace zabbixscr
             switch (table.m_bTableType)
             {
                 case 17:
-                    Console.WriteLine(dmi_memory_type(table.p_bFormattedSection[18]));
+                    Console.WriteLine(Dmi_memory_type(table.p_bFormattedSection[18]));
                     break;
             }
         }
-        public void ParseTable1(SMBIOStable table)
+        public static void ParseTable1(SMBIOStable table)
         {
             switch (table.m_bTableType)
             {
@@ -88,7 +88,7 @@ namespace zabbixscr
                     break;
             }
         }
-        private string dmi_memory_type(int code)
+        private string Dmi_memory_type(int code)
         {
             string[] MEMORY_TYPES = new string[] { "Other", "Unknown", "DRAM", "EDRAM", "VRAM", "SRAM", "RAM", "ROM", "FLASH", "EEPROM", "FEPROM", "EPROM", "CDRAM", "3DRAM", "SDRAM", "SGRAM", "RDRAM", "DDR", "DDR2", "DDR2 FB-DIMM", "Reserved", "Reserved", "Reserved", "DDR3", "FBD2", "DDR4", "LPDDR", "LPDDR2", "LPDDR3", "LPDDR4" };
             return MEMORY_TYPES[code - 1];

@@ -52,6 +52,7 @@ namespace zabbixscr
                     break;
                 }
             }
+            i.Dispose();
             if (String.IsNullOrEmpty(BoardMaker))
             {
                 BoardMaker = "Не определено";
@@ -69,12 +70,13 @@ namespace zabbixscr
                     SerialNumber = y.GetPropertyValue("SerialNumber").ToString();
                     break;
                 }
-                catch 
+                catch
                 {
                     SerialNumber = "Не определено";
                     break;
                 }
             }
+            i.Dispose();
             if (String.IsNullOrEmpty(SerialNumber))
             {
                 SerialNumber = "Не определено";
@@ -97,6 +99,7 @@ namespace zabbixscr
                     break;
                 }
             }
+            i.Dispose();
             PhysicalDisk = String.Join(",", Data.LisrDat.DiskModel);
             return PhysicalDisk;
         }
@@ -119,6 +122,7 @@ namespace zabbixscr
                     break;
                 }
             }
+            i.Dispose();
             return PhysicalDiskSize;
         }
         //Серийный номер
@@ -140,6 +144,7 @@ namespace zabbixscr
                     break;
                 }
             }
+            i.Dispose();
             if (String.IsNullOrEmpty(SerialNumber))
             {
                 SerialNumber = "Не определено";
@@ -162,6 +167,7 @@ namespace zabbixscr
                     break;
                 }
             }
+            i.Dispose();
             LogicalDisk = String.Join(",", Data.LisrDat.LogicalDiskName);
             return LogicalDisk;
         }
@@ -184,6 +190,7 @@ namespace zabbixscr
                     break;
                 }
             }
+            i.Dispose();
             if (String.IsNullOrEmpty(SectionNameD))
             {
                 SectionNameD = $"Локальный диск ({arg})";
@@ -209,6 +216,7 @@ namespace zabbixscr
                     break;
                 }
             }
+            i.Dispose();
             if (String.IsNullOrEmpty(SerialNumberLD))
             {
                 SerialNumberLD = "Не определено";
@@ -234,6 +242,7 @@ namespace zabbixscr
                     break;
                 }
             }
+            i.Dispose();
             if (String.IsNullOrEmpty(CompressedLD))
             {
                 CompressedLD = "Не определено";
@@ -259,6 +268,7 @@ namespace zabbixscr
                     break;
                 }
             }
+            i.Dispose();
             if (String.IsNullOrEmpty(FileSystemLD))
             {
                 FileSystemLD = "Не определено";
@@ -284,6 +294,7 @@ namespace zabbixscr
                     break;
                 }
             }
+            i.Dispose();
             return SizeLD;
         }
         // свободно на диске
@@ -305,6 +316,7 @@ namespace zabbixscr
                     break;
                 }
             }
+            i.Dispose();
             return FreeSpaceLD;
         }
         //% свободного места на диске
@@ -334,6 +346,7 @@ namespace zabbixscr
                     break;
                 }
             }
+            i.Dispose();
             if (String.IsNullOrEmpty(ChekDirtyTom))
             {
                 ChekDirtyTom = "Не определено";
@@ -360,6 +373,7 @@ namespace zabbixscr
                     break;
                 }
             }
+            i.Dispose();
             return AvgDiskReadQueueLength;
         }
         //очередь к диску запись
@@ -382,6 +396,7 @@ namespace zabbixscr
                     break;
                 }
             }
+            i.Dispose();
             return AvgDiskWriteQueueLength;
         }
         //I/O
@@ -404,6 +419,7 @@ namespace zabbixscr
                     break;
                 }
             }
+            i.Dispose();
             return SplitIOPerSec;
         }
         //доступно озу
@@ -422,6 +438,7 @@ namespace zabbixscr
                     break;
                 }
             }
+            i.Dispose();
             return AvailableMBytesM;
         }
         //кэшировано озу
@@ -440,6 +457,7 @@ namespace zabbixscr
                     break;
                 }
             }
+            i.Dispose();
             return CacheBytesM;
         }
         //всего озу
@@ -458,6 +476,7 @@ namespace zabbixscr
                     break;
                 }
             }
+            i.Dispose();
             TotalPhysicalMemory = Math.Round((double)TotalPhysicalMemory / 1e+9, 0);
             return TotalPhysicalMemory;
         }
@@ -493,6 +512,7 @@ namespace zabbixscr
                     break;
                 }
             }
+            u.Dispose();
             PageSecInDSwap = q * w;
             return PageSecInDSwap;
         }
@@ -511,14 +531,15 @@ namespace zabbixscr
                     Data.LisrDat.SerialNumberMemory.Add("101");
                 }
             }
+            u.Dispose();
             SerialNumberMemory = String.Join("", Data.LisrDat.SerialNumberMemory);
             return SerialNumberMemory;
         }
         //частота озу
         public static string SpeedM(ref string SpeedM)
         {
-            ManagementObjectSearcher u = new ManagementObjectSearcher("root\\CIMV2", "SELECT * FROM Win32_PhysicalMemory");
-            foreach (ManagementObject y in u.Get())
+            ManagementObjectSearcher i = new ManagementObjectSearcher("root\\CIMV2", "SELECT * FROM Win32_PhysicalMemory");
+            foreach (ManagementObject y in i.Get())
             {
                 try
                 {
@@ -529,6 +550,7 @@ namespace zabbixscr
                     Data.LisrDat.SpeedM.Add("101");
                 }
             }
+            i.Dispose();
             SpeedM = String.Join("", Data.LisrDat.SpeedM);
             return SpeedM;
         }
@@ -548,6 +570,7 @@ namespace zabbixscr
                     break;
                 }
             }
+            i.Dispose();
             ProcessorDetected = String.Join(",", Data.LisrDat.ProcessorDetected);
             return ProcessorDetected;
         }
@@ -570,6 +593,7 @@ namespace zabbixscr
                     break;
                 }
             }
+            i.Dispose();
             return LoadPercentageP;
         }
         //модель процессора
@@ -591,6 +615,7 @@ namespace zabbixscr
                     break;
                 }
             }
+            i.Dispose();
             return ModelP;
         }
         //текущая частота процессора
@@ -612,6 +637,7 @@ namespace zabbixscr
                     break;
                 }
             }
+            i.Dispose();
             return CurrentClockSpeedP;
         }
         //максимальная частота процессора
@@ -633,6 +659,7 @@ namespace zabbixscr
                     break;
                 }
             }
+            i.Dispose();
             return MaxClockSpeeP;
         }
         //кол-во физ.ядер
@@ -654,6 +681,7 @@ namespace zabbixscr
                     break;
                 }
             }
+            i.Dispose();
             return NumberOfCoresP;
         }
         //кол-во логических ядер
@@ -675,6 +703,7 @@ namespace zabbixscr
                     break;
                 }
             }
+            i.Dispose();
             return NumberOfLogicalProcessors;
         }
         //виртуализация
@@ -696,6 +725,7 @@ namespace zabbixscr
                     break;
                 }
             }
+            i.Dispose();
             return VirtualizationFirmwareEnabled;
         }
         //поддержка виртуализации
@@ -717,6 +747,7 @@ namespace zabbixscr
                     break;
                 }
             }
+            i.Dispose();
             return VMMonitorModeExtensions;
         }
         //сокет
@@ -738,6 +769,7 @@ namespace zabbixscr
                     break;
                 }
             }
+            i.Dispose();
             return SocketDesignation;
         }
         //серийный номер процессора 
@@ -759,6 +791,7 @@ namespace zabbixscr
                     break;
                 }
             }
+            i.Dispose();
             return SerialNumberP;
         }
         //Часовой пояс
@@ -777,6 +810,7 @@ namespace zabbixscr
                     break;
                 }
             }
+            i.Dispose();
             return TimeZone;
         }
         //Автоматический файл подкачки
@@ -795,6 +829,7 @@ namespace zabbixscr
                     break;
                 }
             }
+            i.Dispose();
             return AutomaticManagedPagefile;
         }
         //днс имя
@@ -813,6 +848,7 @@ namespace zabbixscr
                     break;
                 }
             }
+            i.Dispose();
             return DNSHostName;
         }
         //домен
@@ -831,6 +867,7 @@ namespace zabbixscr
                     break;
                 }
             }
+            i.Dispose();
             return Domain;
         }
         //роль в домене
@@ -849,6 +886,7 @@ namespace zabbixscr
                     break;
                 }
             }
+            i.Dispose();
             if (DomainRole == "0")
             {
                 DomainRole = "Автономная рабочая станция";

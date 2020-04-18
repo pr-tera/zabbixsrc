@@ -4,3 +4,9 @@ C:\Users\tera\source\repos\zabbixscr\zabbixscr\bin\Debug\zabbixscr.pdb
 C:\Users\tera\source\repos\zabbixscr\zabbixscr\obj\Debug\zabbixscr.csprojAssemblyReference.cache
 C:\Users\tera\source\repos\zabbixscr\zabbixscr\obj\Debug\zabbixscr.exe
 C:\Users\tera\source\repos\zabbixscr\zabbixscr\obj\Debug\zabbixscr.pdb
+C:\Users\tera\Source\Repos\jallybally\zabbixscr\zabbixscr\bin\Debug\zabbixscr.exe.config
+C:\Users\tera\Source\Repos\jallybally\zabbixscr\zabbixscr\bin\Debug\zabbixscr.exe
+C:\Users\tera\Source\Repos\jallybally\zabbixscr\zabbixscr\bin\Debug\zabbixscr.pdb
+C:\Users\tera\Source\Repos\jallybally\zabbixscr\zabbixscr\obj\Debug\zabbixscr.csprojAssemblyReference.cache
+C:\Users\tera\Source\Repos\jallybally\zabbixscr\zabbixscr\obj\Debug\zabbixscr.exe
+C:\Users\tera\Source\Repos\jallybally\zabbixscr\zabbixscr\obj\Debug\zabbixscr.pdb
