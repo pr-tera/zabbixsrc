@@ -1,0 +1,6 @@
+C:\Users\tera\source\repos\zabbixscr\zabbixscr\bin\Release\zabbixscr.exe.config
+C:\Users\tera\source\repos\zabbixscr\zabbixscr\bin\Release\zabbixscr.exe
+C:\Users\tera\source\repos\zabbixscr\zabbixscr\bin\Release\zabbixscr.pdb
+C:\Users\tera\source\repos\zabbixscr\zabbixscr\obj\Release\zabbixscr.csprojAssemblyReference.cache
+C:\Users\tera\source\repos\zabbixscr\zabbixscr\obj\Release\zabbixscr.exe
+C:\Users\tera\source\repos\zabbixscr\zabbixscr\obj\Release\zabbixscr.pdb
