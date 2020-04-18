@@ -5,7 +5,7 @@ using System.Collections.Generic;
 namespace zabbixscr
 {
     /*
-     * Класс описывающий функции подготовка информации для вывода
+     * Класс описывающий функции подготовки информации для вывода
      */ 
     class Catalogs
     {
