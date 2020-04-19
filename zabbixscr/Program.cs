@@ -13,7 +13,7 @@ namespace zabbixscr
                 {
                     Catalogs catalogs = new Catalogs();
                     catalogs.GetUserFolber();
-                    string u = String.Join(",", catalogs.BigUser);
+                    string u = String.Join(",", Data.LisrDat.BigUser);
                     Console.WriteLine($"{{\"data\":[{u}]}}");
 
                 }

@@ -9,5 +9,6 @@ namespace zabbixscr.Data
         public static List<string> SerialNumberMemory = new List<string>();
         public static List<string> SpeedM = new List<string>();
         public static List<string> ProcessorDetected = new List<string>();
+        public static List<string> BigUser = new List<string>();
     }
 }
