@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
+using System.Xml;
+using System.Xml.Linq;
 using System.IO;
 using System.Text.RegularExpressions;
 
@@ -63,64 +64,133 @@ namespace zabbixscr.TJ
                     }
                 }
             }
-            DataTJ.IndexMessage = Message(ref DataTJ.IndexMessage);
-            DataTJ.CurrentIndexMessage = DataTJ.TJ.Count - 1;
-            if (DataTJ.IndexMessage == 0)
+            DataTJ.CurrentIndexMessage = DataTJ.TJ.Count;
+            if (CheckXML.ExistsXML(ref DataTJ.ExistsXML) == true)
             {
-                Error = "101";
-            }
-            else  if(DataTJ.IndexMessage != DataTJ.CurrentIndexMessage)
-            {
-                DataTJ.TJ.RemoveRange(0, DataTJ.IndexMessage);
-                foreach (var i in DataTJ.TJ)
+                CheckXML.GetXMLString();
+                if (DataTJ.Path == DataTJ.LogPath)
                 {
-                    Error += $"{i}\n";
+                    if (DataTJ.IndexMessage < DataTJ.CurrentIndexMessage)
+                    {
+                        if (DataTJ.IndexMessage <= 0)
+                        {
+                            foreach (var i in DataTJ.TJ)
+                            {
+                                Error += $"{i}\n";
+                            }
+                            CheckXML.RenXML();
+                        }
+                        else
+                        {
+                            DataTJ.TJ.RemoveRange(0, DataTJ.IndexMessage);
+                            foreach (var i in DataTJ.TJ)
+                            {
+                                Error += $"{i}\n";
+                                CheckXML.RenXML();
+                            }
+                        }
+                    }
+                    else if (DataTJ.IndexMessage == DataTJ.CurrentIndexMessage)
+                    {
+                        Error = "";
+                    }
                 }
-                using (StreamWriter Writer = new StreamWriter(DataTJ.MessageNumber))
+                else 
                 {
-                    DataTJ.CurrentIndexMessage = DataTJ.TJ.Count - 1;
-                    Writer.WriteLine(DataTJ.CurrentIndexMessage);
-                }
-            }
-            else if (DataTJ.IndexMessage == DataTJ.CurrentIndexMessage)
-            {
-                if (DataTJ.Chek == true)
-                {
-                    TJ(ref DataTJ.Error);
-                    DataTJ.Chek = false;
-                }
-                else
-                {
-                    Error = "101";
-                }
-            }
-            else if (DataTJ.IndexMessage < DataTJ.CurrentIndexMessage)
-            {
-                DataTJ.CurrentDate = Convert.ToString(Convert.ToInt32(DateTime.Now.ToString("yyMMddhhHH")) - 1);
-                SearchForCurrentLog(DataTJ.RootDirTJ, ref DataTJ.Path);
-                TJ(ref DataTJ.Error);
-            }
-            return Error;
-        }
-        static int Message(ref int Index)
-        {
-            if (File.Exists(DataTJ.MessageNumber))
-            {
-                using (StreamReader Reader = new StreamReader(DataTJ.MessageNumber))
-                {
-                    Index = Convert.ToInt32(Reader.ReadLine());
+                    using (FileStream FileStream = new FileStream(DataTJ.LogPath, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
+                    {
+                        using (StreamReader Reader = new StreamReader(FileStream))
+                        {
+                            string line;
+                            Regex Reg = new Regex(@"[0-9](\b{2}\.\d{6})");
+                            while ((line = Reader.ReadLine()) != null)
+                            {
+                                if (Reg.IsMatch(line))
+                                {
+                                    DataTJ.TempTJ.Add(line);
+                                }
+                                else
+                                {
+                                    string i = DataTJ.TempTJ.Last();
+                                    i += line;
+                                    DataTJ.TempTJ.Remove(DataTJ.TempTJ.Last());
+                                    DataTJ.TempTJ.Add(i);
+                                }
+                            }
+                        }
+                    }
+                    if (DataTJ.IndexMessage < DataTJ.TempTJ.Count)
+                    {
+                        DataTJ.TempTJ.RemoveRange(0, DataTJ.IndexMessage);
+                        foreach (var i in DataTJ.TempTJ)
+                        {
+                            Error += $"{i}\n";
+                        }
+                        foreach (var i in DataTJ.TJ)
+                        {
+                            Error += $"{i}\n";
+                        }
+                        CheckXML.RenXML();
+                    }
+                    else
+                    {
+                        Error = "101";
+                        CheckXML.RenXML();
+                    }
                 }
             }
             else
             {
-                //File.Create(DataTJ.MessageNumber);
-                using (StreamWriter Writer = new StreamWriter(DataTJ.MessageNumber))
-                {
-                    DataTJ.CurrentIndexMessage = DataTJ.TJ.Count - 1;
-                    Writer.WriteLine(DataTJ.CurrentIndexMessage);
-                }
+                CheckXML.GenXml();
+                TJ(ref DataTJ.Error);
             }
-            return Index;
+            return Error;
+        }
+        class CheckXML : OpenTJ
+        {
+            public static bool ExistsXML(ref bool ExistsXML)
+            {
+                if (File.Exists(DataTJ.MessageNumber))
+                {
+                    ExistsXML = true;
+                }
+                else
+                {
+                    ExistsXML = false;
+                }
+                return ExistsXML;
+            }
+            public static void GenXml()
+            {
+                XmlDocument XmlMess = new XmlDocument();
+                XmlDeclaration XmlDec = XmlMess.CreateXmlDeclaration("1.0", null, null);
+                XmlMess.AppendChild(XmlDec);
+                XmlElement xOptions = XmlMess.CreateElement("Options");
+                XmlMess.AppendChild(xOptions);
+                XmlElement xFile = XmlMess.CreateElement("File");
+                xFile.InnerText = DataTJ.Path;
+                xOptions.AppendChild(xFile);
+                XmlElement xNumber = XmlMess.CreateElement("Number");
+                xNumber.InnerText = DataTJ.CurrentIndexMessage.ToString();
+                xOptions.AppendChild(xNumber);
+                XmlMess.Save(DataTJ.MessageNumber);
+                GetXMLString();
+            }
+            public static void GetXMLString()
+            {
+                XmlDocument XmlMess = new XmlDocument();
+                XmlMess.Load(DataTJ.MessageNumber);
+                DataTJ.IndexMessage = Convert.ToInt32(XmlMess.SelectSingleNode("Options/Number").InnerText);
+                DataTJ.LogPath = Convert.ToString(XmlMess.SelectSingleNode("Options/File").InnerText);
+            }
+            public static void RenXML()
+            {
+                XmlDocument XmlMess = new XmlDocument();
+                XmlMess.Load(DataTJ.MessageNumber);
+                XmlMess.SelectSingleNode($@"Options[Number=""{DataTJ.CurrentIndexMessage}""]");
+                XmlMess.SelectSingleNode($@"Options[File=""{DataTJ.Path}""]");
+                XmlMess.Save(DataTJ.MessageNumber);
+            }
         }
     }
 }
