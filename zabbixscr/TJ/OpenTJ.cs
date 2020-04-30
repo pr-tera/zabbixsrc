@@ -68,12 +68,66 @@ namespace zabbixscr.TJ
             if (CheckXML.ExistsXML(ref DataTJ.ExistsXML) == true)
             {
                 CheckXML.GetXMLString();
-                if (DataTJ.Path == DataTJ.LogPath)
+                if (File.Exists(DataTJ.LogPath))
                 {
-                    if (DataTJ.IndexMessage < DataTJ.CurrentIndexMessage)
+                    if (DataTJ.Path == DataTJ.LogPath)
                     {
-                        if (DataTJ.IndexMessage <= 0)
+                        if (DataTJ.IndexMessage < DataTJ.CurrentIndexMessage)
                         {
+                            if (DataTJ.IndexMessage <= 0)
+                            {
+                                foreach (var i in DataTJ.TJ)
+                                {
+                                    Error += $"{i}\n";
+                                }
+                                CheckXML.RenXML();
+                            }
+                            else
+                            {
+                                DataTJ.TJ.RemoveRange(0, DataTJ.IndexMessage);
+                                foreach (var i in DataTJ.TJ)
+                                {
+                                    Error += $"{i}\n";
+                                    CheckXML.RenXML();
+                                }
+                            }
+                        }
+                        else if (DataTJ.IndexMessage == DataTJ.CurrentIndexMessage)
+                        {
+                            Error = "";
+                        }
+                    }
+                    else
+                    {
+                        using (FileStream FileStream = new FileStream(DataTJ.LogPath, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
+                        {
+                            using (StreamReader Reader = new StreamReader(FileStream))
+                            {
+                                string line;
+                                Regex Reg = new Regex(@"[0-9](\b{2}\.\d{6})");
+                                while ((line = Reader.ReadLine()) != null)
+                                {
+                                    if (Reg.IsMatch(line))
+                                    {
+                                        DataTJ.TempTJ.Add(line);
+                                    }
+                                    else
+                                    {
+                                        string i = DataTJ.TempTJ.Last();
+                                        i += line;
+                                        DataTJ.TempTJ.Remove(DataTJ.TempTJ.Last());
+                                        DataTJ.TempTJ.Add(i);
+                                    }
+                                }
+                            }
+                        }
+                        if (DataTJ.IndexMessage < DataTJ.TempTJ.Count)
+                        {
+                            DataTJ.TempTJ.RemoveRange(0, DataTJ.IndexMessage);
+                            foreach (var i in DataTJ.TempTJ)
+                            {
+                                Error += $"{i}\n";
+                            }
                             foreach (var i in DataTJ.TJ)
                             {
                                 Error += $"{i}\n";
@@ -82,61 +136,23 @@ namespace zabbixscr.TJ
                         }
                         else
                         {
-                            DataTJ.TJ.RemoveRange(0, DataTJ.IndexMessage);
-                            foreach (var i in DataTJ.TJ)
-                            {
-                                Error += $"{i}\n";
-                                CheckXML.RenXML();
-                            }
+                            Error = "101";
+                            CheckXML.RenXML();
                         }
-                    }
-                    else if (DataTJ.IndexMessage == DataTJ.CurrentIndexMessage)
-                    {
-                        Error = "";
                     }
                 }
-                else 
+                else
                 {
-                    using (FileStream FileStream = new FileStream(DataTJ.LogPath, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
+                    DataTJ.TempTJ.RemoveRange(0, DataTJ.IndexMessage);
+                    foreach (var i in DataTJ.TempTJ)
                     {
-                        using (StreamReader Reader = new StreamReader(FileStream))
-                        {
-                            string line;
-                            Regex Reg = new Regex(@"[0-9](\b{2}\.\d{6})");
-                            while ((line = Reader.ReadLine()) != null)
-                            {
-                                if (Reg.IsMatch(line))
-                                {
-                                    DataTJ.TempTJ.Add(line);
-                                }
-                                else
-                                {
-                                    string i = DataTJ.TempTJ.Last();
-                                    i += line;
-                                    DataTJ.TempTJ.Remove(DataTJ.TempTJ.Last());
-                                    DataTJ.TempTJ.Add(i);
-                                }
-                            }
-                        }
+                        Error += $"{i}\n";
                     }
-                    if (DataTJ.IndexMessage < DataTJ.TempTJ.Count)
+                    foreach (var i in DataTJ.TJ)
                     {
-                        DataTJ.TempTJ.RemoveRange(0, DataTJ.IndexMessage);
-                        foreach (var i in DataTJ.TempTJ)
-                        {
-                            Error += $"{i}\n";
-                        }
-                        foreach (var i in DataTJ.TJ)
-                        {
-                            Error += $"{i}\n";
-                        }
-                        CheckXML.RenXML();
+                        Error += $"{i}\n";
                     }
-                    else
-                    {
-                        Error = "101";
-                        CheckXML.RenXML();
-                    }
+                    CheckXML.RenXML();
                 }
             }
             else
