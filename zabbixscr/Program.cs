@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Management;
 using System.Runtime.InteropServices;
 
 namespace zabbixscr
@@ -48,25 +49,10 @@ namespace zabbixscr
                 {
                     Console.WriteLine(Environment.OSVersion);
                 }
-                if (args.Length == 1 && args[0] == "MemoryType")
-                {
-                    SMBIOSdata smbios = new SMBIOSdata();
-                    smbios.GetRawData();
-                    smbios.GetTables();
-                    foreach (SMBIOStable table in smbios.p_oSMBIOStables)
-                    {
-                        smbios.ParseTable(table);
-                    }
-                }
                 if (args.Length == 1 && args[0] == "MemoryInfo")
                 {
-                    SMBIOSdata smbios = new SMBIOSdata();
-                    smbios.GetRawData();
-                    smbios.GetTables();
-                    foreach (SMBIOStable table in smbios.p_oSMBIOStables)
-                    {
-                        SMBIOSdata.ParseTable1(table);
-                    }
+                    Console.WriteLine(WMI.MemoryInfo(ref Data.Temp.MemoryInfo));
+                    //Console.ReadLine();
                 }
                 if (args.Length == 1 && args[0] == "PhysicalDisk")
                 {
@@ -154,10 +140,10 @@ namespace zabbixscr
                 {
                     Console.WriteLine(WMI.PageSecInDSwap(ref Data.Temp.PageSecInDSwap).ToString());
                 }
-                if (args.Length == 1 && args[0] == "SerialNumberMemory")
-                {
-                    Console.WriteLine(WMI.SerialNumberMemory(ref Data.Temp.SerialNumberMemory).ToString());
-                }
+                //if (args.Length == 1 && args[0] == "SerialNumberMemory")
+                //{
+                //    Console.WriteLine(WMI.SerialNumberMemory(ref Data.Temp.SerialNumberMemory).ToString());
+                //}
                 if (args.Length == 1 && args[0] == "SpeedM")
                 {
                     Console.WriteLine(WMI.SpeedM(ref Data.Temp.SpeedM).ToString());

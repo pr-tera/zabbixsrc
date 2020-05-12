@@ -517,23 +517,208 @@ namespace zabbixscr
             return PageSecInDSwap;
         }
         //серийный номер планки озу
-        public static string SerialNumberMemory(ref string SerialNumberMemory)
+        public static string MemoryInfo(ref string MemoryInfo)
         {
             ManagementObjectSearcher u = new ManagementObjectSearcher("root\\CIMV2", "SELECT * FROM Win32_PhysicalMemory");
             foreach (ManagementObject y in u.Get())
             {
                 try
                 {
-                    Data.LisrDat.SerialNumberMemory.Add($"{Convert.ToString(y["Tag"])}  {Convert.ToString(y["SerialNumber"])}\n");
+                    Data.LisrDat.MemoryInfo.Add($"-------------------\nTag: {Convert.ToString(y["Tag"])}\n-------------------\n");
                 }
                 catch
                 {
-                    Data.LisrDat.SerialNumberMemory.Add("101");
+                    Data.LisrDat.MemoryInfo.Add("101\n");
+                }
+                try
+                {
+                    Data.LisrDat.MemoryInfo.Add($"| BankLabel: {Convert.ToString(y["BankLabel"])}\n");
+                }
+                catch
+                {
+                    Data.LisrDat.MemoryInfo.Add("101\n");
+                }
+                try
+                {
+                    Data.LisrDat.MemoryInfo.Add($"| DeviceLocator: {Convert.ToString(y["DeviceLocator"])}\n");
+                }
+                catch
+                {
+                    Data.LisrDat.MemoryInfo.Add("101\n");
+                }
+                try
+                {
+                    Data.LisrDat.MemoryInfo.Add($"| Manufacturer: {Convert.ToString(y["Manufacturer"])}\n");
+                }
+                catch
+                {
+                    Data.LisrDat.MemoryInfo.Add("101\n");
+                }
+                try
+                {
+                    Data.LisrDat.MemoryInfo.Add($"| FormFactor: {Auxiliary.FormFactorMemory(Convert.ToInt32(y["FormFactor"]), ref Data.Temp.FormFactorMemory)}\n");
+                }
+                catch
+                {
+                    Data.LisrDat.MemoryInfo.Add("101\n");
+                }
+                try
+                {
+                    Data.LisrDat.MemoryInfo.Add($"| MemoryType: {Auxiliary.MemoryType(Convert.ToInt32(y["MemoryType"]), ref Data.Temp.MemoryType)}\n");
+                }
+                catch
+                {
+                    Data.LisrDat.MemoryInfo.Add("101\n");
+                }
+                try
+                {
+                    Data.LisrDat.MemoryInfo.Add($"| InterleavePosition: {Convert.ToString(y["InterleavePosition"])}\n");
+                }
+                catch
+                {
+                    Data.LisrDat.MemoryInfo.Add("101\n");
+                }
+                try
+                {
+                    Data.LisrDat.MemoryInfo.Add($"| InterleaveDataDepth: {Convert.ToString(y["InterleaveDataDepth"])}\n");
+                }
+                catch
+                {
+                    Data.LisrDat.MemoryInfo.Add("101\n");
+                }
+                try
+                {
+                    Data.LisrDat.MemoryInfo.Add($"| Model: {Convert.ToString(y["Model"])}\n");
+                }
+                catch
+                {
+                    Data.LisrDat.MemoryInfo.Add("101\n");
+                }
+                try
+                {
+                    Data.LisrDat.MemoryInfo.Add($"| SerialNumber: {Convert.ToString(y["SerialNumber"])}\n");
+                }
+                catch
+                {
+                    Data.LisrDat.MemoryInfo.Add("101\n");
+                }
+                try
+                {
+                    Data.LisrDat.MemoryInfo.Add($"| PartNumber: {Convert.ToString(y["PartNumber"])}\n");
+                }
+                catch
+                {
+                    Data.LisrDat.MemoryInfo.Add("101\n");
+                }
+                try
+                {
+                    Data.LisrDat.MemoryInfo.Add($"| Speed: {Convert.ToString(y["Speed"])} MHz\n");
+                }
+                catch
+                {
+                    Data.LisrDat.MemoryInfo.Add("101\n");
+                }
+                try
+                {
+                    Data.LisrDat.MemoryInfo.Add($"| TotalWidth: {Convert.ToString(y["TotalWidth"])}\n");
+                }
+                catch
+                {
+                    Data.LisrDat.MemoryInfo.Add("101\n");
+                }
+                try
+                {
+                    Data.LisrDat.MemoryInfo.Add($"| DataWidth: {Convert.ToString(y["DataWidth"])}\n");
+                }
+                catch
+                {
+                    Data.LisrDat.MemoryInfo.Add("101\n");
+                }
+                try
+                {
+                    Data.LisrDat.MemoryInfo.Add($"| TypeDetail: {Auxiliary.TypeDetailMemory(Convert.ToInt32(y["TypeDetail"]), ref Data.Temp.TypeDetailMemory)}\n");
+                }
+                catch
+                {
+                    Data.LisrDat.MemoryInfo.Add("101\n");
+                }
+                try
+                {
+                    Data.LisrDat.MemoryInfo.Add($"| Capacity: {Math.Floor(Convert.ToInt64(y["Capacity"]) / 1e+9)} Gb\n");
+                }
+                catch
+                {
+                    Data.LisrDat.MemoryInfo.Add("101\n");
                 }
             }
             u.Dispose();
-            SerialNumberMemory = String.Join("", Data.LisrDat.SerialNumberMemory);
-            return SerialNumberMemory;
+            Data.LisrDat.MemoryInfo.Add(
+                "-------------------\n" +
+                "PhysicalMemoryArray\n" +
+                "-------------------\n");
+            u = new ManagementObjectSearcher("root\\CIMV2", "SELECT * FROM Win32_PhysicalMemoryArray");
+            foreach (ManagementObject y in u.Get())
+            {
+                try
+                {
+                    Data.LisrDat.MemoryInfo.Add($"-------------------\nTag: {Convert.ToString(y["Tag"])}\n-------------------\n");
+                }
+                catch
+                {
+                    Data.LisrDat.MemoryInfo.Add("101\n");
+                }
+                try
+                {
+                    Data.LisrDat.MemoryInfo.Add($"| Location: {Auxiliary.LocationMemory(Convert.ToInt32(y["Location"]), ref Data.Temp.LocationMemory)}\n");
+                }
+                catch
+                {
+                    Data.LisrDat.MemoryInfo.Add("101\n");
+                }
+                try
+                {
+                    Data.LisrDat.MemoryInfo.Add($"| MemoryDevices: {Convert.ToString(y["MemoryDevices"])}\n");
+                }
+                catch
+                {
+                    Data.LisrDat.MemoryInfo.Add("101\n");
+                }
+                try
+                {
+                    Data.LisrDat.MemoryInfo.Add($"| MemoryErrorCorrection: {Auxiliary.MemoryErrorCorrection(Convert.ToInt32(y["MemoryErrorCorrection"]), ref Data.Temp.MemoryErrorCorrection)}\n");
+                }
+                catch
+                {
+                    Data.LisrDat.MemoryInfo.Add("101\n");
+                }
+                try
+                {
+                    Data.LisrDat.MemoryInfo.Add($"| UseMemory: {Auxiliary.UseMemory(Convert.ToInt32(y["Use"]), ref Data.Temp.UseMemory)}\n");
+                }
+                catch
+                {
+                    Data.LisrDat.MemoryInfo.Add("101\n");
+                }
+                try
+                {
+                    Data.LisrDat.MemoryInfo.Add($"| MaxCapacity: {Math.Floor(Convert.ToInt32(y["MaxCapacity"]) / 1e+6)} Gb\n");
+                }
+                catch
+                {
+                    Data.LisrDat.MemoryInfo.Add("101\n");
+                }
+                try
+                {
+                    Data.LisrDat.MemoryInfo.Add($"| MaxCapacityEx: {Math.Floor(Convert.ToInt64(y["MaxCapacityEx"]) / 1e+6)} Gb\n");
+                }
+                catch
+                {
+                    Data.LisrDat.MemoryInfo.Add("101\n");
+                }
+            }
+            u.Dispose();
+            MemoryInfo = String.Join("", Data.LisrDat.MemoryInfo);
+            return MemoryInfo;
         }
         //частота озу
         public static string SpeedM(ref string SpeedM)

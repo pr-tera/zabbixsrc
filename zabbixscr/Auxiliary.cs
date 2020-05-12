@@ -11,6 +11,87 @@ namespace zabbixscr
      */
     class Auxiliary
     {
+        public static string UseMemory(int Number, ref string UseMemory)
+        {
+            string[] Use_Memory = new string[] { "Reserved", "Other", "Unknown", "System memory", "Video memory", "Flash memory", "Non-volatile RAM", "Cache memory" };
+            return UseMemory = Use_Memory[Number];
+        }
+        public static string MemoryErrorCorrection(int Number, ref string MemoryErrorCorrection)
+        {
+            string[] MemoryError_Correction = new string[] { "Reserved", "Other", "Unknown", "None", "Parity", "Single-bit ECC", "Multi-bit ECC", "CRC"};
+            return MemoryErrorCorrection = MemoryError_Correction[Number];
+        }
+        public static string LocationMemory(int Number, ref string LocationMemory)
+        {
+            string[] Location_Memory = new string[] { "Reserved", "Other", "Unknown", "System board or motherboard", "ISA add-on card", "EISA add-on card", "PCI add-on card", "MCA add-on card", "PCMCIA add-on card", "Proprietary add-on card", "NuBus", "PC-98/C20 add-on card", "PC-98/C24 add-on card", "PC-98/E add-on card", "PC-98/Local bus add-on card"};
+            return LocationMemory = Location_Memory[Number];
+        }
+        public static string MemoryType(int Number, ref string MemoryType)
+        {
+            string[] Memory_Type = new string[] { "Other", "Unknown", "DRAM", "EDRAM", "VRAM", "SRAM", "RAM", "ROM", "FLASH", "EEPROM", "FEPROM", "EPROM", "CDRAM", "3DRAM", "SDRAM", "SGRAM", "RDRAM", "DDR", "DDR2", "DDR2 FB-DIMM", "Reserved", "Reserved", "Reserved", "DDR3", "FBD2", "DDR4", "LPDDR", "LPDDR2", "LPDDR3", "LPDDR4" };
+            return MemoryType = Memory_Type[Number - 1];
+        }
+        public static string FormFactorMemory(int Number, ref string FormFactor)
+        {
+            string[] Form_Factor = new string[] { "Unknown", "Other", "SIP", "DIP", "ZIP", "SOJ", "Proprietary", "SIMM", "DIMM", "TSOP", "PGA", "RIMM", "SODIMM", "SRIMM", "SMD", "SSMP", "QFP", "TQFP", "SOIC", "LCC", "PLCC", "BGA", "FPBGA", "LGA"};
+            return FormFactor = Form_Factor[Number];
+        }
+        public static string TypeDetailMemory(int Number, ref string TypeDetail)
+        {
+            if (Number == 1)
+            {
+                TypeDetail = "Reserved";
+            }
+            if (Number == 2)
+            {
+                TypeDetail = "Other";
+            }
+            if (Number == 4)
+            {
+                TypeDetail = "Unknown";
+            }
+            if (Number == 8)
+            {
+                TypeDetail = "Fast-paged";
+            }
+            if (Number == 16)
+            {
+                TypeDetail = "Static column";
+            }
+            if (Number == 32)
+            {
+                TypeDetail = "Pseudo-static";
+            }
+            if (Number == 64)
+            {
+                TypeDetail = "RAMBUS";
+            }
+            if (Number == 128)
+            {
+                TypeDetail = "Synchronous";
+            }
+            if (Number == 256)
+            {
+                TypeDetail = "CMOS";
+            }
+            if (Number == 512)
+            {
+                TypeDetail = "EDO";
+            }
+            if (Number == 1024)
+            {
+                TypeDetail = "Window DRAM";
+            }
+            if (Number == 2048)
+            {
+                TypeDetail = "Cache DRAM";
+            }
+            if (Number == 4096)
+            {
+                TypeDetail = "Non-volatile";
+            }
+            return TypeDetail;
+        }
         public static string UserDir(string UserDir, ref string ExUserDir)
         {
             DirectoryInfo Dir = new DirectoryInfo(UserDir + ".1ESKA");
