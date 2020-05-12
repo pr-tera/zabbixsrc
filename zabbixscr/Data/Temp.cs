@@ -11,33 +11,6 @@
         public static int MaxClockSpeeP = 0;
         public static int NumberOfCoresP = 0;
         public static int NumberOfLogicalProcessors = 0;
-        //string
-        public static string Mac = null;
-        public static string BoardMaker = null;
-        public static string SerialNumber = null;
-        public static string SocketCPU = null;
-        public static string DescriptionCPU = null;
-        public static string PhysicalDisk = null;
-        public static string SerialNumberD = null;
-        public static string LogicalDisk = null;
-        public static string SectionNameD = null;
-        public static string SerialNumberLD = null;
-        public static string CompressedLD = null;
-        public static string FileSystemLD = null;
-        public static string ChekDirtyTom = null;
-        public static string SerialNumberMemory = null;
-        public static string SpeedM = null;
-        public static string ProcessorDetected = null;
-        public static string ModelP = null;
-        public static string VirtualizationFirmwareEnabled = null;
-        public static string VMMonitorModeExtensions = null;
-        public static string SocketDesignation = null;
-        public static string SerialNumberP = null;
-        public static string TimeZone = null;
-        public static string AutomaticManagedPagefile = null;
-        public static string DNSHostName = null;
-        public static string Domain = null;
-        public static string DomainRole = null;
         //double
         public static double PhysicalDiskSize = 0;
         public static double Out = 0;
@@ -48,5 +21,32 @@
         public static double CacheBytesM = 0;
         public static double TotalPhysicalMemory = 0;
         public static double PageSecInDSwap = 0;
+        //string
+        public static string Mac = System.String.Empty;
+        public static string BoardMaker = System.String.Empty;
+        public static string SerialNumber = System.String.Empty;
+        public static string SocketCPU = System.String.Empty;
+        public static string DescriptionCPU = System.String.Empty;
+        public static string PhysicalDisk = System.String.Empty;
+        public static string SerialNumberD = System.String.Empty;
+        public static string LogicalDisk = System.String.Empty;
+        public static string SectionNameD = System.String.Empty;
+        public static string SerialNumberLD = System.String.Empty;
+        public static string CompressedLD = System.String.Empty;
+        public static string FileSystemLD = System.String.Empty;
+        public static string ChekDirtyTom = System.String.Empty;
+        public static string SerialNumberMemory = System.String.Empty;
+        public static string SpeedM = System.String.Empty;
+        public static string ProcessorDetected = System.String.Empty;
+        public static string ModelP = System.String.Empty;
+        public static string VirtualizationFirmwareEnabled = System.String.Empty;
+        public static string VMMonitorModeExtensions = System.String.Empty;
+        public static string SocketDesignation = System.String.Empty;
+        public static string SerialNumberP = System.String.Empty;
+        public static string TimeZone = System.String.Empty;
+        public static string AutomaticManagedPagefile = System.String.Empty;
+        public static string DNSHostName = System.String.Empty;
+        public static string Domain = System.String.Empty;
+        public static string DomainRole = System.String.Empty;
     }
 }
