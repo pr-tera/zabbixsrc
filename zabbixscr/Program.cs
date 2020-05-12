@@ -226,10 +226,16 @@ namespace zabbixscr
                 {
                     Console.WriteLine(WMI.DomainRole(ref Data.Temp.DomainRole).ToString());
                 }
+
             }
             catch
             {
                 Console.WriteLine("101");
+            }
+            if (args.Length == 1 && args[0] == "GetTJ1C")
+            {
+                TJ.OpenTJ.FindTJ();
+                Console.WriteLine(TJ.OpenTJ.TJ(ref TJ.DataTJ.Error));
             }
         }
     }
