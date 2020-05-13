@@ -36,11 +36,12 @@ namespace zabbixscr
                 if (args.Length == 1 && args[0] == "BoardMaker")
                 {
                     Console.WriteLine(WMI.BoardMaker(ref Data.Temp.BoardMaker));
+                    Console.ReadLine();
                 }
-                if (args.Length == 1 && args[0] == "SerialNumber")
-                {
-                    Console.WriteLine(WMI.SerialNumber(ref Data.Temp.SerialNumber));
-                }
+                //if (args.Length == 1 && args[0] == "SerialNumber")
+                //{
+                //    Console.WriteLine(WMI.SerialNumber(ref Data.Temp.SerialNumber));
+                //}
                 if (args.Length == 1 && args[0] == "PCName")
                 {
                     Console.WriteLine(Environment.MachineName);
@@ -52,7 +53,10 @@ namespace zabbixscr
                 if (args.Length == 1 && args[0] == "MemoryInfo")
                 {
                     Console.WriteLine(WMI.MemoryInfo(ref Data.Temp.MemoryInfo));
-                    //Console.ReadLine();
+                }
+                if (args.Length == 1 && args[0] == "CPUInfo")
+                {
+                    Console.WriteLine(WMI.CPUInfo(ref Data.Temp.CPUInfo));
                 }
                 if (args.Length == 1 && args[0] == "PhysicalDisk")
                 {
@@ -144,10 +148,10 @@ namespace zabbixscr
                 //{
                 //    Console.WriteLine(WMI.SerialNumberMemory(ref Data.Temp.SerialNumberMemory).ToString());
                 //}
-                if (args.Length == 1 && args[0] == "SpeedM")
-                {
-                    Console.WriteLine(WMI.SpeedM(ref Data.Temp.SpeedM).ToString());
-                }
+                //if (args.Length == 1 && args[0] == "SpeedM")
+                //{
+                //    Console.WriteLine(WMI.SpeedM(ref Data.Temp.SpeedM).ToString());
+                //}
                 if (args.Length == 1 && args[0] == "ProcessorDetected")
                 {
                     Console.WriteLine($"{{\"data\":[{WMI.ProcessorDetected(ref Data.Temp.ProcessorDetected)}]}}");

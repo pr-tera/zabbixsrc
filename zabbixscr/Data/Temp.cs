@@ -37,7 +37,6 @@ namespace zabbixscr.Data
         public static string FileSystemLD = String.Empty;
         public static string ChekDirtyTom = String.Empty;
         public static string MemoryInfo = String.Empty;
-        public static string SpeedM = String.Empty;
         public static string ProcessorDetected = String.Empty;
         public static string ModelP = String.Empty;
         public static string VirtualizationFirmwareEnabled = String.Empty;
@@ -55,5 +54,11 @@ namespace zabbixscr.Data
         public static string LocationMemory = String.Empty;
         public static string MemoryErrorCorrection = String.Empty;
         public static string UseMemory = String.Empty;
+        public static string CPUInfo = String.Empty;
+        public static string ProcessorType = String.Empty;
+        public static string ArchitectureCPU = String.Empty;
+        public static string AvailabilityCPU = String.Empty;
+        public static string CpuStatus = String.Empty;
+        public static string AvailabilityMB = String.Empty;
     }
 }

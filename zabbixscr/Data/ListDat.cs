@@ -10,5 +10,7 @@ namespace zabbixscr.Data
         public static List<string> SpeedM = new List<string>();
         public static List<string> ProcessorDetected = new List<string>();
         public static List<string> BigUser = new List<string>();
+        public static List<string> CPUInfo = new List<string>();
+        public static List<string> BoardMaker = new List<string>();
     }
 }

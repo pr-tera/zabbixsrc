@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Management;
-using System.Collections.Generic;
 using System.Net.NetworkInformation;
 
 namespace zabbixscr
@@ -43,46 +42,102 @@ namespace zabbixscr
             {
                 try
                 {
-                    BoardMaker = y.GetPropertyValue("Manufacturer").ToString();
-                    break;
+                    Data.LisrDat.BoardMaker.Add($"-------------------\nTag: {Convert.ToString(y["Tag"])}\n-------------------\n");
                 }
                 catch
                 {
-                    BoardMaker = "Не определено";
-                    break;
+                    Data.LisrDat.BoardMaker.Add("Tag: 101\n");
+                }
+                try
+                {
+                    Data.LisrDat.BoardMaker.Add($"Manufacturer: {Convert.ToString(y["Manufacturer"])}\n");
+                }
+                catch
+                {
+                    Data.LisrDat.BoardMaker.Add("Manufacturer: 101\n");
+                }
+                try
+                {
+                    Data.LisrDat.BoardMaker.Add($"Model: {Convert.ToString(y["Model"])}\n");
+                }
+                catch
+                {
+                    Data.LisrDat.BoardMaker.Add("Model: 101\n");
+                }
+                try
+                {
+                    Data.LisrDat.BoardMaker.Add($"Product: {Convert.ToString(y["Product"])}\n");
+                }
+                catch
+                {
+                    Data.LisrDat.BoardMaker.Add("Product: 101\n");
+                }
+                try
+                {
+                    Data.LisrDat.BoardMaker.Add($"SerialNumber: {Convert.ToString(y["SerialNumber"])}\n");
+                }
+                catch
+                {
+                    Data.LisrDat.BoardMaker.Add("SerialNumber: 101\n");
                 }
             }
             i.Dispose();
-            if (String.IsNullOrEmpty(BoardMaker))
-            {
-                BoardMaker = "Не определено";
-            }
-            return BoardMaker;
-        }
-        //Серийный номер мат.платы
-        public static string SerialNumber(ref string SerialNumber)
-        {
-            ManagementObjectSearcher i = new ManagementObjectSearcher("root\\CIMV2", "SELECT * FROM Win32_BaseBoard");
+            i = new ManagementObjectSearcher("root\\CIMV2", "SELECT * FROM Win32_MotherboardDevice");
             foreach (ManagementObject y in i.Get())
             {
                 try
                 {
-                    SerialNumber = y.GetPropertyValue("SerialNumber").ToString();
-                    break;
+                    Data.LisrDat.BoardMaker.Add($"Availability: {Auxiliary.AvailabilityMB(Convert.ToInt32(y["Availability"]), ref Data.Temp.AvailabilityMB)}\n");
                 }
                 catch
                 {
-                    SerialNumber = "Не определено";
-                    break;
+                    Data.LisrDat.BoardMaker.Add("Availability: 101\n");
+                }
+                try
+                {
+                    Data.LisrDat.BoardMaker.Add($"PrimaryBusType: {Convert.ToString(y["PrimaryBusType"])}\n");
+                }
+                catch
+                {
+                    Data.LisrDat.BoardMaker.Add("PrimaryBusType: 101\n");
+                }
+                try
+                {
+                    Data.LisrDat.BoardMaker.Add($"SecondaryBusType: {Convert.ToString(y["SecondaryBusType"])}\n");
+                }
+                catch
+                {
+                    Data.LisrDat.BoardMaker.Add("SecondaryBusType: 101\n");
                 }
             }
             i.Dispose();
-            if (String.IsNullOrEmpty(SerialNumber))
-            {
-                SerialNumber = "Не определено";
-            }
-            return SerialNumber;    
+            BoardMaker = String.Join("", Data.LisrDat.BoardMaker);
+            return BoardMaker;
         }
+        //Серийный номер мат.платы
+        //public static string SerialNumber(ref string SerialNumber)
+        //{
+        //    ManagementObjectSearcher i = new ManagementObjectSearcher("root\\CIMV2", "SELECT * FROM Win32_BaseBoard");
+        //    foreach (ManagementObject y in i.Get())
+        //    {
+        //        try
+        //        {
+        //            SerialNumber = y.GetPropertyValue("SerialNumber").ToString();
+        //            break;
+        //        }
+        //        catch
+        //        {
+        //            SerialNumber = "Не определено";
+        //            break;
+        //        }
+        //    }
+        //    i.Dispose();
+        //    if (String.IsNullOrEmpty(SerialNumber))
+        //    {
+        //        SerialNumber = "Не определено";
+        //    }
+        //    return SerialNumber;    
+        //}
         //Физ.диски
         public static string PhysicalDisk(ref string PhysicalDisk)
         {
@@ -528,7 +583,7 @@ namespace zabbixscr
                 }
                 catch
                 {
-                    Data.LisrDat.MemoryInfo.Add("101\n");
+                    Data.LisrDat.MemoryInfo.Add("Tag: 101\n");
                 }
                 try
                 {
@@ -536,7 +591,7 @@ namespace zabbixscr
                 }
                 catch
                 {
-                    Data.LisrDat.MemoryInfo.Add("101\n");
+                    Data.LisrDat.MemoryInfo.Add("| BankLabel: 101\n");
                 }
                 try
                 {
@@ -544,7 +599,7 @@ namespace zabbixscr
                 }
                 catch
                 {
-                    Data.LisrDat.MemoryInfo.Add("101\n");
+                    Data.LisrDat.MemoryInfo.Add("| DeviceLocator: 101\n");
                 }
                 try
                 {
@@ -552,7 +607,7 @@ namespace zabbixscr
                 }
                 catch
                 {
-                    Data.LisrDat.MemoryInfo.Add("101\n");
+                    Data.LisrDat.MemoryInfo.Add("| Manufacturer: 101\n");
                 }
                 try
                 {
@@ -560,7 +615,7 @@ namespace zabbixscr
                 }
                 catch
                 {
-                    Data.LisrDat.MemoryInfo.Add("101\n");
+                    Data.LisrDat.MemoryInfo.Add("| FormFactor: 101\n");
                 }
                 try
                 {
@@ -568,7 +623,7 @@ namespace zabbixscr
                 }
                 catch
                 {
-                    Data.LisrDat.MemoryInfo.Add("101\n");
+                    Data.LisrDat.MemoryInfo.Add("| MemoryType: 101\n");
                 }
                 try
                 {
@@ -576,7 +631,7 @@ namespace zabbixscr
                 }
                 catch
                 {
-                    Data.LisrDat.MemoryInfo.Add("101\n");
+                    Data.LisrDat.MemoryInfo.Add("| InterleavePosition: 101\n");
                 }
                 try
                 {
@@ -584,7 +639,7 @@ namespace zabbixscr
                 }
                 catch
                 {
-                    Data.LisrDat.MemoryInfo.Add("101\n");
+                    Data.LisrDat.MemoryInfo.Add("| InterleaveDataDepth: 101\n");
                 }
                 try
                 {
@@ -592,7 +647,7 @@ namespace zabbixscr
                 }
                 catch
                 {
-                    Data.LisrDat.MemoryInfo.Add("101\n");
+                    Data.LisrDat.MemoryInfo.Add("| Model: 101\n");
                 }
                 try
                 {
@@ -600,7 +655,7 @@ namespace zabbixscr
                 }
                 catch
                 {
-                    Data.LisrDat.MemoryInfo.Add("101\n");
+                    Data.LisrDat.MemoryInfo.Add("| SerialNumber: 101\n");
                 }
                 try
                 {
@@ -608,7 +663,7 @@ namespace zabbixscr
                 }
                 catch
                 {
-                    Data.LisrDat.MemoryInfo.Add("101\n");
+                    Data.LisrDat.MemoryInfo.Add("| PartNumber: 101\n");
                 }
                 try
                 {
@@ -616,7 +671,7 @@ namespace zabbixscr
                 }
                 catch
                 {
-                    Data.LisrDat.MemoryInfo.Add("101\n");
+                    Data.LisrDat.MemoryInfo.Add("| Speed: 101\n");
                 }
                 try
                 {
@@ -624,7 +679,7 @@ namespace zabbixscr
                 }
                 catch
                 {
-                    Data.LisrDat.MemoryInfo.Add("101\n");
+                    Data.LisrDat.MemoryInfo.Add("| TotalWidth: 101\n");
                 }
                 try
                 {
@@ -632,7 +687,7 @@ namespace zabbixscr
                 }
                 catch
                 {
-                    Data.LisrDat.MemoryInfo.Add("101\n");
+                    Data.LisrDat.MemoryInfo.Add("| DataWidth: 101\n");
                 }
                 try
                 {
@@ -640,7 +695,7 @@ namespace zabbixscr
                 }
                 catch
                 {
-                    Data.LisrDat.MemoryInfo.Add("101\n");
+                    Data.LisrDat.MemoryInfo.Add("| TypeDetail: 101\n");
                 }
                 try
                 {
@@ -648,7 +703,7 @@ namespace zabbixscr
                 }
                 catch
                 {
-                    Data.LisrDat.MemoryInfo.Add("101\n");
+                    Data.LisrDat.MemoryInfo.Add("| Capacity: 101\n");
                 }
             }
             u.Dispose();
@@ -665,7 +720,7 @@ namespace zabbixscr
                 }
                 catch
                 {
-                    Data.LisrDat.MemoryInfo.Add("101\n");
+                    Data.LisrDat.MemoryInfo.Add("Tag: 101\n");
                 }
                 try
                 {
@@ -673,7 +728,7 @@ namespace zabbixscr
                 }
                 catch
                 {
-                    Data.LisrDat.MemoryInfo.Add("101\n");
+                    Data.LisrDat.MemoryInfo.Add("| Location: 101\n");
                 }
                 try
                 {
@@ -681,7 +736,7 @@ namespace zabbixscr
                 }
                 catch
                 {
-                    Data.LisrDat.MemoryInfo.Add("101\n");
+                    Data.LisrDat.MemoryInfo.Add("| MemoryDevices: 101\n");
                 }
                 try
                 {
@@ -689,7 +744,7 @@ namespace zabbixscr
                 }
                 catch
                 {
-                    Data.LisrDat.MemoryInfo.Add("101\n");
+                    Data.LisrDat.MemoryInfo.Add("| MemoryErrorCorrection: 101\n");
                 }
                 try
                 {
@@ -697,7 +752,7 @@ namespace zabbixscr
                 }
                 catch
                 {
-                    Data.LisrDat.MemoryInfo.Add("101\n");
+                    Data.LisrDat.MemoryInfo.Add("| UseMemory: 101\n");
                 }
                 try
                 {
@@ -705,7 +760,7 @@ namespace zabbixscr
                 }
                 catch
                 {
-                    Data.LisrDat.MemoryInfo.Add("101\n");
+                    Data.LisrDat.MemoryInfo.Add("| MaxCapacity: 101\n");
                 }
                 try
                 {
@@ -713,32 +768,250 @@ namespace zabbixscr
                 }
                 catch
                 {
-                    Data.LisrDat.MemoryInfo.Add("101\n");
+                    Data.LisrDat.MemoryInfo.Add("| MaxCapacityEx: 101\n");
                 }
             }
             u.Dispose();
             MemoryInfo = String.Join("", Data.LisrDat.MemoryInfo);
             return MemoryInfo;
         }
-        //частота озу
-        public static string SpeedM(ref string SpeedM)
+        public static string CPUInfo(ref string CPUInfo)
         {
-            ManagementObjectSearcher i = new ManagementObjectSearcher("root\\CIMV2", "SELECT * FROM Win32_PhysicalMemory");
-            foreach (ManagementObject y in i.Get())
+            ManagementObjectSearcher u = new ManagementObjectSearcher("root\\CIMV2", "SELECT * FROM Win32_Processor");
+            foreach (ManagementObject y in u.Get())
             {
                 try
                 {
-                    Data.LisrDat.SpeedM.Add($"{Convert.ToString(y["Tag"])}  {Convert.ToString(y["Speed"])}\n");
+                    Data.LisrDat.CPUInfo.Add($"-------------------\nDeviceID: {Convert.ToString(y["DeviceID"])}\n-------------------\n");
                 }
                 catch
                 {
-                    Data.LisrDat.SpeedM.Add("101");
+                    Data.LisrDat.CPUInfo.Add("DeviceID: 101\n");
+                }
+                try
+                {
+                    Data.LisrDat.CPUInfo.Add($"| Manufacturer: {Convert.ToString(y["Manufacturer"])}\n");
+                }
+                catch
+                {
+                    Data.LisrDat.CPUInfo.Add("| Manufacturer: 101\n");
+                }
+                try
+                {
+                    Data.LisrDat.CPUInfo.Add($"| Name: {Convert.ToString(y["Name"])}\n");
+                }
+                catch
+                {
+                    Data.LisrDat.CPUInfo.Add("| Name: 101\n");
+                }
+                try
+                {
+                    Data.LisrDat.CPUInfo.Add($"| Caption: {Convert.ToString(y["Caption"])}\n");
+                }
+                catch
+                {
+                    Data.LisrDat.CPUInfo.Add("| Caption: 101\n");
+                }
+                try
+                {
+                    Data.LisrDat.CPUInfo.Add($"| ProcessorType: {Auxiliary.ProcessorType(Convert.ToInt32(y["ProcessorType"]), ref Data.Temp.ProcessorType)}\n");
+                }
+                catch
+                {
+                    Data.LisrDat.CPUInfo.Add("| ProcessorType: 101\n");
+                }
+                try
+                {
+                    Data.LisrDat.CPUInfo.Add($"| SocketDesignation: {Convert.ToString(y["SocketDesignation"])}\n");
+                }
+                catch
+                {
+                    Data.LisrDat.CPUInfo.Add("| SocketDesignation: 101\n");
+                }
+                try
+                {
+                    Data.LisrDat.CPUInfo.Add($"| AddressWidth: {Convert.ToString(y["AddressWidth"])}\n");
+                }
+                catch
+                {
+                    Data.LisrDat.CPUInfo.Add("| AddressWidth: 101\n");
+                }
+                try
+                {
+                    Data.LisrDat.CPUInfo.Add($"| Architecture: {Auxiliary.ArchitectureCPU(Convert.ToInt32(y["Architecture"]), ref Data.Temp.ArchitectureCPU)}\n");
+                }
+                catch
+                {
+                    Data.LisrDat.CPUInfo.Add("| Architecture: 101\n");
+                }
+                try
+                {
+                    Data.LisrDat.CPUInfo.Add($"| Availability: {Auxiliary.AvailabilityCPU(Convert.ToInt32(y["Availability"]), ref Data.Temp.AvailabilityCPU)}\n");
+                }
+                catch
+                {
+                    Data.LisrDat.CPUInfo.Add("| Availability: 101\n");
+                }
+                try
+                {
+                    Data.LisrDat.CPUInfo.Add($"| CpuStatus: {Auxiliary.CpuStatus(Convert.ToInt32(y["CpuStatus"]), ref Data.Temp.CpuStatus)}\n");
+                }
+                catch
+                {
+                    Data.LisrDat.CPUInfo.Add("| CpuStatus: 101\n");
+                }
+                try
+                {
+                    Data.LisrDat.CPUInfo.Add($"| DataWidth: {Convert.ToString(y["DataWidth"])}\n");
+                }
+                catch
+                {
+                    Data.LisrDat.CPUInfo.Add("| DataWidth: 101\n");
+                }
+                try
+                {
+                    Data.LisrDat.CPUInfo.Add($"| CurrentClockSpeed: {Convert.ToString(y["CurrentClockSpeed"])}\n");
+                }
+                catch
+                {
+                    Data.LisrDat.CPUInfo.Add("| CurrentClockSpeed: 101\n");
+                }
+                try
+                {
+                    Data.LisrDat.CPUInfo.Add($"| MaxClockSpeed: {Convert.ToString(y["MaxClockSpeed"])}\n");
+                }
+                catch
+                {
+                    Data.LisrDat.CPUInfo.Add("| MaxClockSpeed: 101\n");
+                }
+                try
+                {
+                    Data.LisrDat.CPUInfo.Add($"| ExtClock: {Convert.ToString(y["ExtClock"])}\n");
+                }
+                catch
+                {
+                    Data.LisrDat.CPUInfo.Add("| ExtClock: 101\n");
+                }
+                try
+                {
+                    Data.LisrDat.CPUInfo.Add($"| L2CacheSize: {Convert.ToString(y["L2CacheSize"])}\n");
+                }
+                catch
+                {
+                    Data.LisrDat.CPUInfo.Add("| L2CacheSize: 101\n");
+                }
+                try
+                {
+                    Data.LisrDat.CPUInfo.Add($"| L3CacheSize: {Convert.ToString(y["L3CacheSize"])}\n");
+                }
+                catch
+                {
+                    Data.LisrDat.CPUInfo.Add("| L3CacheSize: 101\n");
+                }
+                try
+                {
+                    Data.LisrDat.CPUInfo.Add($"| NumberOfCores: {Convert.ToString(y["NumberOfCores"])}\n");
+                }
+                catch
+                {
+                    Data.LisrDat.CPUInfo.Add("| NumberOfCores: 101\n");
+                }
+                try
+                {
+                    Data.LisrDat.CPUInfo.Add($"| NumberOfEnabledCore: {Convert.ToString(y["NumberOfEnabledCore"])}\n");
+                }
+                catch
+                {
+                    Data.LisrDat.CPUInfo.Add("| NumberOfEnabledCore: 101\n");
+                }
+                try
+                {
+                    Data.LisrDat.CPUInfo.Add($"| NumberOfLogicalProcessors: {Convert.ToString(y["NumberOfLogicalProcessors"])}\n");
+                }
+                catch
+                {
+                    Data.LisrDat.CPUInfo.Add("| NumberOfLogicalProcessors: 101\n");
+                }
+                try
+                {
+                    Data.LisrDat.CPUInfo.Add($"| ThreadCount: {Convert.ToString(y["ThreadCount"])}\n");
+                }
+                catch
+                {
+                    Data.LisrDat.CPUInfo.Add("| ThreadCount: 101\n");
+                }
+                try
+                {
+                    Data.LisrDat.CPUInfo.Add($"| ProcessorId: {Convert.ToString(y["ProcessorId"])}\n");
+                }
+                catch
+                {
+                    Data.LisrDat.CPUInfo.Add("| ProcessorId: 101\n");
+                }
+                try
+                {
+                    Data.LisrDat.CPUInfo.Add($"| SerialNumber: {Convert.ToString(y["SerialNumber"])}\n");
+                }
+                catch
+                {
+                    Data.LisrDat.CPUInfo.Add("| SerialNumber: 101\n");
+                }
+                try
+                {
+                    Data.LisrDat.CPUInfo.Add($"| PowerManagementSupported: {Convert.ToString(y["PowerManagementSupported"])}\n");
+                }
+                catch
+                {
+                    Data.LisrDat.CPUInfo.Add("| PowerManagementSupported: 101\n");
+                }
+                try
+                {
+                    Data.LisrDat.CPUInfo.Add($"| SecondLevelAddressTranslationExtensions: {Convert.ToString(y["SecondLevelAddressTranslationExtensions"])}\n");
+                }
+                catch
+                {
+                    Data.LisrDat.CPUInfo.Add("| SecondLevelAddressTranslationExtensions: 101\n");
+                }
+                try
+                {
+                    Data.LisrDat.CPUInfo.Add($"| VirtualizationFirmwareEnabled: {Convert.ToString(y["VirtualizationFirmwareEnabled"])}\n");
+                }
+                catch
+                {
+                    Data.LisrDat.CPUInfo.Add("| VirtualizationFirmwareEnabled: 101\n");
+                }
+                try
+                {
+                    Data.LisrDat.CPUInfo.Add($"| VMMonitorModeExtensions: {Convert.ToString(y["VMMonitorModeExtensions"])}\n");
+                }
+                catch
+                {
+                    Data.LisrDat.CPUInfo.Add("| VMMonitorModeExtensions: 101\n");
                 }
             }
-            i.Dispose();
-            SpeedM = String.Join("", Data.LisrDat.SpeedM);
-            return SpeedM;
+            u.Dispose();
+            CPUInfo = String.Join("", Data.LisrDat.CPUInfo);
+            return CPUInfo;
         }
+        //частота озу
+        //public static string SpeedM(ref string SpeedM)
+        //{
+        //    ManagementObjectSearcher i = new ManagementObjectSearcher("root\\CIMV2", "SELECT * FROM Win32_PhysicalMemory");
+        //    foreach (ManagementObject y in i.Get())
+        //    {
+        //        try
+        //        {
+        //            Data.LisrDat.SpeedM.Add($"{Convert.ToString(y["Tag"])}  {Convert.ToString(y["Speed"])}\n");
+        //        }
+        //        catch
+        //        {
+        //            Data.LisrDat.SpeedM.Add("101");
+        //        }
+        //    }
+        //    i.Dispose();
+        //    SpeedM = String.Join("", Data.LisrDat.SpeedM);
+        //    return SpeedM;
+        //}
         //обнаруджение процессора
         public static string ProcessorDetected(ref string ProcessorDetected)
         { 

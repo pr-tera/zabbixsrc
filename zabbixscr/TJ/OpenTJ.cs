@@ -52,14 +52,14 @@ namespace zabbixscr.TJ
                     {
                         if (Reg.IsMatch(line))
                         {
-                            DataTJ.TJ.Add(line);
+                            DataTJ.TJ.Add($"{line}\n");
                         }
                         else
                         {
                             string i = DataTJ.TJ.Last();
                             i += line;
                             DataTJ.TJ.Remove(DataTJ.TJ.Last());
-                            DataTJ.TJ.Add(i);
+                            DataTJ.TJ.Add($"{i}\n");
                         }
                     }
                 }

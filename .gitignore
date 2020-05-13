@@ -1,2 +1,5 @@
-zabbixscr/bin/
-zabbixscr/obj/
+*.user
+*.suo
+/Bin
+/Obj
+/.vs

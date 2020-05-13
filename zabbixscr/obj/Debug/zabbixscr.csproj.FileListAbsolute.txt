@@ -17,3 +17,5 @@ D:\Visual Studio\zabbixscr\zabbixscr\obj\Debug\zabbixscr.csprojAssemblyReference
 D:\Visual Studio\zabbixscr\zabbixscr\obj\Debug\zabbixscr.csproj.CoreCompileInputs.cache
 D:\Visual Studio\zabbixscr\zabbixscr\obj\Debug\zabbixscr.exe
 D:\Visual Studio\zabbixscr\zabbixscr\obj\Debug\zabbixscr.pdb
+C:\Users\tera\Source\Repos\jallybally\zabbixscr\zabbixscr\bin\Debug\OpenHardwareMonitorLib.dll
+C:\Users\tera\Source\Repos\jallybally\zabbixscr\zabbixscr\obj\Debug\zabbixscr.csproj.CopyComplete

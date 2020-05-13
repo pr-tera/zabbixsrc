@@ -11,6 +11,39 @@ namespace zabbixscr
      */
     class Auxiliary
     {
+        public static string AvailabilityMB(int Number, ref string CpuStatus)
+        {
+            string[] Cpu_Status = new string[] { "Other","Unknown","Running/Full Power","Warning","In Test","Not Applicable","Power Off","Off Line","Off Duty","Degraded","Not Installed","Install Error","Power Save - Unknown","Power Save - Low Power Mode","Power Save - Standby","Power Cycle","Power Save - Warning","Paused","Not Ready","Not Configured","Quiesced"};
+            return CpuStatus = Cpu_Status[Number - 1];
+        }
+        public static string CpuStatus(int Number, ref string CpuStatus)
+        {
+            string[] Cpu_Status = new string[] { "Unknown", "CPU Enabled", "CPU Disabled by User via BIOS Setup", "CPU Disabled By BIOS (POST Error)", "CPU is Idle", "Reserved", "Reserved ", "Other" };
+            return CpuStatus = Cpu_Status[Number];
+        }
+        public static string AvailabilityCPU(int Number, ref string AvailabilityCPU)
+        {
+            string[] Availability_CPU = new string[] { "Other","Unknown","Running/Full Power","Running or Full Power","Warning","In Test","Not Applicable","Power Off","Off Line","Off Duty","Degraded","Not Installed", "Install Error","Power Save - Unknown","Power Save - Low Power Mode","Power Save - Standby","Power Cycle","Power Save - Warning","Paused","Not Ready","Not Configured","Quiesced" };
+            return AvailabilityCPU = Availability_CPU[Number - 1];
+        }
+        public static string ArchitectureCPU(int Number, ref string ArchitectureCPU)
+        {
+            if (Number == 9)
+            {
+                ArchitectureCPU = "x64";
+            }
+            else
+            {
+                string[] Architecture_CPU = new string[] { "x86", "MIPS", "Alpha", "PowerPC", "ARM", "ia64" };
+                ArchitectureCPU = Architecture_CPU[Number];
+            }
+            return ArchitectureCPU;
+        }
+        public static string ProcessorType(int Number, ref string ProcessorType)
+        {
+            string[] Processor_Type = new string[] { "Other", "Unknown", "Central Processor", "Math Processor", "DSP Processor", "Video Processor" };
+            return ProcessorType = Processor_Type[Number - 1];
+        }
         public static string UseMemory(int Number, ref string UseMemory)
         {
             string[] Use_Memory = new string[] { "Reserved", "Other", "Unknown", "System memory", "Video memory", "Flash memory", "Non-volatile RAM", "Cache memory" };
