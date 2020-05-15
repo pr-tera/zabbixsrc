@@ -1,4 +1,6 @@
 ﻿using System;
+using System.IO;
+using System.Diagnostics;
 using System.Management;
 using System.Net.NetworkInformation;
 
@@ -111,33 +113,74 @@ namespace zabbixscr
                 }
             }
             i.Dispose();
+            i = new ManagementObjectSearcher("root\\CIMV2", "SELECT * FROM Win32_BIOS");
+            foreach (ManagementObject y in i.Get())
+            {
+                try
+                {
+                    Data.LisrDat.BoardMaker.Add($"BIOS Description: {Convert.ToString(y["Description"])}\n");
+                }
+                catch
+                {
+                    Data.LisrDat.BoardMaker.Add("BIOS Description: 101\n");
+                }
+                try
+                {
+                    Data.LisrDat.BoardMaker.Add($"BIOS Manufacturer: {Convert.ToString(y["Manufacturer"])}\n");
+                }
+                catch
+                {
+                    Data.LisrDat.BoardMaker.Add("BIOS Manufacturer: 101\n");
+                }
+                try
+                {
+                    Data.LisrDat.BoardMaker.Add($"Primary BIOS: {Convert.ToString(y["PrimaryBIOS"])}\n");
+                }
+                catch
+                {
+                    Data.LisrDat.BoardMaker.Add("Primary BIOS: 101\n");
+                }
+                try
+                {
+                    Data.LisrDat.BoardMaker.Add($"SMBIOS Present: {Convert.ToString(y["SMBIOSPresent"])}\n");
+                }
+                catch
+                {
+                    Data.LisrDat.BoardMaker.Add("SMBIOS Present: 101\n");
+                }
+                try
+                {
+                    Data.LisrDat.BoardMaker.Add($"BIOS Version: {Convert.ToString(y["Version"])}\n");
+                }
+                catch
+                {
+                    Data.LisrDat.BoardMaker.Add("BIOS Version: 101\n");
+                }
+            }
+            i.Dispose();
             BoardMaker = String.Join("", Data.LisrDat.BoardMaker);
             return BoardMaker;
         }
         //Серийный номер мат.платы
-        //public static string SerialNumber(ref string SerialNumber)
-        //{
-        //    ManagementObjectSearcher i = new ManagementObjectSearcher("root\\CIMV2", "SELECT * FROM Win32_BaseBoard");
-        //    foreach (ManagementObject y in i.Get())
-        //    {
-        //        try
-        //        {
-        //            SerialNumber = y.GetPropertyValue("SerialNumber").ToString();
-        //            break;
-        //        }
-        //        catch
-        //        {
-        //            SerialNumber = "Не определено";
-        //            break;
-        //        }
-        //    }
-        //    i.Dispose();
-        //    if (String.IsNullOrEmpty(SerialNumber))
-        //    {
-        //        SerialNumber = "Не определено";
-        //    }
-        //    return SerialNumber;    
-        //}
+        public static string SerialNumber(ref string SerialNumber)
+        {
+            ManagementObjectSearcher i = new ManagementObjectSearcher("root\\CIMV2", "SELECT * FROM Win32_BIOS");
+            foreach (ManagementObject y in i.Get())
+            {
+                try
+                {
+                    SerialNumber = y.GetPropertyValue("SerialNumber").ToString();
+                    break;
+                }
+                catch
+                {
+                    SerialNumber = "101";
+                    break;
+                }
+            }
+            i.Dispose();
+            return SerialNumber;
+        }
         //Физ.диски
         public static string PhysicalDisk(ref string PhysicalDisk)
         {
@@ -150,7 +193,7 @@ namespace zabbixscr
                 }
                 catch
                 {
-                    PhysicalDisk = "Не определено";
+                    PhysicalDisk = "101";
                     break;
                 }
             }
@@ -480,20 +523,22 @@ namespace zabbixscr
         //доступно озу
         public static double AvailableMBytesM(ref double AvailableMBytesM)
         {
-            ManagementObjectSearcher i = new ManagementObjectSearcher("root\\CIMV2", "SELECT * FROM Win32_PerfFormattedData_PerfOS_Memory");
-            foreach (ManagementObject y in i.Get())
-            {
-                try
-                {
-                    AvailableMBytesM = Math.Round((double)Convert.ToInt64(y["AvailableMBytes"]), 0);
-                }
-                catch
-                {
-                    AvailableMBytesM = 101;
-                    break;
-                }
-            }
-            i.Dispose();
+            //ManagementObjectSearcher i = new ManagementObjectSearcher("root\\CIMV2", "SELECT * FROM Win32_PerfFormattedData_PerfOS_Memory");
+            //foreach (ManagementObject y in i.Get())
+            //{
+            //    try
+            //    {
+            //        AvailableMBytesM = Math.Round((double)Convert.ToInt64(y["AvailableMBytes"]));
+            //    }
+            //    catch
+            //    {
+            //        AvailableMBytesM = 101;
+            //        break;
+            //    }
+            //}
+            //i.Dispose();
+            PerformanceCounter _ramCounter = new PerformanceCounter("Memory", "Available MBytes");
+            AvailableMBytesM = _ramCounter.NextValue();
             return AvailableMBytesM;
         }
         //кэшировано озу
@@ -1055,27 +1100,27 @@ namespace zabbixscr
             return LoadPercentageP;
         }
         //модель процессора
-        public static string ModelP(string arg, ref string ModelP)
-        {
-            ManagementObjectSearcher i = new ManagementObjectSearcher("root\\CIMV2", "SELECT * FROM Win32_Processor");
-            foreach (ManagementObject y in i.Get())
-            {
-                try
-                {
-                    if (Convert.ToString(y["DeviceID"]).Contains(arg))
-                    {
-                        ModelP = y["Name"].ToString();
-                    }
-                }
-                catch
-                {
-                    ModelP = "101";
-                    break;
-                }
-            }
-            i.Dispose();
-            return ModelP;
-        }
+        //public static string ModelP(string arg, ref string ModelP)
+        //{
+        //    ManagementObjectSearcher i = new ManagementObjectSearcher("root\\CIMV2", "SELECT * FROM Win32_Processor");
+        //    foreach (ManagementObject y in i.Get())
+        //    {
+        //        try
+        //        {
+        //            if (Convert.ToString(y["DeviceID"]).Contains(arg))
+        //            {
+        //                ModelP = y["Name"].ToString();
+        //            }
+        //        }
+        //        catch
+        //        {
+        //            ModelP = "101";
+        //            break;
+        //        }
+        //    }
+        //    i.Dispose();
+        //    return ModelP;
+        //}
         //текущая частота процессора
         public static Int32 CurrentClockSpeedP(string arg, ref Int32 CurrentClockSpeedP)
         {
@@ -1099,71 +1144,71 @@ namespace zabbixscr
             return CurrentClockSpeedP;
         }
         //максимальная частота процессора
-        public static Int32 MaxClockSpeeP(string arg, ref Int32 MaxClockSpeeP)
-        {
-            ManagementObjectSearcher i = new ManagementObjectSearcher("root\\CIMV2", "SELECT * FROM Win32_Processor");
-            foreach (ManagementObject y in i.Get())
-            {
-                try
-                {
-                    if (Convert.ToString(y["DeviceID"]).Contains(arg))
-                    {
-                        MaxClockSpeeP = Convert.ToInt32(y["MaxClockSpeed"]);
-                    }
-                }
-                catch
-                {
-                    MaxClockSpeeP = 101;
-                    break;
-                }
-            }
-            i.Dispose();
-            return MaxClockSpeeP;
-        }
+        //public static Int32 MaxClockSpeeP(string arg, ref Int32 MaxClockSpeeP)
+        //{
+        //    ManagementObjectSearcher i = new ManagementObjectSearcher("root\\CIMV2", "SELECT * FROM Win32_Processor");
+        //    foreach (ManagementObject y in i.Get())
+        //    {
+        //        try
+        //        {
+        //            if (Convert.ToString(y["DeviceID"]).Contains(arg))
+        //            {
+        //                MaxClockSpeeP = Convert.ToInt32(y["MaxClockSpeed"]);
+        //            }
+        //        }
+        //        catch
+        //        {
+        //            MaxClockSpeeP = 101;
+        //            break;
+        //        }
+        //    }
+        //    i.Dispose();
+        //    return MaxClockSpeeP;
+        //}
         //кол-во физ.ядер
-        public static Int32 NumberOfCoresP(string arg, ref Int32 NumberOfCoresP)
-        {
-            ManagementObjectSearcher i = new ManagementObjectSearcher("root\\CIMV2", "SELECT * FROM Win32_Processor");
-            foreach (ManagementObject y in i.Get())
-            {
-                try
-                {
-                    if (Convert.ToString(y["DeviceID"]).Contains(arg))
-                    {
-                        NumberOfCoresP = Convert.ToInt32(y["NumberOfCores"]);
-                    }
-                }
-                catch
-                {
-                    NumberOfCoresP = 101;
-                    break;
-                }
-            }
-            i.Dispose();
-            return NumberOfCoresP;
-        }
+        //public static Int32 NumberOfCoresP(string arg, ref Int32 NumberOfCoresP)
+        //{
+        //    ManagementObjectSearcher i = new ManagementObjectSearcher("root\\CIMV2", "SELECT * FROM Win32_Processor");
+        //    foreach (ManagementObject y in i.Get())
+        //    {
+        //        try
+        //        {
+        //            if (Convert.ToString(y["DeviceID"]).Contains(arg))
+        //            {
+        //                NumberOfCoresP = Convert.ToInt32(y["NumberOfCores"]);
+        //            }
+        //        }
+        //        catch
+        //        {
+        //            NumberOfCoresP = 101;
+        //            break;
+        //        }
+        //    }
+        //    i.Dispose();
+        //    return NumberOfCoresP;
+        //}
         //кол-во логических ядер
-        public static Int32 NumberOfLogicalProcessors(string arg, ref Int32 NumberOfLogicalProcessors)
-        {
-            ManagementObjectSearcher i = new ManagementObjectSearcher("root\\CIMV2", "SELECT * FROM Win32_Processor");
-            foreach (ManagementObject y in i.Get())
-            {
-                try
-                {
-                    if (Convert.ToString(y["DeviceID"]).Contains(arg))
-                    {
-                        NumberOfLogicalProcessors = Convert.ToInt32(y["NumberOfLogicalProcessors"]);
-                    }
-                }
-                catch
-                {
-                    NumberOfLogicalProcessors = 101;
-                    break;
-                }
-            }
-            i.Dispose();
-            return NumberOfLogicalProcessors;
-        }
+        //public static Int32 NumberOfLogicalProcessors(string arg, ref Int32 NumberOfLogicalProcessors)
+        //{
+        //    ManagementObjectSearcher i = new ManagementObjectSearcher("root\\CIMV2", "SELECT * FROM Win32_Processor");
+        //    foreach (ManagementObject y in i.Get())
+        //    {
+        //        try
+        //        {
+        //            if (Convert.ToString(y["DeviceID"]).Contains(arg))
+        //            {
+        //                NumberOfLogicalProcessors = Convert.ToInt32(y["NumberOfLogicalProcessors"]);
+        //            }
+        //        }
+        //        catch
+        //        {
+        //            NumberOfLogicalProcessors = 101;
+        //            break;
+        //        }
+        //    }
+        //    i.Dispose();
+        //    return NumberOfLogicalProcessors;
+        //}
         //виртуализация
         public static string VirtualizationFirmwareEnabled(string arg, ref string VirtualizationFirmwareEnabled)
         {
@@ -1187,49 +1232,49 @@ namespace zabbixscr
             return VirtualizationFirmwareEnabled;
         }
         //поддержка виртуализации
-        public static string VMMonitorModeExtensions(string arg, ref string VMMonitorModeExtensions)
-        {
-            ManagementObjectSearcher i = new ManagementObjectSearcher("root\\CIMV2", "SELECT * FROM Win32_Processor");
-            foreach (ManagementObject y in i.Get())
-            {
-                try
-                {
-                    if (Convert.ToString(y["DeviceID"]).Contains(arg))
-                    {
-                        VMMonitorModeExtensions = Convert.ToString(y["VMMonitorModeExtensions"]);
-                    }
-                }
-                catch
-                {
-                    VMMonitorModeExtensions = "101";
-                    break;
-                }
-            }
-            i.Dispose();
-            return VMMonitorModeExtensions;
-        }
+        //public static string VMMonitorModeExtensions(string arg, ref string VMMonitorModeExtensions)
+        //{
+        //    ManagementObjectSearcher i = new ManagementObjectSearcher("root\\CIMV2", "SELECT * FROM Win32_Processor");
+        //    foreach (ManagementObject y in i.Get())
+        //    {
+        //        try
+        //        {
+        //            if (Convert.ToString(y["DeviceID"]).Contains(arg))
+        //            {
+        //                VMMonitorModeExtensions = Convert.ToString(y["VMMonitorModeExtensions"]);
+        //            }
+        //        }
+        //        catch
+        //        {
+        //            VMMonitorModeExtensions = "101";
+        //            break;
+        //        }
+        //    }
+        //    i.Dispose();
+        //    return VMMonitorModeExtensions;
+        //}
         //сокет
-        public static string SocketDesignation(string arg, ref string SocketDesignation)
-        {
-            ManagementObjectSearcher i = new ManagementObjectSearcher("root\\CIMV2", "SELECT * FROM Win32_Processor");
-            foreach (ManagementObject y in i.Get())
-            {
-                try
-                {
-                    if (Convert.ToString(y["DeviceID"]).Contains(arg))
-                    {
-                        SocketDesignation = Convert.ToString(y["SocketDesignation"]);
-                    }
-                }
-                catch
-                {
-                    SocketDesignation = "101";
-                    break;
-                }
-            }
-            i.Dispose();
-            return SocketDesignation;
-        }
+        //public static string SocketDesignation(string arg, ref string SocketDesignation)
+        //{
+        //    ManagementObjectSearcher i = new ManagementObjectSearcher("root\\CIMV2", "SELECT * FROM Win32_Processor");
+        //    foreach (ManagementObject y in i.Get())
+        //    {
+        //        try
+        //        {
+        //            if (Convert.ToString(y["DeviceID"]).Contains(arg))
+        //            {
+        //                SocketDesignation = Convert.ToString(y["SocketDesignation"]);
+        //            }
+        //        }
+        //        catch
+        //        {
+        //            SocketDesignation = "101";
+        //            break;
+        //        }
+        //    }
+        //    i.Dispose();
+        //    return SocketDesignation;
+        //}
         //серийный номер процессора 
         public static string SerialNumberP(string arg, ref string SerialNumberP)
         {

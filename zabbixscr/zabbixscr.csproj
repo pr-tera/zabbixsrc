@@ -57,6 +57,7 @@
   <ItemGroup>
     <Compile Include="Auxiliary.cs" />
     <Compile Include="Catalogs.cs" />
+    <Compile Include="Temperature.cs" />
     <Compile Include="TJ\DataTJ.cs" />
     <Compile Include="TJ\OpenTJ.cs" />
     <Compile Include="Data\ListDat.cs" />
@@ -67,6 +68,8 @@
     <Compile Include="SMART.cs" />
     <Compile Include="SMBIOSdata.cs" />
     <Compile Include="SMBIOStable.cs" />
+    <Compile Include="Util\Const.cs" />
+    <Compile Include="Util\UPTC1C.cs" />
     <Compile Include="WMI.cs" />
   </ItemGroup>
   <ItemGroup>

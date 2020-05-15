@@ -60,5 +60,9 @@ namespace zabbixscr.Data
         public static string AvailabilityCPU = String.Empty;
         public static string CpuStatus = String.Empty;
         public static string AvailabilityMB = String.Empty;
+        public static string CPUSensorName = String.Empty;
+        public static string GetCPUSensorValue = String.Empty;
+        public static string DiskSensorName = String.Empty;
+        public static string GetDiskSensorValue = String.Empty;
     }
 }

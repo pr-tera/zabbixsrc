@@ -1,6 +1,5 @@
 ﻿using System;
-using System.Management;
-using System.Runtime.InteropServices;
+using System.Text;
 
 namespace zabbixscr
 {
@@ -8,6 +7,7 @@ namespace zabbixscr
     {
         static void Main(string[] args)
         {
+            Console.OutputEncoding = Encoding.UTF8;
             try
             {
                 if (args.Length == 1 && args[0] == "UserPersonalFolder")
@@ -36,12 +36,11 @@ namespace zabbixscr
                 if (args.Length == 1 && args[0] == "BoardMaker")
                 {
                     Console.WriteLine(WMI.BoardMaker(ref Data.Temp.BoardMaker));
-                    Console.ReadLine();
                 }
-                //if (args.Length == 1 && args[0] == "SerialNumber")
-                //{
-                //    Console.WriteLine(WMI.SerialNumber(ref Data.Temp.SerialNumber));
-                //}
+                if (args.Length == 1 && args[0] == "SerialNumber")
+                {
+                    Console.WriteLine(WMI.SerialNumber(ref Data.Temp.SerialNumber));
+                }
                 if (args.Length == 1 && args[0] == "PCName")
                 {
                     Console.WriteLine(Environment.MachineName);
@@ -160,38 +159,38 @@ namespace zabbixscr
                 {
                     Console.WriteLine(WMI.LoadPercentageP(args[1], ref Data.Temp.LoadPercentageP).ToString());
                 }
-                if (args[0] == "ModelP" && args[1] != null)
-                {
-                    Console.WriteLine(WMI.ModelP(args[1], ref Data.Temp.ModelP).ToString());
-                }
+                //if (args[0] == "ModelP" && args[1] != null)
+                //{
+                //    Console.WriteLine(WMI.ModelP(args[1], ref Data.Temp.ModelP).ToString());
+                //}
                 if (args[0] == "CurrentClockSpeedP" && args[1] != null)
                 {
                     Console.WriteLine(WMI.CurrentClockSpeedP(args[1], ref Data.Temp.CurrentClockSpeedP).ToString());
                 }
-                if (args[0] == "MaxClockSpeeP" && args[1] != null)
-                {
-                    Console.WriteLine(WMI.MaxClockSpeeP(args[1], ref Data.Temp.MaxClockSpeeP).ToString());
-                }
-                if (args[0] == "NumberOfCoresP" && args[1] != null)
-                {
-                    Console.WriteLine(WMI.NumberOfCoresP(args[1], ref Data.Temp.NumberOfCoresP).ToString());
-                }
-                if (args[0] == "NumberOfLogicalProcessors" && args[1] != null)
-                {
-                    Console.WriteLine(WMI.NumberOfLogicalProcessors(args[1], ref Data.Temp.NumberOfLogicalProcessors).ToString());
-                }
+                //if (args[0] == "MaxClockSpeeP" && args[1] != null)
+                //{
+                //    Console.WriteLine(WMI.MaxClockSpeeP(args[1], ref Data.Temp.MaxClockSpeeP).ToString());
+                //}
+                //if (args[0] == "NumberOfCoresP" && args[1] != null)
+                //{
+                //    Console.WriteLine(WMI.NumberOfCoresP(args[1], ref Data.Temp.NumberOfCoresP).ToString());
+                //}
+                //if (args[0] == "NumberOfLogicalProcessors" && args[1] != null)
+                //{
+                //    Console.WriteLine(WMI.NumberOfLogicalProcessors(args[1], ref Data.Temp.NumberOfLogicalProcessors).ToString());
+                //}
                 if (args[0] == "VirtualizationFirmwareEnabled" && args[1] != null)
                 {
                     Console.WriteLine(WMI.VirtualizationFirmwareEnabled(args[1], ref Data.Temp.VirtualizationFirmwareEnabled).ToString());
                 }
-                if (args[0] == "VMMonitorModeExtensions" && args[1] != null)
-                {
-                    Console.WriteLine(WMI.VMMonitorModeExtensions(args[1], ref Data.Temp.VMMonitorModeExtensions).ToString());
-                }
-                if (args[0] == "SocketDesignation" && args[1] != null)
-                {
-                    Console.WriteLine(WMI.SocketDesignation(args[1], ref Data.Temp.SocketDesignation).ToString());
-                }
+                //if (args[0] == "VMMonitorModeExtensions" && args[1] != null)
+                //{
+                //    Console.WriteLine(WMI.VMMonitorModeExtensions(args[1], ref Data.Temp.VMMonitorModeExtensions).ToString());
+                //}
+                //if (args[0] == "SocketDesignation" && args[1] != null)
+                //{
+                //    Console.WriteLine(WMI.SocketDesignation(args[1], ref Data.Temp.SocketDesignation).ToString());
+                //}
                 if (args[0] == "SerialNumberP" && args[1] != null)
                 {
                     Console.WriteLine(WMI.SerialNumberP(args[1], ref Data.Temp.SerialNumberP).ToString());
@@ -216,7 +215,26 @@ namespace zabbixscr
                 {
                     Console.WriteLine(WMI.DomainRole(ref Data.Temp.DomainRole).ToString());
                 }
-
+                if (args.Length == 1 && args[0] == "GetSensorProcessor")
+                {
+                    Console.WriteLine($"{{\"data\":[{Temperature.GetCPUSensorName(ref Data.Temp.CPUSensorName)}]}}");
+                }
+                if (args[0] == "GetCPUSensorValue" && args[1] != null)
+                {
+                    Console.WriteLine(Temperature.GetCPUSensorValue(args[1], ref Data.Temp.GetCPUSensorValue));
+                }
+                if (args.Length == 1 && args[0] == "GetDiskSensorName")
+                {
+                    Console.WriteLine($"{{\"data\":[{Temperature.GetDiskSensorName(ref Data.Temp.DiskSensorName)}]}}");
+                }
+                if (args[0] == "GetDiskSensorValue" && args[1] != null)
+                {
+                    Console.WriteLine(Temperature.GetDiskSensorValue(args[1], ref Data.Temp.GetDiskSensorValue));
+                }
+                if (args.Length == 1 && args[0] == "UpdateTC1C")
+                {
+                    Util.UPTC1C.UpdateTC1C();
+                }
             }
             catch
             {
