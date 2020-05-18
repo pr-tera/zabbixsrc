@@ -141,18 +141,25 @@ namespace zabbixscr.TJ
                         }
                     }
                 }
-                else
+                else if (!File.Exists(DataTJ.LogPath))
                 {
-                    DataTJ.TempTJ.RemoveRange(0, DataTJ.IndexMessage);
-                    foreach (var i in DataTJ.TempTJ)
+                    try
                     {
-                        Error += $"{i}\n";
+                        //DataTJ.TempTJ.RemoveRange(0, DataTJ.IndexMessage);
+                        foreach (var i in DataTJ.TempTJ)
+                        {
+                            Error += $"{i}\n";
+                        }
+                        foreach (var i in DataTJ.TJ)
+                        {
+                            Error += $"{i}\n";
+                        }
+                        CheckXML.RenXML();
                     }
-                    foreach (var i in DataTJ.TJ)
+                    catch (Exception e)
                     {
-                        Error += $"{i}\n";
+                        Console.WriteLine(e);
                     }
-                    CheckXML.RenXML();
                 }
             }
             else
