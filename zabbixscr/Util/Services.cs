@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Text;
+using System.Threading;
 using System.ServiceProcess;
 
 namespace zabbixscr.Util
@@ -18,7 +18,7 @@ namespace zabbixscr.Util
                         //{
                         //    Data.LisrDat.TempL.Add(Convert.ToString($"{{\"{{#1CSERVICESNAME}}\":\"{Convert.ToString(i.ServiceName).Replace("(", "LScobk").Replace(")", "RScobck")}\"}}"));
                         //}
-                        Data.LisrDat.TempL.Add(Convert.ToString($"{{\"{{#SERVICESNAME}}\":\"{Convert.ToString(i.ServiceName).Replace("(", "LScobk").Replace(")", "RScobck")}\"}}"));
+                        Data.LisrDat.TempL.Add(Convert.ToString($"{{\"{{#SERVICESNAME}}\":\"{Convert.ToString(i.ServiceName).Replace("(", "RTIJ7ANL").Replace(")", "RTIJ7ANR").Replace("$","EROF8IJS")}\"}}"));
                     }
                 }
                 Name = string.Join(",", Data.LisrDat.TempL);
@@ -31,7 +31,7 @@ namespace zabbixscr.Util
         }
         public static string StatusService(string Name, ref string Status)
         {
-            Name = Name.Replace("LScobk", "(").Replace("RScobck", ")");
+            Name = Name.Replace("RTIJ7ANL", "(").Replace("RTIJ7ANR", ")").Replace("EROF8IJS","$");
             try
             {
                 foreach (var i in ServiceController.GetServices())
