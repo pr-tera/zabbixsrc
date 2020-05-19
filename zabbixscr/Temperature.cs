@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using OpenHardwareMonitor.Hardware;
+﻿using OpenHardwareMonitor.Hardware;
+using System;
 
 namespace zabbixscr
 {
@@ -39,13 +36,13 @@ namespace zabbixscr
                         {
                             if (computer.Hardware[i].Sensors[j].SensorType == SensorType.Temperature)
                             {
-                                Data.LisrDat.CPUSensorName.Add($"{{\"{{#CPUSENSORNAME}}\":\"{Convert.ToString(computer.Hardware[i].Sensors[j].Name).Replace('#',':')} {i}\"}}");
+                                Data.LisrDat.TempL.Add($"{{\"{{#CPUSENSORNAME}}\":\"{Convert.ToString(computer.Hardware[i].Sensors[j].Name).Replace('#', ':')} {i}\"}}");
                             }
                         }
                     }
                 }
                 computer.Close();
-                CPUSensorName = String.Join(",", Data.LisrDat.CPUSensorName);               
+                CPUSensorName = string.Join(",", Data.LisrDat.TempL);
             }
             catch
             {
@@ -68,7 +65,7 @@ namespace zabbixscr
                     if (computer.Hardware[i].HardwareType == HardwareType.CPU)
                     {
                         for (int j = 0; j < computer.Hardware[i].Sensors.Length; j++)
-                        {                           
+                        {
                             if (computer.Hardware[i].Sensors[j].Name == CPUSensorName && computer.Hardware[i].Sensors[j].SensorType == SensorType.Temperature)
                             {
                                 CPUSensorValue = computer.Hardware[i].Sensors[j].Value.ToString();
@@ -101,13 +98,13 @@ namespace zabbixscr
                         {
                             if (computer.Hardware[i].Sensors[j].SensorType == SensorType.Temperature)
                             {
-                                Data.LisrDat.DiskSensorName.Add($"{{\"{{#DISKSENSORNAME}}\":\"{Convert.ToString(computer.Hardware[i].Name)}\"}}");
+                                Data.LisrDat.TempL.Add($"{{\"{{#DISKSENSORNAME}}\":\"{Convert.ToString(computer.Hardware[i].Name)}\"}}");
                             }
                         }
                     }
                 }
                 computer.Close();
-                DiskSensorName = String.Join(",", Data.LisrDat.DiskSensorName);
+                DiskSensorName = string.Join(",", Data.LisrDat.TempL);
             }
             catch
             {

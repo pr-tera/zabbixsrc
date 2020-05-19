@@ -1,5 +1,4 @@
 ﻿using System;
-using System.IO;
 using System.Diagnostics;
 using System.Management;
 using System.Net.NetworkInformation;
@@ -30,7 +29,7 @@ namespace zabbixscr
                     break;
                 }
             }
-            if (String.IsNullOrEmpty(Mac))
+            if (string.IsNullOrEmpty(Mac))
             {
                 Mac = "Не определено";
             }
@@ -44,43 +43,43 @@ namespace zabbixscr
             {
                 try
                 {
-                    Data.LisrDat.BoardMaker.Add($"-------------------\nTag: {Convert.ToString(y["Tag"])}\n-------------------\n");
+                    Data.LisrDat.TempL.Add($"-------------------\nTag: {Convert.ToString(y["Tag"])}\n-------------------\n");
                 }
                 catch
                 {
-                    Data.LisrDat.BoardMaker.Add("Tag: 101\n");
+                    Data.LisrDat.TempL.Add("Tag: 101\n");
                 }
                 try
                 {
-                    Data.LisrDat.BoardMaker.Add($"Manufacturer: {Convert.ToString(y["Manufacturer"])}\n");
+                    Data.LisrDat.TempL.Add($"Manufacturer: {Convert.ToString(y["Manufacturer"])}\n");
                 }
                 catch
                 {
-                    Data.LisrDat.BoardMaker.Add("Manufacturer: 101\n");
+                    Data.LisrDat.TempL.Add("Manufacturer: 101\n");
                 }
                 try
                 {
-                    Data.LisrDat.BoardMaker.Add($"Model: {Convert.ToString(y["Model"])}\n");
+                    Data.LisrDat.TempL.Add($"Model: {Convert.ToString(y["Model"])}\n");
                 }
                 catch
                 {
-                    Data.LisrDat.BoardMaker.Add("Model: 101\n");
+                    Data.LisrDat.TempL.Add("Model: 101\n");
                 }
                 try
                 {
-                    Data.LisrDat.BoardMaker.Add($"Product: {Convert.ToString(y["Product"])}\n");
+                    Data.LisrDat.TempL.Add($"Product: {Convert.ToString(y["Product"])}\n");
                 }
                 catch
                 {
-                    Data.LisrDat.BoardMaker.Add("Product: 101\n");
+                    Data.LisrDat.TempL.Add("Product: 101\n");
                 }
                 try
                 {
-                    Data.LisrDat.BoardMaker.Add($"SerialNumber: {Convert.ToString(y["SerialNumber"])}\n");
+                    Data.LisrDat.TempL.Add($"SerialNumber: {Convert.ToString(y["SerialNumber"])}\n");
                 }
                 catch
                 {
-                    Data.LisrDat.BoardMaker.Add("SerialNumber: 101\n");
+                    Data.LisrDat.TempL.Add("SerialNumber: 101\n");
                 }
             }
             i.Dispose();
@@ -89,27 +88,27 @@ namespace zabbixscr
             {
                 try
                 {
-                    Data.LisrDat.BoardMaker.Add($"Availability: {Auxiliary.AvailabilityMB(Convert.ToInt32(y["Availability"]), ref Data.Temp.AvailabilityMB)}\n");
+                    Data.LisrDat.TempL.Add($"Availability: {Auxiliary.AvailabilityMB(Convert.ToInt32(y["Availability"]), ref Data.Temp.TempS)}\n");
                 }
                 catch
                 {
-                    Data.LisrDat.BoardMaker.Add("Availability: 101\n");
+                    Data.LisrDat.TempL.Add("Availability: 101\n");
                 }
                 try
                 {
-                    Data.LisrDat.BoardMaker.Add($"PrimaryBusType: {Convert.ToString(y["PrimaryBusType"])}\n");
+                    Data.LisrDat.TempL.Add($"PrimaryBusType: {Convert.ToString(y["PrimaryBusType"])}\n");
                 }
                 catch
                 {
-                    Data.LisrDat.BoardMaker.Add("PrimaryBusType: 101\n");
+                    Data.LisrDat.TempL.Add("PrimaryBusType: 101\n");
                 }
                 try
                 {
-                    Data.LisrDat.BoardMaker.Add($"SecondaryBusType: {Convert.ToString(y["SecondaryBusType"])}\n");
+                    Data.LisrDat.TempL.Add($"SecondaryBusType: {Convert.ToString(y["SecondaryBusType"])}\n");
                 }
                 catch
                 {
-                    Data.LisrDat.BoardMaker.Add("SecondaryBusType: 101\n");
+                    Data.LisrDat.TempL.Add("SecondaryBusType: 101\n");
                 }
             }
             i.Dispose();
@@ -118,47 +117,47 @@ namespace zabbixscr
             {
                 try
                 {
-                    Data.LisrDat.BoardMaker.Add($"BIOS Description: {Convert.ToString(y["Description"])}\n");
+                    Data.LisrDat.TempL.Add($"BIOS Description: {Convert.ToString(y["Description"])}\n");
                 }
                 catch
                 {
-                    Data.LisrDat.BoardMaker.Add("BIOS Description: 101\n");
+                    Data.LisrDat.TempL.Add("BIOS Description: 101\n");
                 }
                 try
                 {
-                    Data.LisrDat.BoardMaker.Add($"BIOS Manufacturer: {Convert.ToString(y["Manufacturer"])}\n");
+                    Data.LisrDat.TempL.Add($"BIOS Manufacturer: {Convert.ToString(y["Manufacturer"])}\n");
                 }
                 catch
                 {
-                    Data.LisrDat.BoardMaker.Add("BIOS Manufacturer: 101\n");
+                    Data.LisrDat.TempL.Add("BIOS Manufacturer: 101\n");
                 }
                 try
                 {
-                    Data.LisrDat.BoardMaker.Add($"Primary BIOS: {Convert.ToString(y["PrimaryBIOS"])}\n");
+                    Data.LisrDat.TempL.Add($"Primary BIOS: {Convert.ToString(y["PrimaryBIOS"])}\n");
                 }
                 catch
                 {
-                    Data.LisrDat.BoardMaker.Add("Primary BIOS: 101\n");
+                    Data.LisrDat.TempL.Add("Primary BIOS: 101\n");
                 }
                 try
                 {
-                    Data.LisrDat.BoardMaker.Add($"SMBIOS Present: {Convert.ToString(y["SMBIOSPresent"])}\n");
+                    Data.LisrDat.TempL.Add($"SMBIOS Present: {Convert.ToString(y["SMBIOSPresent"])}\n");
                 }
                 catch
                 {
-                    Data.LisrDat.BoardMaker.Add("SMBIOS Present: 101\n");
+                    Data.LisrDat.TempL.Add("SMBIOS Present: 101\n");
                 }
                 try
                 {
-                    Data.LisrDat.BoardMaker.Add($"BIOS Version: {Convert.ToString(y["Version"])}\n");
+                    Data.LisrDat.TempL.Add($"BIOS Version: {Convert.ToString(y["Version"])}\n");
                 }
                 catch
                 {
-                    Data.LisrDat.BoardMaker.Add("BIOS Version: 101\n");
+                    Data.LisrDat.TempL.Add("BIOS Version: 101\n");
                 }
             }
             i.Dispose();
-            BoardMaker = String.Join("", Data.LisrDat.BoardMaker);
+            BoardMaker = string.Join("", Data.LisrDat.TempL);
             return BoardMaker;
         }
         //Серийный номер мат.платы
@@ -186,10 +185,10 @@ namespace zabbixscr
         {
             ManagementObjectSearcher i = new ManagementObjectSearcher("root\\CIMV2", "SELECT * FROM Win32_DiskDrive");
             foreach (ManagementObject y in i.Get())
-            { 
+            {
                 try
                 {
-                    Data.LisrDat.DiskModel.Add($"{{\"{{#PHYSUCALDISKMODEL}}\":\"{Convert.ToString(y["Model"])}\"}}");
+                    Data.LisrDat.TempL.Add($"{{\"{{#PHYSUCALDISKMODEL}}\":\"{Convert.ToString(y["Model"])}\"}}");
                 }
                 catch
                 {
@@ -198,7 +197,7 @@ namespace zabbixscr
                 }
             }
             i.Dispose();
-            PhysicalDisk = String.Join(",", Data.LisrDat.DiskModel);
+            PhysicalDisk = string.Join(",", Data.LisrDat.TempL);
             return PhysicalDisk;
         }
         //Размер физ.диска
@@ -243,7 +242,7 @@ namespace zabbixscr
                 }
             }
             i.Dispose();
-            if (String.IsNullOrEmpty(SerialNumber))
+            if (string.IsNullOrEmpty(SerialNumber))
             {
                 SerialNumber = "Не определено";
             }
@@ -257,7 +256,7 @@ namespace zabbixscr
             {
                 try
                 {
-                    Data.LisrDat.LogicalDiskName.Add($"{{\"{{#LOGICALDISK}}\":\"{Convert.ToString(y["Name"])}\"}}");
+                    Data.LisrDat.TempL.Add($"{{\"{{#LOGICALDISK}}\":\"{Convert.ToString(y["Name"])}\"}}");
                 }
                 catch
                 {
@@ -266,7 +265,7 @@ namespace zabbixscr
                 }
             }
             i.Dispose();
-            LogicalDisk = String.Join(",", Data.LisrDat.LogicalDiskName);
+            LogicalDisk = string.Join(",", Data.LisrDat.TempL);
             return LogicalDisk;
         }
         //Название раздела
@@ -289,7 +288,7 @@ namespace zabbixscr
                 }
             }
             i.Dispose();
-            if (String.IsNullOrEmpty(SectionNameD))
+            if (string.IsNullOrEmpty(SectionNameD))
             {
                 SectionNameD = $"Локальный диск ({arg})";
             }
@@ -315,7 +314,7 @@ namespace zabbixscr
                 }
             }
             i.Dispose();
-            if (String.IsNullOrEmpty(SerialNumberLD))
+            if (string.IsNullOrEmpty(SerialNumberLD))
             {
                 SerialNumberLD = "Не определено";
             }
@@ -341,7 +340,7 @@ namespace zabbixscr
                 }
             }
             i.Dispose();
-            if (String.IsNullOrEmpty(CompressedLD))
+            if (string.IsNullOrEmpty(CompressedLD))
             {
                 CompressedLD = "Не определено";
             }
@@ -367,7 +366,7 @@ namespace zabbixscr
                 }
             }
             i.Dispose();
-            if (String.IsNullOrEmpty(FileSystemLD))
+            if (string.IsNullOrEmpty(FileSystemLD))
             {
                 FileSystemLD = "Не определено";
             }
@@ -383,7 +382,7 @@ namespace zabbixscr
                 {
                     if (Convert.ToString(y["Name"]) == arg)
                     {
-                        SizeLD = Math.Round((double)Convert.ToInt64(y["Size"]) / 1024 / 1024 / 1024 , 0);
+                        SizeLD = Math.Round((double)Convert.ToInt64(y["Size"]) / 1024 / 1024 / 1024, 0);
                     }
                 }
                 catch
@@ -445,7 +444,7 @@ namespace zabbixscr
                 }
             }
             i.Dispose();
-            if (String.IsNullOrEmpty(ChekDirtyTom))
+            if (string.IsNullOrEmpty(ChekDirtyTom))
             {
                 ChekDirtyTom = "Не определено";
             }
@@ -565,7 +564,7 @@ namespace zabbixscr
         {
             ManagementObjectSearcher i = new ManagementObjectSearcher("root\\CIMV2", "SELECT * FROM Win32_PhysicalMemory");
             foreach (ManagementObject y in i.Get())
-            {   
+            {
                 try
                 {
                     TotalPhysicalMemory += Convert.ToInt64(y["Capacity"]);
@@ -583,8 +582,8 @@ namespace zabbixscr
         //использование диска файлом подкачки
         public static double PageSecInDSwap(ref double PageSecInDSwap)
         {
-            Int32 q = 0;
-            Int32 w = 0;
+            int q = 0;
+            int w = 0;
             ManagementObjectSearcher i = new ManagementObjectSearcher("root\\CIMV2", "SELECT * FROM Win32_PerfFormattedData_PerfOS_Memory");
             foreach (ManagementObject y in i.Get())
             {
@@ -624,135 +623,135 @@ namespace zabbixscr
             {
                 try
                 {
-                    Data.LisrDat.MemoryInfo.Add($"-------------------\nTag: {Convert.ToString(y["Tag"])}\n-------------------\n");
+                    Data.LisrDat.TempL.Add($"-------------------\nTag: {Convert.ToString(y["Tag"])}\n-------------------\n");
                 }
                 catch
                 {
-                    Data.LisrDat.MemoryInfo.Add("Tag: 101\n");
+                    Data.LisrDat.TempL.Add("Tag: 101\n");
                 }
                 try
                 {
-                    Data.LisrDat.MemoryInfo.Add($"| BankLabel: {Convert.ToString(y["BankLabel"])}\n");
+                    Data.LisrDat.TempL.Add($"| BankLabel: {Convert.ToString(y["BankLabel"])}\n");
                 }
                 catch
                 {
-                    Data.LisrDat.MemoryInfo.Add("| BankLabel: 101\n");
+                    Data.LisrDat.TempL.Add("| BankLabel: 101\n");
                 }
                 try
                 {
-                    Data.LisrDat.MemoryInfo.Add($"| DeviceLocator: {Convert.ToString(y["DeviceLocator"])}\n");
+                    Data.LisrDat.TempL.Add($"| DeviceLocator: {Convert.ToString(y["DeviceLocator"])}\n");
                 }
                 catch
                 {
-                    Data.LisrDat.MemoryInfo.Add("| DeviceLocator: 101\n");
+                    Data.LisrDat.TempL.Add("| DeviceLocator: 101\n");
                 }
                 try
                 {
-                    Data.LisrDat.MemoryInfo.Add($"| Manufacturer: {Convert.ToString(y["Manufacturer"])}\n");
+                    Data.LisrDat.TempL.Add($"| Manufacturer: {Convert.ToString(y["Manufacturer"])}\n");
                 }
                 catch
                 {
-                    Data.LisrDat.MemoryInfo.Add("| Manufacturer: 101\n");
+                    Data.LisrDat.TempL.Add("| Manufacturer: 101\n");
                 }
                 try
                 {
-                    Data.LisrDat.MemoryInfo.Add($"| FormFactor: {Auxiliary.FormFactorMemory(Convert.ToInt32(y["FormFactor"]), ref Data.Temp.FormFactorMemory)}\n");
+                    Data.LisrDat.TempL.Add($"| FormFactor: {Auxiliary.FormFactorMemory(Convert.ToInt32(y["FormFactor"]), ref Data.Temp.TempS)}\n");
                 }
                 catch
                 {
-                    Data.LisrDat.MemoryInfo.Add("| FormFactor: 101\n");
+                    Data.LisrDat.TempL.Add("| FormFactor: 101\n");
                 }
                 try
                 {
-                    Data.LisrDat.MemoryInfo.Add($"| MemoryType: {Auxiliary.MemoryType(Convert.ToInt32(y["MemoryType"]), ref Data.Temp.MemoryType)}\n");
+                    Data.LisrDat.TempL.Add($"| MemoryType: {Auxiliary.MemoryType(Convert.ToInt32(y["MemoryType"]), ref Data.Temp.TempS)}\n");
                 }
                 catch
                 {
-                    Data.LisrDat.MemoryInfo.Add("| MemoryType: 101\n");
+                    Data.LisrDat.TempL.Add("| MemoryType: 101\n");
                 }
                 try
                 {
-                    Data.LisrDat.MemoryInfo.Add($"| InterleavePosition: {Convert.ToString(y["InterleavePosition"])}\n");
+                    Data.LisrDat.TempL.Add($"| InterleavePosition: {Convert.ToString(y["InterleavePosition"])}\n");
                 }
                 catch
                 {
-                    Data.LisrDat.MemoryInfo.Add("| InterleavePosition: 101\n");
+                    Data.LisrDat.TempL.Add("| InterleavePosition: 101\n");
                 }
                 try
                 {
-                    Data.LisrDat.MemoryInfo.Add($"| InterleaveDataDepth: {Convert.ToString(y["InterleaveDataDepth"])}\n");
+                    Data.LisrDat.TempL.Add($"| InterleaveDataDepth: {Convert.ToString(y["InterleaveDataDepth"])}\n");
                 }
                 catch
                 {
-                    Data.LisrDat.MemoryInfo.Add("| InterleaveDataDepth: 101\n");
+                    Data.LisrDat.TempL.Add("| InterleaveDataDepth: 101\n");
                 }
                 try
                 {
-                    Data.LisrDat.MemoryInfo.Add($"| Model: {Convert.ToString(y["Model"])}\n");
+                    Data.LisrDat.TempL.Add($"| Model: {Convert.ToString(y["Model"])}\n");
                 }
                 catch
                 {
-                    Data.LisrDat.MemoryInfo.Add("| Model: 101\n");
+                    Data.LisrDat.TempL.Add("| Model: 101\n");
                 }
                 try
                 {
-                    Data.LisrDat.MemoryInfo.Add($"| SerialNumber: {Convert.ToString(y["SerialNumber"])}\n");
+                    Data.LisrDat.TempL.Add($"| SerialNumber: {Convert.ToString(y["SerialNumber"])}\n");
                 }
                 catch
                 {
-                    Data.LisrDat.MemoryInfo.Add("| SerialNumber: 101\n");
+                    Data.LisrDat.TempL.Add("| SerialNumber: 101\n");
                 }
                 try
                 {
-                    Data.LisrDat.MemoryInfo.Add($"| PartNumber: {Convert.ToString(y["PartNumber"])}\n");
+                    Data.LisrDat.TempL.Add($"| PartNumber: {Convert.ToString(y["PartNumber"])}\n");
                 }
                 catch
                 {
-                    Data.LisrDat.MemoryInfo.Add("| PartNumber: 101\n");
+                    Data.LisrDat.TempL.Add("| PartNumber: 101\n");
                 }
                 try
                 {
-                    Data.LisrDat.MemoryInfo.Add($"| Speed: {Convert.ToString(y["Speed"])} MHz\n");
+                    Data.LisrDat.TempL.Add($"| Speed: {Convert.ToString(y["Speed"])} MHz\n");
                 }
                 catch
                 {
-                    Data.LisrDat.MemoryInfo.Add("| Speed: 101\n");
+                    Data.LisrDat.TempL.Add("| Speed: 101\n");
                 }
                 try
                 {
-                    Data.LisrDat.MemoryInfo.Add($"| TotalWidth: {Convert.ToString(y["TotalWidth"])}\n");
+                    Data.LisrDat.TempL.Add($"| TotalWidth: {Convert.ToString(y["TotalWidth"])}\n");
                 }
                 catch
                 {
-                    Data.LisrDat.MemoryInfo.Add("| TotalWidth: 101\n");
+                    Data.LisrDat.TempL.Add("| TotalWidth: 101\n");
                 }
                 try
                 {
-                    Data.LisrDat.MemoryInfo.Add($"| DataWidth: {Convert.ToString(y["DataWidth"])}\n");
+                    Data.LisrDat.TempL.Add($"| DataWidth: {Convert.ToString(y["DataWidth"])}\n");
                 }
                 catch
                 {
-                    Data.LisrDat.MemoryInfo.Add("| DataWidth: 101\n");
+                    Data.LisrDat.TempL.Add("| DataWidth: 101\n");
                 }
                 try
                 {
-                    Data.LisrDat.MemoryInfo.Add($"| TypeDetail: {Auxiliary.TypeDetailMemory(Convert.ToInt32(y["TypeDetail"]), ref Data.Temp.TypeDetailMemory)}\n");
+                    Data.LisrDat.TempL.Add($"| TypeDetail: {Auxiliary.TypeDetailMemory(Convert.ToInt32(y["TypeDetail"]), ref Data.Temp.TempS)}\n");
                 }
                 catch
                 {
-                    Data.LisrDat.MemoryInfo.Add("| TypeDetail: 101\n");
+                    Data.LisrDat.TempL.Add("| TypeDetail: 101\n");
                 }
                 try
                 {
-                    Data.LisrDat.MemoryInfo.Add($"| Capacity: {Math.Floor(Convert.ToInt64(y["Capacity"]) / 1e+9)} Gb\n");
+                    Data.LisrDat.TempL.Add($"| Capacity: {Math.Floor(Convert.ToInt64(y["Capacity"]) / 1e+9)} Gb\n");
                 }
                 catch
                 {
-                    Data.LisrDat.MemoryInfo.Add("| Capacity: 101\n");
+                    Data.LisrDat.TempL.Add("| Capacity: 101\n");
                 }
             }
             u.Dispose();
-            Data.LisrDat.MemoryInfo.Add(
+            Data.LisrDat.TempL.Add(
                 "-------------------\n" +
                 "PhysicalMemoryArray\n" +
                 "-------------------\n");
@@ -761,63 +760,63 @@ namespace zabbixscr
             {
                 try
                 {
-                    Data.LisrDat.MemoryInfo.Add($"-------------------\nTag: {Convert.ToString(y["Tag"])}\n-------------------\n");
+                    Data.LisrDat.TempL.Add($"-------------------\nTag: {Convert.ToString(y["Tag"])}\n-------------------\n");
                 }
                 catch
                 {
-                    Data.LisrDat.MemoryInfo.Add("Tag: 101\n");
+                    Data.LisrDat.TempL.Add("Tag: 101\n");
                 }
                 try
                 {
-                    Data.LisrDat.MemoryInfo.Add($"| Location: {Auxiliary.LocationMemory(Convert.ToInt32(y["Location"]), ref Data.Temp.LocationMemory)}\n");
+                    Data.LisrDat.TempL.Add($"| Location: {Auxiliary.LocationMemory(Convert.ToInt32(y["Location"]), ref Data.Temp.TempS)}\n");
                 }
                 catch
                 {
-                    Data.LisrDat.MemoryInfo.Add("| Location: 101\n");
+                    Data.LisrDat.TempL.Add("| Location: 101\n");
                 }
                 try
                 {
-                    Data.LisrDat.MemoryInfo.Add($"| MemoryDevices: {Convert.ToString(y["MemoryDevices"])}\n");
+                    Data.LisrDat.TempL.Add($"| MemoryDevices: {Convert.ToString(y["MemoryDevices"])}\n");
                 }
                 catch
                 {
-                    Data.LisrDat.MemoryInfo.Add("| MemoryDevices: 101\n");
+                    Data.LisrDat.TempL.Add("| MemoryDevices: 101\n");
                 }
                 try
                 {
-                    Data.LisrDat.MemoryInfo.Add($"| MemoryErrorCorrection: {Auxiliary.MemoryErrorCorrection(Convert.ToInt32(y["MemoryErrorCorrection"]), ref Data.Temp.MemoryErrorCorrection)}\n");
+                    Data.LisrDat.TempL.Add($"| MemoryErrorCorrection: {Auxiliary.MemoryErrorCorrection(Convert.ToInt32(y["MemoryErrorCorrection"]), ref Data.Temp.TempS)}\n");
                 }
                 catch
                 {
-                    Data.LisrDat.MemoryInfo.Add("| MemoryErrorCorrection: 101\n");
+                    Data.LisrDat.TempL.Add("| MemoryErrorCorrection: 101\n");
                 }
                 try
                 {
-                    Data.LisrDat.MemoryInfo.Add($"| UseMemory: {Auxiliary.UseMemory(Convert.ToInt32(y["Use"]), ref Data.Temp.UseMemory)}\n");
+                    Data.LisrDat.TempL.Add($"| UseMemory: {Auxiliary.UseMemory(Convert.ToInt32(y["Use"]), ref Data.Temp.TempS)}\n");
                 }
                 catch
                 {
-                    Data.LisrDat.MemoryInfo.Add("| UseMemory: 101\n");
+                    Data.LisrDat.TempL.Add("| UseMemory: 101\n");
                 }
                 try
                 {
-                    Data.LisrDat.MemoryInfo.Add($"| MaxCapacity: {Math.Floor(Convert.ToInt32(y["MaxCapacity"]) / 1e+6)} Gb\n");
+                    Data.LisrDat.TempL.Add($"| MaxCapacity: {Math.Floor(Convert.ToInt32(y["MaxCapacity"]) / 1e+6)} Gb\n");
                 }
                 catch
                 {
-                    Data.LisrDat.MemoryInfo.Add("| MaxCapacity: 101\n");
+                    Data.LisrDat.TempL.Add("| MaxCapacity: 101\n");
                 }
                 try
                 {
-                    Data.LisrDat.MemoryInfo.Add($"| MaxCapacityEx: {Math.Floor(Convert.ToInt64(y["MaxCapacityEx"]) / 1e+6)} Gb\n");
+                    Data.LisrDat.TempL.Add($"| MaxCapacityEx: {Math.Floor(Convert.ToInt64(y["MaxCapacityEx"]) / 1e+6)} Gb\n");
                 }
                 catch
                 {
-                    Data.LisrDat.MemoryInfo.Add("| MaxCapacityEx: 101\n");
+                    Data.LisrDat.TempL.Add("| MaxCapacityEx: 101\n");
                 }
             }
             u.Dispose();
-            MemoryInfo = String.Join("", Data.LisrDat.MemoryInfo);
+            MemoryInfo = string.Join("", Data.LisrDat.TempL);
             return MemoryInfo;
         }
         public static string CPUInfo(ref string CPUInfo)
@@ -827,215 +826,215 @@ namespace zabbixscr
             {
                 try
                 {
-                    Data.LisrDat.CPUInfo.Add($"-------------------\nDeviceID: {Convert.ToString(y["DeviceID"])}\n-------------------\n");
+                    Data.LisrDat.TempL.Add($"-------------------\nDeviceID: {Convert.ToString(y["DeviceID"])}\n-------------------\n");
                 }
                 catch
                 {
-                    Data.LisrDat.CPUInfo.Add("DeviceID: 101\n");
+                    Data.LisrDat.TempL.Add("DeviceID: 101\n");
                 }
                 try
                 {
-                    Data.LisrDat.CPUInfo.Add($"| Manufacturer: {Convert.ToString(y["Manufacturer"])}\n");
+                    Data.LisrDat.TempL.Add($"| Manufacturer: {Convert.ToString(y["Manufacturer"])}\n");
                 }
                 catch
                 {
-                    Data.LisrDat.CPUInfo.Add("| Manufacturer: 101\n");
+                    Data.LisrDat.TempL.Add("| Manufacturer: 101\n");
                 }
                 try
                 {
-                    Data.LisrDat.CPUInfo.Add($"| Name: {Convert.ToString(y["Name"])}\n");
+                    Data.LisrDat.TempL.Add($"| Name: {Convert.ToString(y["Name"])}\n");
                 }
                 catch
                 {
-                    Data.LisrDat.CPUInfo.Add("| Name: 101\n");
+                    Data.LisrDat.TempL.Add("| Name: 101\n");
                 }
                 try
                 {
-                    Data.LisrDat.CPUInfo.Add($"| Caption: {Convert.ToString(y["Caption"])}\n");
+                    Data.LisrDat.TempL.Add($"| Caption: {Convert.ToString(y["Caption"])}\n");
                 }
                 catch
                 {
-                    Data.LisrDat.CPUInfo.Add("| Caption: 101\n");
+                    Data.LisrDat.TempL.Add("| Caption: 101\n");
                 }
                 try
                 {
-                    Data.LisrDat.CPUInfo.Add($"| ProcessorType: {Auxiliary.ProcessorType(Convert.ToInt32(y["ProcessorType"]), ref Data.Temp.ProcessorType)}\n");
+                    Data.LisrDat.TempL.Add($"| ProcessorType: {Auxiliary.ProcessorType(Convert.ToInt32(y["ProcessorType"]), ref Data.Temp.TempS)}\n");
                 }
                 catch
                 {
-                    Data.LisrDat.CPUInfo.Add("| ProcessorType: 101\n");
+                    Data.LisrDat.TempL.Add("| ProcessorType: 101\n");
                 }
                 try
                 {
-                    Data.LisrDat.CPUInfo.Add($"| SocketDesignation: {Convert.ToString(y["SocketDesignation"])}\n");
+                    Data.LisrDat.TempL.Add($"| SocketDesignation: {Convert.ToString(y["SocketDesignation"])}\n");
                 }
                 catch
                 {
-                    Data.LisrDat.CPUInfo.Add("| SocketDesignation: 101\n");
+                    Data.LisrDat.TempL.Add("| SocketDesignation: 101\n");
                 }
                 try
                 {
-                    Data.LisrDat.CPUInfo.Add($"| AddressWidth: {Convert.ToString(y["AddressWidth"])}\n");
+                    Data.LisrDat.TempL.Add($"| AddressWidth: {Convert.ToString(y["AddressWidth"])}\n");
                 }
                 catch
                 {
-                    Data.LisrDat.CPUInfo.Add("| AddressWidth: 101\n");
+                    Data.LisrDat.TempL.Add("| AddressWidth: 101\n");
                 }
                 try
                 {
-                    Data.LisrDat.CPUInfo.Add($"| Architecture: {Auxiliary.ArchitectureCPU(Convert.ToInt32(y["Architecture"]), ref Data.Temp.ArchitectureCPU)}\n");
+                    Data.LisrDat.TempL.Add($"| Architecture: {Auxiliary.ArchitectureCPU(Convert.ToInt32(y["Architecture"]), ref Data.Temp.TempS)}\n");
                 }
                 catch
                 {
-                    Data.LisrDat.CPUInfo.Add("| Architecture: 101\n");
+                    Data.LisrDat.TempL.Add("| Architecture: 101\n");
                 }
                 try
                 {
-                    Data.LisrDat.CPUInfo.Add($"| Availability: {Auxiliary.AvailabilityCPU(Convert.ToInt32(y["Availability"]), ref Data.Temp.AvailabilityCPU)}\n");
+                    Data.LisrDat.TempL.Add($"| Availability: {Auxiliary.AvailabilityCPU(Convert.ToInt32(y["Availability"]), ref Data.Temp.TempS)}\n");
                 }
                 catch
                 {
-                    Data.LisrDat.CPUInfo.Add("| Availability: 101\n");
+                    Data.LisrDat.TempL.Add("| Availability: 101\n");
                 }
                 try
                 {
-                    Data.LisrDat.CPUInfo.Add($"| CpuStatus: {Auxiliary.CpuStatus(Convert.ToInt32(y["CpuStatus"]), ref Data.Temp.CpuStatus)}\n");
+                    Data.LisrDat.TempL.Add($"| CpuStatus: {Auxiliary.CpuStatus(Convert.ToInt32(y["CpuStatus"]), ref Data.Temp.TempS)}\n");
                 }
                 catch
                 {
-                    Data.LisrDat.CPUInfo.Add("| CpuStatus: 101\n");
+                    Data.LisrDat.TempL.Add("| CpuStatus: 101\n");
                 }
                 try
                 {
-                    Data.LisrDat.CPUInfo.Add($"| DataWidth: {Convert.ToString(y["DataWidth"])}\n");
+                    Data.LisrDat.TempL.Add($"| DataWidth: {Convert.ToString(y["DataWidth"])}\n");
                 }
                 catch
                 {
-                    Data.LisrDat.CPUInfo.Add("| DataWidth: 101\n");
+                    Data.LisrDat.TempL.Add("| DataWidth: 101\n");
                 }
                 try
                 {
-                    Data.LisrDat.CPUInfo.Add($"| CurrentClockSpeed: {Convert.ToString(y["CurrentClockSpeed"])}\n");
+                    Data.LisrDat.TempL.Add($"| CurrentClockSpeed: {Convert.ToString(y["CurrentClockSpeed"])}\n");
                 }
                 catch
                 {
-                    Data.LisrDat.CPUInfo.Add("| CurrentClockSpeed: 101\n");
+                    Data.LisrDat.TempL.Add("| CurrentClockSpeed: 101\n");
                 }
                 try
                 {
-                    Data.LisrDat.CPUInfo.Add($"| MaxClockSpeed: {Convert.ToString(y["MaxClockSpeed"])}\n");
+                    Data.LisrDat.TempL.Add($"| MaxClockSpeed: {Convert.ToString(y["MaxClockSpeed"])}\n");
                 }
                 catch
                 {
-                    Data.LisrDat.CPUInfo.Add("| MaxClockSpeed: 101\n");
+                    Data.LisrDat.TempL.Add("| MaxClockSpeed: 101\n");
                 }
                 try
                 {
-                    Data.LisrDat.CPUInfo.Add($"| ExtClock: {Convert.ToString(y["ExtClock"])}\n");
+                    Data.LisrDat.TempL.Add($"| ExtClock: {Convert.ToString(y["ExtClock"])}\n");
                 }
                 catch
                 {
-                    Data.LisrDat.CPUInfo.Add("| ExtClock: 101\n");
+                    Data.LisrDat.TempL.Add("| ExtClock: 101\n");
                 }
                 try
                 {
-                    Data.LisrDat.CPUInfo.Add($"| L2CacheSize: {Convert.ToString(y["L2CacheSize"])}\n");
+                    Data.LisrDat.TempL.Add($"| L2CacheSize: {Convert.ToString(y["L2CacheSize"])}\n");
                 }
                 catch
                 {
-                    Data.LisrDat.CPUInfo.Add("| L2CacheSize: 101\n");
+                    Data.LisrDat.TempL.Add("| L2CacheSize: 101\n");
                 }
                 try
                 {
-                    Data.LisrDat.CPUInfo.Add($"| L3CacheSize: {Convert.ToString(y["L3CacheSize"])}\n");
+                    Data.LisrDat.TempL.Add($"| L3CacheSize: {Convert.ToString(y["L3CacheSize"])}\n");
                 }
                 catch
                 {
-                    Data.LisrDat.CPUInfo.Add("| L3CacheSize: 101\n");
+                    Data.LisrDat.TempL.Add("| L3CacheSize: 101\n");
                 }
                 try
                 {
-                    Data.LisrDat.CPUInfo.Add($"| NumberOfCores: {Convert.ToString(y["NumberOfCores"])}\n");
+                    Data.LisrDat.TempL.Add($"| NumberOfCores: {Convert.ToString(y["NumberOfCores"])}\n");
                 }
                 catch
                 {
-                    Data.LisrDat.CPUInfo.Add("| NumberOfCores: 101\n");
+                    Data.LisrDat.TempL.Add("| NumberOfCores: 101\n");
                 }
                 try
                 {
-                    Data.LisrDat.CPUInfo.Add($"| NumberOfEnabledCore: {Convert.ToString(y["NumberOfEnabledCore"])}\n");
+                    Data.LisrDat.TempL.Add($"| NumberOfEnabledCore: {Convert.ToString(y["NumberOfEnabledCore"])}\n");
                 }
                 catch
                 {
-                    Data.LisrDat.CPUInfo.Add("| NumberOfEnabledCore: 101\n");
+                    Data.LisrDat.TempL.Add("| NumberOfEnabledCore: 101\n");
                 }
                 try
                 {
-                    Data.LisrDat.CPUInfo.Add($"| NumberOfLogicalProcessors: {Convert.ToString(y["NumberOfLogicalProcessors"])}\n");
+                    Data.LisrDat.TempL.Add($"| NumberOfLogicalProcessors: {Convert.ToString(y["NumberOfLogicalProcessors"])}\n");
                 }
                 catch
                 {
-                    Data.LisrDat.CPUInfo.Add("| NumberOfLogicalProcessors: 101\n");
+                    Data.LisrDat.TempL.Add("| NumberOfLogicalProcessors: 101\n");
                 }
                 try
                 {
-                    Data.LisrDat.CPUInfo.Add($"| ThreadCount: {Convert.ToString(y["ThreadCount"])}\n");
+                    Data.LisrDat.TempL.Add($"| ThreadCount: {Convert.ToString(y["ThreadCount"])}\n");
                 }
                 catch
                 {
-                    Data.LisrDat.CPUInfo.Add("| ThreadCount: 101\n");
+                    Data.LisrDat.TempL.Add("| ThreadCount: 101\n");
                 }
                 try
                 {
-                    Data.LisrDat.CPUInfo.Add($"| ProcessorId: {Convert.ToString(y["ProcessorId"])}\n");
+                    Data.LisrDat.TempL.Add($"| ProcessorId: {Convert.ToString(y["ProcessorId"])}\n");
                 }
                 catch
                 {
-                    Data.LisrDat.CPUInfo.Add("| ProcessorId: 101\n");
+                    Data.LisrDat.TempL.Add("| ProcessorId: 101\n");
                 }
                 try
                 {
-                    Data.LisrDat.CPUInfo.Add($"| SerialNumber: {Convert.ToString(y["SerialNumber"])}\n");
+                    Data.LisrDat.TempL.Add($"| SerialNumber: {Convert.ToString(y["SerialNumber"])}\n");
                 }
                 catch
                 {
-                    Data.LisrDat.CPUInfo.Add("| SerialNumber: 101\n");
+                    Data.LisrDat.TempL.Add("| SerialNumber: 101\n");
                 }
                 try
                 {
-                    Data.LisrDat.CPUInfo.Add($"| PowerManagementSupported: {Convert.ToString(y["PowerManagementSupported"])}\n");
+                    Data.LisrDat.TempL.Add($"| PowerManagementSupported: {Convert.ToString(y["PowerManagementSupported"])}\n");
                 }
                 catch
                 {
-                    Data.LisrDat.CPUInfo.Add("| PowerManagementSupported: 101\n");
+                    Data.LisrDat.TempL.Add("| PowerManagementSupported: 101\n");
                 }
                 try
                 {
-                    Data.LisrDat.CPUInfo.Add($"| SecondLevelAddressTranslationExtensions: {Convert.ToString(y["SecondLevelAddressTranslationExtensions"])}\n");
+                    Data.LisrDat.TempL.Add($"| SecondLevelAddressTranslationExtensions: {Convert.ToString(y["SecondLevelAddressTranslationExtensions"])}\n");
                 }
                 catch
                 {
-                    Data.LisrDat.CPUInfo.Add("| SecondLevelAddressTranslationExtensions: 101\n");
+                    Data.LisrDat.TempL.Add("| SecondLevelAddressTranslationExtensions: 101\n");
                 }
                 try
                 {
-                    Data.LisrDat.CPUInfo.Add($"| VirtualizationFirmwareEnabled: {Convert.ToString(y["VirtualizationFirmwareEnabled"])}\n");
+                    Data.LisrDat.TempL.Add($"| VirtualizationFirmwareEnabled: {Convert.ToString(y["VirtualizationFirmwareEnabled"])}\n");
                 }
                 catch
                 {
-                    Data.LisrDat.CPUInfo.Add("| VirtualizationFirmwareEnabled: 101\n");
+                    Data.LisrDat.TempL.Add("| VirtualizationFirmwareEnabled: 101\n");
                 }
                 try
                 {
-                    Data.LisrDat.CPUInfo.Add($"| VMMonitorModeExtensions: {Convert.ToString(y["VMMonitorModeExtensions"])}\n");
+                    Data.LisrDat.TempL.Add($"| VMMonitorModeExtensions: {Convert.ToString(y["VMMonitorModeExtensions"])}\n");
                 }
                 catch
                 {
-                    Data.LisrDat.CPUInfo.Add("| VMMonitorModeExtensions: 101\n");
+                    Data.LisrDat.TempL.Add("| VMMonitorModeExtensions: 101\n");
                 }
             }
             u.Dispose();
-            CPUInfo = String.Join("", Data.LisrDat.CPUInfo);
+            CPUInfo = string.Join("", Data.LisrDat.TempL);
             return CPUInfo;
         }
         //частота озу
@@ -1059,13 +1058,13 @@ namespace zabbixscr
         //}
         //обнаруджение процессора
         public static string ProcessorDetected(ref string ProcessorDetected)
-        { 
+        {
             ManagementObjectSearcher i = new ManagementObjectSearcher("root\\CIMV2", "SELECT * FROM Win32_Processor");
             foreach (ManagementObject y in i.Get())
             {
                 try
                 {
-                    Data.LisrDat.ProcessorDetected.Add($"{{\"{{#PROCESSORKMODEL}}\":\"{Convert.ToString(y["DeviceID"])}\"}}");
+                    Data.LisrDat.TempL.Add($"{{\"{{#PROCESSORKMODEL}}\":\"{Convert.ToString(y["DeviceID"])}\"}}");
                 }
                 catch
                 {
@@ -1074,7 +1073,7 @@ namespace zabbixscr
                 }
             }
             i.Dispose();
-            ProcessorDetected = String.Join(",", Data.LisrDat.ProcessorDetected);
+            ProcessorDetected = string.Join(",", Data.LisrDat.TempL);
             return ProcessorDetected;
         }
         //загруженность процессора %
@@ -1122,7 +1121,7 @@ namespace zabbixscr
         //    return ModelP;
         //}
         //текущая частота процессора
-        public static Int32 CurrentClockSpeedP(string arg, ref Int32 CurrentClockSpeedP)
+        public static int CurrentClockSpeedP(string arg, ref int CurrentClockSpeedP)
         {
             ManagementObjectSearcher i = new ManagementObjectSearcher("root\\CIMV2", "SELECT * FROM Win32_Processor");
             foreach (ManagementObject y in i.Get())

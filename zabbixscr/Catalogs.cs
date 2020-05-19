@@ -21,7 +21,7 @@ namespace zabbixscr
                 CatalogSize = PlaceCalculation.SizeUserDir(HomeDirUsers + i, ref CatalogSize);
                 if (CatalogSize > 10)
                 {
-                    Data.LisrDat.BigUser.Add($"{{\"{{#USERDIR}}\":\"{i.Substring(0, i.LastIndexOf("."))}\"}}");
+                    Data.LisrDat.TempL.Add($"{{\"{{#USERDIR}}\":\"{i.Substring(0, i.LastIndexOf("."))}\"}}");
                 }
             }
         }

@@ -19,3 +19,9 @@ D:\Visual Studio\zabbixscr\zabbixscr\obj\Debug\zabbixscr.exe
 D:\Visual Studio\zabbixscr\zabbixscr\obj\Debug\zabbixscr.pdb
 C:\Users\tera\Source\Repos\jallybally\zabbixscr\zabbixscr\bin\Debug\OpenHardwareMonitorLib.dll
 C:\Users\tera\Source\Repos\jallybally\zabbixscr\zabbixscr\obj\Debug\zabbixscr.csproj.CopyComplete
+C:\Users\tera\Source\Repos\jallybally\zabbixscr\zabbixscr\bin\Debug\System.Diagnostics.EventLog.dll
+C:\Users\tera\Source\Repos\jallybally\zabbixscr\zabbixscr\bin\Debug\System.Security.Principal.Windows.dll
+C:\Users\tera\Source\Repos\jallybally\zabbixscr\zabbixscr\bin\Debug\System.ServiceProcess.ServiceController.dll
+C:\Users\tera\Source\Repos\jallybally\zabbixscr\zabbixscr\bin\Debug\System.Diagnostics.EventLog.xml
+C:\Users\tera\Source\Repos\jallybally\zabbixscr\zabbixscr\bin\Debug\System.Security.Principal.Windows.xml
+C:\Users\tera\Source\Repos\jallybally\zabbixscr\zabbixscr\bin\Debug\System.ServiceProcess.ServiceController.xml

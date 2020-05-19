@@ -14,15 +14,15 @@ namespace zabbixscr
                 {
                     Catalogs catalogs = new Catalogs();
                     catalogs.GetUserFolber();
-                    string u = String.Join(",", Data.LisrDat.BigUser);
+                    string u = string.Join(",", Data.LisrDat.TempL);
                     Console.WriteLine($"{{\"data\":[{u}]}}");
 
                 }
                 if (args[0] == "UserPersonalFolberSize" && args[1] != null)
                 {
                     Catalogs catalogs = new Catalogs();
-                    catalogs.GetSizeUserFolber(args[1], ref Data.Temp.Out);
-                    Console.WriteLine(Data.Temp.Out.ToString(System.Globalization.CultureInfo.GetCultureInfo("en-US")));
+                    catalogs.GetSizeUserFolber(args[1], ref Data.Temp.TempD);
+                    Console.WriteLine(Data.Temp.TempD.ToString(System.Globalization.CultureInfo.GetCultureInfo("en-US")));
                 }
                 /*
                  * 
@@ -31,15 +31,15 @@ namespace zabbixscr
                  */
                 if (args.Length == 1 && args[0] == "Mac")
                 {
-                    Console.WriteLine(WMI.Mac(ref Data.Temp.Mac));
+                    Console.WriteLine(WMI.Mac(ref Data.Temp.TempS));
                 }
                 if (args.Length == 1 && args[0] == "BoardMaker")
                 {
-                    Console.WriteLine(WMI.BoardMaker(ref Data.Temp.BoardMaker));
+                    Console.WriteLine(WMI.BoardMaker(ref Data.Temp.TempS));
                 }
                 if (args.Length == 1 && args[0] == "SerialNumber")
                 {
-                    Console.WriteLine(WMI.SerialNumber(ref Data.Temp.SerialNumber));
+                    Console.WriteLine(WMI.SerialNumber(ref Data.Temp.TempS));
                 }
                 if (args.Length == 1 && args[0] == "PCName")
                 {
@@ -51,15 +51,15 @@ namespace zabbixscr
                 }
                 if (args.Length == 1 && args[0] == "MemoryInfo")
                 {
-                    Console.WriteLine(WMI.MemoryInfo(ref Data.Temp.MemoryInfo));
+                    Console.WriteLine(WMI.MemoryInfo(ref Data.Temp.TempS));
                 }
                 if (args.Length == 1 && args[0] == "CPUInfo")
                 {
-                    Console.WriteLine(WMI.CPUInfo(ref Data.Temp.CPUInfo));
+                    Console.WriteLine(WMI.CPUInfo(ref Data.Temp.TempS));
                 }
                 if (args.Length == 1 && args[0] == "PhysicalDisk")
                 {
-                    Console.WriteLine($"{{\"data\":[{WMI.PhysicalDisk(ref Data.Temp.PhysicalDisk)}]}}");
+                    Console.WriteLine($"{{\"data\":[{WMI.PhysicalDisk(ref Data.Temp.TempS)}]}}");
                 }
                 /*
                  * 
@@ -73,75 +73,75 @@ namespace zabbixscr
                 }
                 if (args[0] == "PhysicalDiskSize" && args[1] != null)
                 {
-                    Console.WriteLine(WMI.PhysicalDiskSize(args[1], ref Data.Temp.PhysicalDiskSize));
+                    Console.WriteLine(WMI.PhysicalDiskSize(args[1], ref Data.Temp.TempD));
                 }
                 if (args[0] == "SerialNumberD" && args[1] != null)
                 {
-                    Console.WriteLine(WMI.SerialNumber(args[1], ref Data.Temp.SerialNumberD));
+                    Console.WriteLine(WMI.SerialNumber(args[1], ref Data.Temp.TempS));
                 }
                 if (args.Length == 1 && args[0] == "LogicalDisk")
                 {
-                    Console.WriteLine($"{{\"data\":[{WMI.LogicalDisk(ref Data.Temp.LogicalDisk)}]}}");
+                    Console.WriteLine($"{{\"data\":[{WMI.LogicalDisk(ref Data.Temp.TempS)}]}}");
                 }
                 if (args[0] == "SectionNameD" && args[1] != null)
                 {
-                    Console.WriteLine(WMI.SectionNameD(args[1], ref Data.Temp.SectionNameD).ToString(System.Globalization.CultureInfo.GetCultureInfo("ru-RU")));
+                    Console.WriteLine(WMI.SectionNameD(args[1], ref Data.Temp.TempS).ToString(System.Globalization.CultureInfo.GetCultureInfo("ru-RU")));
                 }
                 if (args[0] == "SerialNumberLD" && args[1] != null)
                 {
-                    Console.WriteLine(WMI.SerialNumberLD(args[1], ref Data.Temp.SerialNumberLD));
+                    Console.WriteLine(WMI.SerialNumberLD(args[1], ref Data.Temp.TempS));
                 }
                 if (args[0] == "CompressedLD" && args[1] != null)
                 {
-                    Console.WriteLine(WMI.CompressedLD(args[1], ref Data.Temp.CompressedLD));
+                    Console.WriteLine(WMI.CompressedLD(args[1], ref Data.Temp.TempS));
                 }
                 if (args[0] == "FileSystemLD" && args[1] != null)
                 {
-                    Console.WriteLine(WMI.FileSystemLD(args[1], ref Data.Temp.FileSystemLD));
+                    Console.WriteLine(WMI.FileSystemLD(args[1], ref Data.Temp.TempS));
                 }
                 if (args[0] == "SizeLD" && args[1] != null)
                 {
-                    Console.WriteLine(WMI.SizeLD(args[1], ref Data.Temp.SizeLD));
+                    Console.WriteLine(WMI.SizeLD(args[1], ref Data.Temp.TempD));
                 }
                 if (args[0] == "FreeSpaceLD" && args[1] != null)
                 {
-                    Console.WriteLine(WMI.FreeSpaceLD(args[1], ref Data.Temp.FreeSpaceLD));
+                    Console.WriteLine(WMI.FreeSpaceLD(args[1], ref Data.Temp.TempD));
                 }
                 if (args[0] == "PercentageFreeSpace" && args[1] != null)
                 {
-                    Console.WriteLine(WMI.PercentageFreeSpace(args[1], ref Data.Temp.PercentageFreeSpace));
+                    Console.WriteLine(WMI.PercentageFreeSpace(args[1], ref Data.Temp.TempD));
                 }
                 if (args[0] == "ChekDirtyTom" && args[1] != null)
                 {
-                    Console.WriteLine(WMI.ChekDirtyTom(args[1], ref Data.Temp.ChekDirtyTom));
+                    Console.WriteLine(WMI.ChekDirtyTom(args[1], ref Data.Temp.TempS));
                 }
                 if (args[0] == "AvgDiskReadQueueLength" && args[1] != null)
                 {
-                    Console.WriteLine(WMI.AvgDiskReadQueueLength(args[1], ref Data.Temp.AvgDiskReadQueueLength).ToString());
+                    Console.WriteLine(WMI.AvgDiskReadQueueLength(args[1], ref Data.Temp.TempI).ToString());
                 }
                 if (args[0] == "AvgDiskWriteQueueLength" && args[1] != null)
                 {
-                    Console.WriteLine(WMI.AvgDiskWriteQueueLength(args[1], ref Data.Temp.AvgDiskWriteQueueLength).ToString());
+                    Console.WriteLine(WMI.AvgDiskWriteQueueLength(args[1], ref Data.Temp.TempI).ToString());
                 }
                 if (args[0] == "SplitIOPerSec" && args[1] != null)
                 {
-                    Console.WriteLine(WMI.SplitIOPerSec(args[1], ref Data.Temp.SplitIOPerSec).ToString());
+                    Console.WriteLine(WMI.SplitIOPerSec(args[1], ref Data.Temp.TempI).ToString());
                 }
                 if (args.Length == 1 && args[0] == "AvailableMBytesM")
                 {
-                    Console.WriteLine(WMI.AvailableMBytesM(ref Data.Temp.AvailableMBytesM).ToString());
+                    Console.WriteLine(WMI.AvailableMBytesM(ref Data.Temp.TempD).ToString());
                 }
                 if (args.Length == 1 && args[0] == "CacheBytesM")
                 {
-                    Console.WriteLine(WMI.CacheBytesM(ref Data.Temp.CacheBytesM).ToString());
+                    Console.WriteLine(WMI.CacheBytesM(ref Data.Temp.TempD).ToString());
                 }
                 if (args.Length == 1 && args[0] == "TotalPhysicalMemory")
                 {
-                    Console.WriteLine(WMI.TotalPhysicalMemory(ref Data.Temp.TotalPhysicalMemory).ToString());
+                    Console.WriteLine(WMI.TotalPhysicalMemory(ref Data.Temp.TempD).ToString());
                 }
                 if (args.Length == 1 && args[0] == "PageSecInDSwap")
                 {
-                    Console.WriteLine(WMI.PageSecInDSwap(ref Data.Temp.PageSecInDSwap).ToString());
+                    Console.WriteLine(WMI.PageSecInDSwap(ref Data.Temp.TempD).ToString());
                 }
                 //if (args.Length == 1 && args[0] == "SerialNumberMemory")
                 //{
@@ -153,11 +153,11 @@ namespace zabbixscr
                 //}
                 if (args.Length == 1 && args[0] == "ProcessorDetected")
                 {
-                    Console.WriteLine($"{{\"data\":[{WMI.ProcessorDetected(ref Data.Temp.ProcessorDetected)}]}}");
+                    Console.WriteLine($"{{\"data\":[{WMI.ProcessorDetected(ref Data.Temp.TempS)}]}}");
                 }
                 if (args[0] == "LoadPercentageP" && args[1] != null)
                 {
-                    Console.WriteLine(WMI.LoadPercentageP(args[1], ref Data.Temp.LoadPercentageP).ToString());
+                    Console.WriteLine(WMI.LoadPercentageP(args[1], ref Data.Temp.TempI).ToString());
                 }
                 //if (args[0] == "ModelP" && args[1] != null)
                 //{
@@ -165,7 +165,7 @@ namespace zabbixscr
                 //}
                 if (args[0] == "CurrentClockSpeedP" && args[1] != null)
                 {
-                    Console.WriteLine(WMI.CurrentClockSpeedP(args[1], ref Data.Temp.CurrentClockSpeedP).ToString());
+                    Console.WriteLine(WMI.CurrentClockSpeedP(args[1], ref Data.Temp.TempI).ToString());
                 }
                 //if (args[0] == "MaxClockSpeeP" && args[1] != null)
                 //{
@@ -181,7 +181,7 @@ namespace zabbixscr
                 //}
                 if (args[0] == "VirtualizationFirmwareEnabled" && args[1] != null)
                 {
-                    Console.WriteLine(WMI.VirtualizationFirmwareEnabled(args[1], ref Data.Temp.VirtualizationFirmwareEnabled).ToString());
+                    Console.WriteLine(WMI.VirtualizationFirmwareEnabled(args[1], ref Data.Temp.TempS).ToString());
                 }
                 //if (args[0] == "VMMonitorModeExtensions" && args[1] != null)
                 //{
@@ -193,43 +193,43 @@ namespace zabbixscr
                 //}
                 if (args[0] == "SerialNumberP" && args[1] != null)
                 {
-                    Console.WriteLine(WMI.SerialNumberP(args[1], ref Data.Temp.SerialNumberP).ToString());
+                    Console.WriteLine(WMI.SerialNumberP(args[1], ref Data.Temp.TempS).ToString());
                 }
                 if (args.Length == 1 && args[0] == "TimeZone")
                 {
-                    Console.WriteLine(WMI.TimeZone(ref Data.Temp.TimeZone).ToString());
+                    Console.WriteLine(WMI.TimeZone(ref Data.Temp.TempS).ToString());
                 }
                 if (args.Length == 1 && args[0] == "AutomaticManagedPagefile")
                 {
-                    Console.WriteLine(WMI.AutomaticManagedPagefile(ref Data.Temp.AutomaticManagedPagefile).ToString());
+                    Console.WriteLine(WMI.AutomaticManagedPagefile(ref Data.Temp.TempS).ToString());
                 }
                 if (args.Length == 1 && args[0] == "DNSHostName")
                 {
-                    Console.WriteLine(WMI.DNSHostName(ref Data.Temp.DNSHostName).ToString());
+                    Console.WriteLine(WMI.DNSHostName(ref Data.Temp.TempS).ToString());
                 }
                 if (args.Length == 1 && args[0] == "Domain")
                 {
-                    Console.WriteLine(WMI.Domain(ref Data.Temp.Domain).ToString());
+                    Console.WriteLine(WMI.Domain(ref Data.Temp.TempS).ToString());
                 }
                 if (args.Length == 1 && args[0] == "DomainRole")
                 {
-                    Console.WriteLine(WMI.DomainRole(ref Data.Temp.DomainRole).ToString());
+                    Console.WriteLine(WMI.DomainRole(ref Data.Temp.TempS).ToString());
                 }
                 if (args.Length == 1 && args[0] == "GetSensorProcessor")
                 {
-                    Console.WriteLine($"{{\"data\":[{Temperature.GetCPUSensorName(ref Data.Temp.CPUSensorName)}]}}");
+                    Console.WriteLine($"{{\"data\":[{Temperature.GetCPUSensorName(ref Data.Temp.TempS)}]}}");
                 }
                 if (args[0] == "GetCPUSensorValue" && args[1] != null)
                 {
-                    Console.WriteLine(Temperature.GetCPUSensorValue(args[1], ref Data.Temp.GetCPUSensorValue));
+                    Console.WriteLine(Temperature.GetCPUSensorValue(args[1], ref Data.Temp.TempS));
                 }
                 if (args.Length == 1 && args[0] == "GetDiskSensorName")
                 {
-                    Console.WriteLine($"{{\"data\":[{Temperature.GetDiskSensorName(ref Data.Temp.DiskSensorName)}]}}");
+                    Console.WriteLine($"{{\"data\":[{Temperature.GetDiskSensorName(ref Data.Temp.TempS)}]}}");
                 }
                 if (args[0] == "GetDiskSensorValue" && args[1] != null)
                 {
-                    Console.WriteLine(Temperature.GetDiskSensorValue(args[1], ref Data.Temp.GetDiskSensorValue));
+                    Console.WriteLine(Temperature.GetDiskSensorValue(args[1], ref Data.Temp.TempS));
                 }
                 if (args.Length == 1 && args[0] == "UpdateTC1C")
                 {
@@ -244,6 +244,19 @@ namespace zabbixscr
             {
                 TJ.OpenTJ.FindTJ();
                 Console.WriteLine(TJ.OpenTJ.TJ(ref TJ.DataTJ.Error));
+            }
+            if (args.Length == 1 && args[0] == "GetServices")
+            {
+                Console.WriteLine($"{{\"data\":[{Util.Services.GetServiceName(ref Data.Temp.TempS)}]}}");
+ 
+            }
+            if (args[0] == "StatusService" && args[1] != null)
+            {
+                Console.WriteLine(Util.Services.StatusService(args[1], ref Data.Temp.TempS));
+            }
+            if (args[0] == "StartService" && args[1] != null)
+            {
+               Util.Services.StartService(args[1]);
             }
         }
     }
