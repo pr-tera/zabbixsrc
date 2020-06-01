@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Threading;
 using System.Text;
+using System.Security.Cryptography.X509Certificates;
+using System.Net.Configuration;
 
 namespace zabbixscr
 {
@@ -39,11 +41,6 @@ namespace zabbixscr
                         Task.Abort();
                     }
                 }
-                /*
-                 * 
-                 * Инвенторизация
-                 * 
-                 */
                 if (args.Length == 1 && args[0] == "Mac")
                 {
                     Thread Task = new Thread(Mac);
@@ -664,12 +661,237 @@ namespace zabbixscr
             }
             if (args[0] == "StartService" && args[1] != null)
             {
-                Util.Services.StartService(args[1]);
+                Services.Services.StartService(args[1]);
             }
             if (args.Length == 1 && args[0] == "UpdateTC1C")
             {
                 Util.UPTC1C.UpdateTC1C();
             }
+        }
+        /*
+         * Services
+         */
+        private static void GetServices()
+        {
+            Console.WriteLine($"{{\"data\":[{Services.JSON.GetServiceName.Value}]}}");
+        }
+        private static void StatusService(string args)
+        {
+            Services.Data.argT = args;
+            Console.WriteLine(Services.Args.StatusService.Value);
+        }
+        /*
+         * Temperature args
+         */
+        private static void GetDiskSensorValue(string args)
+        {
+            Temperature.Data.argT = args;
+            Console.WriteLine(Temperature.Args.GetDiskSensorValue.Value);
+        }
+        private static void GetCPUSensorValue(string args)
+        {
+            Console.WriteLine(Temperature.Args.GetCPUSensorValue.Value);
+        }
+        /*
+         * Temperature JSON
+         */
+        private static void GetDiskSensorName()
+        {
+            Console.WriteLine($"{{\"data\":[{Temperature.JSON.GetDiskSensorName.Value}]}}");
+        }
+        private static void GetSensorProcessor()
+        {
+            Console.WriteLine($"{{\"data\":[{Temperature.JSON.GetSensorProcessor.Value}]}}");
+        }
+        /*
+         * WMI
+         */
+        private static void DomainRole()
+        {
+            Console.WriteLine(WMI.DomainRole.Role);
+        }
+        private static void Domain()
+        {
+            Console.WriteLine(WMI.Domain.Name);
+        }
+        private static void DNSHostName()
+        {
+            Console.WriteLine(WMI.DNSHostName.Name);
+        }
+        private static void BoardMaker()
+        {
+            Console.WriteLine(WMI.BoardMaker.Info);
+        }
+        private static void SerialNumber()
+        {
+            Console.WriteLine(WMI.SerialNumber.Info);
+        }
+        private static void MemoryInfo()
+        {
+            Console.WriteLine(WMI.MemoryInfo.Info);
+        }
+        private static void CPUInfo()
+        {
+            Console.WriteLine(WMI.CPUInfo.Info);
+        }
+        private static void CacheBytesM()
+        {
+            Console.WriteLine(WMI.CacheBytesM.Value);
+        }
+        private static void TotalPhysicalMemory()
+        {
+            Console.WriteLine(WMI.TotalPhysicalMemory.Value);
+        }
+        private static void PageSecInDSwap()
+        {
+            Console.WriteLine(WMI.PageSecInDSwap.Value);
+        }
+        private static void ProcessorDetected()
+        {
+            Console.WriteLine($"{{\"data\":[{WMI.JSON.ProcessorDetected.Name}]}}");
+        }
+        private static void TimeZone()
+        {
+            Console.WriteLine(WMIold.TimeZone(ref Data.Temp.TempS).ToString());
+        }
+        private static void AutomaticManagedPagefile()
+        {
+            Console.WriteLine(WMI.AutomaticManagedPagefile.Value);
+        }
+        /*
+         * WMI args
+         */
+        private static void PhysicalDiskSize(string args)
+        {
+            WMI.Data.argT = args;
+            Console.WriteLine(WMI.Args.PhysicalDiskSize.Size);
+        }
+        private static void SerialNumberD(string args)
+        {
+            WMI.Data.argT = args;
+            Console.WriteLine(WMI.Args.SerialNumberD.Serial);
+        }
+        private static void SectionNameD(string args)
+        {
+            WMI.Data.argT = args;
+            Console.WriteLine(WMI.Args.SectionNameD.Name);
+        }
+        private static void SerialNumberLD(string args)
+        {
+            WMI.Data.argT = args;
+            Console.WriteLine(WMI.Args.SerialNumberLD.Number);
+        }
+        private static void CompressedLD(string args)
+        {
+            WMI.Data.argT = args;
+            Console.WriteLine(WMI.Args.CompressedLD.Value);
+        }
+        private static void FileSystemLD(string args)
+        {
+            WMI.Data.argT = args;
+            Console.WriteLine(WMI.Args.FileSystemLD.Value);
+        }
+        private static void SizeLD(string args)
+        {
+            WMI.Data.argT = args;
+            Console.WriteLine(WMI.Args.SizeLD.Size);
+        }
+        private static void FreeSpaceLD(string args)
+        {
+            WMI.Data.argT = args;
+            Console.WriteLine(WMI.Args.FreeSpaceLD.Size);
+        }
+        private static void PercentageFreeSpace(string args)
+        {
+            WMI.Data.argT = args;
+            Console.WriteLine(WMI.Args.PercentageFreeSpace.Size);
+        }
+        private static void ChekDirtyTom(string args)
+        {
+            WMI.Data.argT = args;
+            Console.WriteLine(WMI.Args.ChekDirtyTom.Value);
+        }
+        private static void AvgDiskReadQueueLength(string args)
+        {
+            WMI.Data.argT = args;
+            Console.WriteLine(WMI.Args.AvgDiskReadQueueLength.Value);
+        }
+        private static void AvgDiskWriteQueueLength(string args)
+        {
+            WMI.Data.argT = args;
+            Console.WriteLine(WMI.Args.AvgDiskReadQueueLength.Value);
+        }
+        private static void SplitIOPerSec(string args)
+        {
+            WMI.Data.argT = args;
+            Console.WriteLine(WMI.Args.SplitIOPerSec.Value);
+        }
+        private static void LoadPercentageP(string args)
+        {
+            WMI.Data.argT = args;
+            Console.WriteLine(WMI.Args.LoadPercentageP.Value);
+        }
+        private static void CurrentClockSpeedP(string args)
+        {
+            WMI.Data.argT = args;
+            Console.WriteLine(WMI.Args.CurrentClockSpeedP.Value);
+        }
+        private static void VirtualizationFirmwareEnabled(string args)
+        {
+            WMI.Data.argT = args;
+            Console.WriteLine(WMI.Args.VirtualizationFirmwareEnabled.Value);
+        }
+        private static void SerialNumberP(string args)
+        {
+            WMI.Data.argT = args;
+            Console.WriteLine(WMI.Args.SerialNumberP.Value);
+        }
+        /*
+         * WMI json
+         */
+        private static void PhysicalDisk()
+        {
+            Console.WriteLine($"{{\"data\":[{WMI.JSON.PhysicalDisk.Name}]}}");
+        }
+        private static void LogicalDisk()
+        {
+            Console.WriteLine($"{{\"data\":[{WMI.JSON.LogicalDisk.Name}]}}");
+        }
+        /*
+         * PerfCounter
+         */
+        private static void AvailableMBytesM()
+        {
+            Console.WriteLine(PerfCounter.AvailableMBytesM.Value);
+        }
+        /*
+         *  Environment
+         */
+        private static void PCName()
+        {
+            Console.WriteLine(Environment.MachineName);
+        }
+        private static void OSVersion()
+        {
+            Console.WriteLine(Environment.OSVersion);
+        }
+        /*
+         * Othe
+         */
+        private static void Mac()
+        {
+            Console.WriteLine(Othe.Mac.Addr);
+        }
+        private static void SMART()
+        {
+            Auxiliary SMART = new Auxiliary();
+            SMART.SMART();
+        }
+        private static void UserPersonalFolberSize(string args)
+        {
+            Catalogs catalogs = new Catalogs();
+            catalogs.GetSizeUserFolber(args, ref Data.Temp.TempD);
+            Console.WriteLine(Data.Temp.TempD.ToString(System.Globalization.CultureInfo.GetCultureInfo("en-US")));
         }
         private static void UserPersonalFolder()
         {
@@ -677,185 +899,6 @@ namespace zabbixscr
             catalogs.GetUserFolber();
             string u = string.Join(",", Data.LisrDat.TempL);
             Console.WriteLine($"{{\"data\":[{u}]}}");
-        }
-        private static void GetServices()
-        {
-            Console.WriteLine($"{{\"data\":[{Util.Services.GetServiceName(ref Data.Temp.TempS)}]}}");
-        }
-        private static void StatusService(string args)
-        {
-            Console.WriteLine(Util.Services.StatusService(args, ref Data.Temp.TempS));
-        }
-        private static void GetDiskSensorValue(string args)
-        {
-            Console.WriteLine(Temperature.GetDiskSensorValue(args, ref Data.Temp.TempS));
-        }
-        private static void GetDiskSensorName()
-        {
-            Console.WriteLine($"{{\"data\":[{Temperature.GetDiskSensorName(ref Data.Temp.TempS)}]}}");
-        }
-        private static void GetCPUSensorValue(string args)
-        {
-            Console.WriteLine(Temperature.GetCPUSensorValue(args, ref Data.Temp.TempS));
-        }
-        private static void GetSensorProcessor()
-        {
-            Console.WriteLine($"{{\"data\":[{Temperature.GetCPUSensorName(ref Data.Temp.TempS)}]}}");
-        }
-        private static void DomainRole()
-        {
-            Console.WriteLine(WMI.DomainRole(ref Data.Temp.TempS).ToString());
-        }
-        private static void Domain()
-        {
-            Console.WriteLine(WMI.Domain(ref Data.Temp.TempS).ToString());
-        }
-        private static void DNSHostName()
-        {
-            Console.WriteLine(WMI.DNSHostName(ref Data.Temp.TempS).ToString());
-        }
-        private static void AutomaticManagedPagefile()
-        {
-            Console.WriteLine(WMI.AutomaticManagedPagefile(ref Data.Temp.TempS).ToString());
-        }
-        private static void TimeZone()
-        {
-            Console.WriteLine(WMI.TimeZone(ref Data.Temp.TempS).ToString());
-        }
-        private static void SerialNumberP(string args)
-        {
-            Console.WriteLine(WMI.SerialNumberP(args, ref Data.Temp.TempS).ToString());
-        }
-        private static void VirtualizationFirmwareEnabled(string args)
-        {
-            Console.WriteLine(WMI.VirtualizationFirmwareEnabled(args, ref Data.Temp.TempS).ToString());
-        }
-        private static void CurrentClockSpeedP(string args)
-        {
-            Console.WriteLine(WMI.CurrentClockSpeedP(args, ref Data.Temp.TempI).ToString());
-        }
-        private static void LoadPercentageP(string args)
-        {
-            Console.WriteLine(WMI.LoadPercentageP(args, ref Data.Temp.TempI).ToString());
-        }
-        private static void ProcessorDetected()
-        {
-            Console.WriteLine($"{{\"data\":[{WMI.ProcessorDetected(ref Data.Temp.TempS)}]}}");
-        }
-        private static void PageSecInDSwap()
-        {
-            Console.WriteLine(WMI.PageSecInDSwap(ref Data.Temp.TempD).ToString());
-        }
-        private static void TotalPhysicalMemory()
-        {
-            Console.WriteLine(WMI.TotalPhysicalMemory(ref Data.Temp.TempD).ToString());
-        }
-        private static void CacheBytesM()
-        {
-            Console.WriteLine(WMI.CacheBytesM(ref Data.Temp.TempD).ToString());
-        }
-        private static void AvailableMBytesM()
-        {
-            Console.WriteLine(WMI.AvailableMBytesM(ref Data.Temp.TempD).ToString());
-        }
-        private static void SplitIOPerSec(string args)
-        {
-            Console.WriteLine(WMI.SplitIOPerSec(args, ref Data.Temp.TempI).ToString());
-        }
-        private static void AvgDiskWriteQueueLength(string args)
-        {
-            Console.WriteLine(WMI.AvgDiskWriteQueueLength(args, ref Data.Temp.TempI).ToString());
-        }
-        private static void AvgDiskReadQueueLength(string args)
-        {
-            Console.WriteLine(WMI.AvgDiskReadQueueLength(args, ref Data.Temp.TempI).ToString());
-        }
-        private static void ChekDirtyTom(string args)
-        {
-            Console.WriteLine(WMI.ChekDirtyTom(args, ref Data.Temp.TempS));
-        }
-        private static void PercentageFreeSpace(string args)
-        {
-            Console.WriteLine(WMI.PercentageFreeSpace(args, ref Data.Temp.TempD));
-        }
-        private static void FreeSpaceLD(string args)
-        {
-            Console.WriteLine(WMI.FreeSpaceLD(args, ref Data.Temp.TempD));
-        }
-        private static void SizeLD(string args)
-        {
-            Console.WriteLine(WMI.SizeLD(args, ref Data.Temp.TempD));
-        }
-        private static void FileSystemLD(string args)
-        {
-            Console.WriteLine(WMI.FileSystemLD(args, ref Data.Temp.TempS));
-        }
-        private static void CompressedLD(string args)
-        {
-            Console.WriteLine(WMI.CompressedLD(args, ref Data.Temp.TempS));
-        }
-        private static void SerialNumberLD(string args)
-        {
-            Console.WriteLine(WMI.SerialNumberLD(args, ref Data.Temp.TempS));
-        }
-        private static void SectionNameD(string args)
-        {
-            Console.WriteLine(WMI.SectionNameD(args, ref Data.Temp.TempS).ToString(System.Globalization.CultureInfo.GetCultureInfo("ru-RU")));
-        }
-        private static void LogicalDisk()
-        {
-            Console.WriteLine($"{{\"data\":[{WMI.LogicalDisk(ref Data.Temp.TempS)}]}}");
-        }
-        private static void SerialNumberD(string args)
-        {
-            Console.WriteLine(WMI.SerialNumber(args, ref Data.Temp.TempS));
-        }
-        private static void PhysicalDiskSize(string args)
-        {
-            Console.WriteLine(WMI.PhysicalDiskSize(args, ref Data.Temp.TempD));
-        }
-        private static void SMART()
-        {
-            Auxiliary SMART = new Auxiliary();
-            SMART.SMART();
-        }
-        private static void PhysicalDisk()
-        {
-            Console.WriteLine($"{{\"data\":[{WMI.PhysicalDisk(ref Data.Temp.TempS)}]}}");
-        }
-        private static void CPUInfo()
-        {
-            Console.WriteLine(WMI.CPUInfo(ref Data.Temp.TempS));
-        }
-        private static void MemoryInfo()
-        {
-            Console.WriteLine(WMI.MemoryInfo(ref Data.Temp.TempS));
-        }
-        private static void OSVersion()
-        {
-            Console.WriteLine(Environment.OSVersion);
-        }
-        private static void PCName()
-        {
-            Console.WriteLine(Environment.MachineName);
-        }
-        private static void SerialNumber()
-        {
-            Console.WriteLine(WMI.SerialNumber(ref Data.Temp.TempS));
-        }
-        private static void BoardMaker()
-        {
-            Console.WriteLine(WMI.BoardMaker(ref Data.Temp.TempS));
-        }
-        private static void Mac()
-        {
-            Console.WriteLine(WMI.Mac(ref Data.Temp.TempS));
-        }
-        private static void UserPersonalFolberSize(string args)
-        {
-            Catalogs catalogs = new Catalogs();
-            catalogs.GetSizeUserFolber(args, ref Data.Temp.TempD);
-            Console.WriteLine(Data.Temp.TempD.ToString(System.Globalization.CultureInfo.GetCultureInfo("en-US")));
         }
     }
 }

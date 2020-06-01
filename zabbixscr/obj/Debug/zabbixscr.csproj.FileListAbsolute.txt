@@ -25,3 +25,4 @@ C:\Users\tera\Source\Repos\jallybally\zabbixscr\zabbixscr\bin\Debug\System.Servi
 C:\Users\tera\Source\Repos\jallybally\zabbixscr\zabbixscr\bin\Debug\System.Diagnostics.EventLog.xml
 C:\Users\tera\Source\Repos\jallybally\zabbixscr\zabbixscr\bin\Debug\System.Security.Principal.Windows.xml
 C:\Users\tera\Source\Repos\jallybally\zabbixscr\zabbixscr\bin\Debug\System.ServiceProcess.ServiceController.xml
+C:\Users\tera\Source\Repos\jallybally\zabbixscr\zabbixscr\obj\Debug\zabbixscr.csproj.CoreCompileInputs.cache

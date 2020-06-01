@@ -8,7 +8,7 @@ namespace zabbixscr
     /*
      * Класс описывает функции WMI
      */
-    class WMI
+    class WMIold
     {
         //MAC адрес компьютера
         public static string Mac(ref string Mac)
@@ -201,27 +201,10 @@ namespace zabbixscr
             return PhysicalDisk;
         }
         //Размер физ.диска
-        public static double PhysicalDiskSize(string arg, ref double PhysicalDiskSize)
-        {
-            ManagementObjectSearcher i = new ManagementObjectSearcher("root\\CIMV2", "SELECT * FROM Win32_DiskDrive");
-            foreach (ManagementObject y in i.Get())
-            {
-                try
-                {
-                    if (Convert.ToString(y["Model"]) == arg)
-                    {
-                        PhysicalDiskSize = Math.Round((double)Convert.ToInt64(y["Size"]) / 1024 / 1024 / 1024, 0);
-                    }
-                }
-                catch
-                {
-                    PhysicalDiskSize = 0;
-                    break;
-                }
-            }
-            i.Dispose();
-            return PhysicalDiskSize;
-        }
+        //public static double PhysicalDiskSize(string arg, ref double PhysicalDiskSize)
+        //{
+
+        //}
         //Серийный номер
         public static string SerialNumber(string arg, ref string SerialNumber)
         {

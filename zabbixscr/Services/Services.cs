@@ -1,53 +1,10 @@
 ﻿using System;
-using System.Threading;
 using System.ServiceProcess;
 
-namespace zabbixscr.Util
+namespace zabbixscr.Services
 {
     class Services
     {
-        public static string GetServiceName(ref string Name)
-        {
-            try
-            {
-                foreach (var i in ServiceController.GetServices())
-                {
-                    if (i.StartType == ServiceStartMode.Automatic)
-                    {
-                        //if (i.ServiceName.Contains("1C:Enterprise") || i.ServiceName.Contains("1C:") || i.ServiceName.Contains("1С:"))
-                        //{
-                        //    Data.LisrDat.TempL.Add(Convert.ToString($"{{\"{{#1CSERVICESNAME}}\":\"{Convert.ToString(i.ServiceName).Replace("(", "LScobk").Replace(")", "RScobck")}\"}}"));
-                        //}
-                        Data.LisrDat.TempL.Add(Convert.ToString($"{{\"{{#SERVICESNAME}}\":\"{Convert.ToString(i.ServiceName).Replace("(", "RTIJ7ANL").Replace(")", "RTIJ7ANR").Replace("$","EROF8IJS")}\"}}"));
-                    }
-                }
-                Name = string.Join(",", Data.LisrDat.TempL);
-            }
-            catch (Exception e)
-            {
-                Name = Convert.ToString(e);
-            }
-            return Name;
-        }
-        public static string StatusService(string Name, ref string Status)
-        {
-            Name = Name.Replace("RTIJ7ANL", "(").Replace("RTIJ7ANR", ")").Replace("EROF8IJS","$");
-            try
-            {
-                foreach (var i in ServiceController.GetServices())
-                {
-                    if (i.ServiceName == Name)
-                    {
-                        Status = Convert.ToString(i.Status);
-                    }
-                }
-            }
-            catch (Exception e)
-            {
-                Status = Convert.ToString(e);
-            }
-            return Status;
-        }
         public static void StartService(string Name)
         {
             DateTime Date1 = DateTime.Now;

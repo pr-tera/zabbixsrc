@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Management;
-using System.Runtime.InteropServices;
 
 namespace zabbixscr
 {
@@ -71,57 +70,47 @@ namespace zabbixscr
         }
         public static string TypeDetailMemory(int Number, ref string TypeDetail)
         {
-            if (Number == 1)
+            switch (Number)
             {
-                TypeDetail = "Reserved";
-            }
-            if (Number == 2)
-            {
-                TypeDetail = "Other";
-            }
-            if (Number == 4)
-            {
-                TypeDetail = "Unknown";
-            }
-            if (Number == 8)
-            {
-                TypeDetail = "Fast-paged";
-            }
-            if (Number == 16)
-            {
-                TypeDetail = "Static column";
-            }
-            if (Number == 32)
-            {
-                TypeDetail = "Pseudo-static";
-            }
-            if (Number == 64)
-            {
-                TypeDetail = "RAMBUS";
-            }
-            if (Number == 128)
-            {
-                TypeDetail = "Synchronous";
-            }
-            if (Number == 256)
-            {
-                TypeDetail = "CMOS";
-            }
-            if (Number == 512)
-            {
-                TypeDetail = "EDO";
-            }
-            if (Number == 1024)
-            {
-                TypeDetail = "Window DRAM";
-            }
-            if (Number == 2048)
-            {
-                TypeDetail = "Cache DRAM";
-            }
-            if (Number == 4096)
-            {
-                TypeDetail = "Non-volatile";
+                case 1:
+                    TypeDetail = "Reserved";
+                    break;
+                case 2:
+                    TypeDetail = "Other";
+                    break;
+                case 4:
+                    TypeDetail = "Unknown";
+                    break;
+                case 8:
+                    TypeDetail = "Fast-paged";
+                    break;
+                case 16:
+                    TypeDetail = "Static column";
+                    break;
+                case 32:
+                    TypeDetail = "Pseudo-static";
+                    break;
+                case 64:
+                    TypeDetail = "RAMBUS";
+                    break;
+                case 128:
+                    TypeDetail = "Synchronous";
+                    break;
+                case 256:
+                    TypeDetail = "CMOS";
+                    break;
+                case 512:
+                    TypeDetail = "EDO";
+                    break;
+                case 1024:
+                    TypeDetail = "Window DRAM";
+                    break;
+                case 2048:
+                    TypeDetail = "Cache DRAM";
+                    break;
+                case 4096:
+                    TypeDetail = "Non-volatile";
+                    break;
             }
             return TypeDetail;
         }

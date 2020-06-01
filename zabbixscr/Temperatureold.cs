@@ -3,7 +3,7 @@ using System;
 
 namespace zabbixscr
 {
-    class Temperature
+    class Temperatureold
     {
         public class UpdateVisitor : IVisitor
         {

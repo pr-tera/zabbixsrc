@@ -69,7 +69,33 @@
   <ItemGroup>
     <Compile Include="Auxiliary.cs" />
     <Compile Include="Catalogs.cs" />
-    <Compile Include="Temperature.cs" />
+    <Compile Include="Services\Data.cs" />
+    <Compile Include="Services\JSON\GetServiceName.cs" />
+    <Compile Include="Services\Args\StatusService.cs" />
+    <Compile Include="Temperature\Args\GetCPUSensorValue.cs" />
+    <Compile Include="Temperature\Args\GetDiskSensorValue.cs" />
+    <Compile Include="Temperature\Data.cs" />
+    <Compile Include="Temperature\JSON\GetSensorProcessor.cs" />
+    <Compile Include="Temperature\JSON\GetDiskSensorName.cs" />
+    <Compile Include="Temperature\UpdateVisitor.cs" />
+    <Compile Include="WMI\Args\AvgDiskReadQueueLength.cs" />
+    <Compile Include="WMI\Args\AvgDiskWriteQueueLength.cs" />
+    <Compile Include="PerfCounter\AvailableMBytesM.cs" />
+    <Compile Include="WMI\Args\CurrentClockSpeedP.cs" />
+    <Compile Include="WMI\Args\LoadPercentageP.cs" />
+    <Compile Include="WMI\Args\SerialNumberP.cs" />
+    <Compile Include="WMI\Args\VirtualizationFirmwareEnabled.cs" />
+    <Compile Include="WMI\AutomaticManagedPagefile.cs" />
+    <Compile Include="WMI\BoardMaker.cs" />
+    <Compile Include="WMI\Args\ChekDirtyTom.cs" />
+    <Compile Include="WMI\Args\CompressedLD.cs" />
+    <Compile Include="WMI\CacheBytesM.cs" />
+    <Compile Include="WMI\CPUInfo.cs" />
+    <Compile Include="WMI\Data.cs" />
+    <Compile Include="WMI\DNSHostName.cs" />
+    <Compile Include="WMI\Domain.cs" />
+    <Compile Include="WMI\DomainRole.cs" />
+    <Compile Include="Temperatureold.cs" />
     <Compile Include="TJ\DataTJ.cs" />
     <Compile Include="TJ\OpenTJ.cs" />
     <Compile Include="Data\ListDat.cs" />
@@ -81,9 +107,27 @@
     <Compile Include="SMBIOSdata.cs" />
     <Compile Include="SMBIOStable.cs" />
     <Compile Include="Util\Const.cs" />
-    <Compile Include="Util\Services.cs" />
+    <Compile Include="Services\Services.cs" />
     <Compile Include="Util\UPTC1C.cs" />
-    <Compile Include="WMI.cs" />
+    <Compile Include="WMIold.cs" />
+    <Compile Include="Othe\Mac.cs" />
+    <Compile Include="WMI\Args\FileSystemLD.cs" />
+    <Compile Include="WMI\Args\FreeSpaceLD.cs" />
+    <Compile Include="WMI\JSON\LogicalDisk.cs" />
+    <Compile Include="WMI\JSON\ProcessorDetected.cs" />
+    <Compile Include="WMI\MemoryInfo.cs" />
+    <Compile Include="WMI\Args\PercentageFreeSpace.cs" />
+    <Compile Include="WMI\JSON\PhysicalDisk.cs" />
+    <Compile Include="WMI\Args\PhysicalDiskSize.cs" />
+    <Compile Include="WMI\Args\SectionNameD.cs" />
+    <Compile Include="WMI\PageSecInDSwap.cs" />
+    <Compile Include="WMI\SerialNumber.cs" />
+    <Compile Include="WMI\Args\SerialNumberD.cs" />
+    <Compile Include="WMI\Args\SerialNumberLD.cs" />
+    <Compile Include="WMI\Args\SizeLD.cs" />
+    <Compile Include="WMI\Args\SplitIOPerSec.cs" />
+    <Compile Include="WMI\TimeZone.cs" />
+    <Compile Include="WMI\TotalPhysicalMemory.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -100,6 +144,7 @@
     <Analyzer Include="..\packages\Microsoft.NetFramework.Analyzers.3.0.0\analyzers\dotnet\cs\Microsoft.NetFramework.Analyzers.dll" />
     <Analyzer Include="..\packages\Microsoft.NetFramework.Analyzers.3.0.0\analyzers\dotnet\cs\Microsoft.NetFramework.CSharp.Analyzers.dll" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
