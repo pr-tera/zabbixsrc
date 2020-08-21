@@ -49,3 +49,4 @@ namespace zabbixscr.Temperature.Args
         }
     }
 }
+//.Remove(Data.argT.Length - 2)

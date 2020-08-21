@@ -1,21 +1,63 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Xml;
-using System.Xml.Linq;
 using System.IO;
 using System.Text.RegularExpressions;
+using System.Collections.Generic;
+using System.Security;
+using Microsoft.SqlServer.Server;
 
 namespace zabbixscr.TJ
 {
+    struct Data
+    {
+        internal static List<string> Path = new List<string>();
+        internal static List<string> TJ = new List<string>();
+        internal static List<string> TJold = new List<string>();
+        internal static string RootDirTJ { get; } = @"C:\LOG1C";
+        internal static string Message
+        {
+            get
+            {
+                return @"C:\LOG1C\Message";
+            }
+        }
+        internal static int CurrentIndexMessage 
+        {
+            get
+            {
+                return TJ.Count;
+            }
+        }
+        internal static bool ExistsXML
+        {
+            get
+            {
+                if (File.Exists(Message))
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+                
+            }
+        }
+        internal static int IndexMessage { get; set; }
+        internal static string LogPath;
+        internal static string Error { get; set; }
+        internal static string CurrentDate { get; set; }
+    }
     class OpenTJ
     {
         public static void FindTJ()
         {
-            DataTJ.CurrentDate = DateTime.Now.ToString("yyMMddHH");
-            DataTJ.Path = SearchForCurrentLog(DataTJ.RootDirTJ, ref DataTJ.Path);
+            Data.CurrentDate = DateTime.Now.ToString("yyMMddHH");
+            //DataTJ.Path = SearchForCurrentLog(DataTJ.RootDirTJ);
+            SearchForCurrentLog(Data.RootDirTJ);
         }
-        public static string SearchForCurrentLog(string FilePath, ref string Path)
+        public static void SearchForCurrentLog(string FilePath)
         {
             DirectoryInfo Dir = new DirectoryInfo(FilePath);
             DirectoryInfo[] DirA = Dir.GetDirectories();
@@ -26,23 +68,28 @@ namespace zabbixscr.TJ
                     FileInfo[] Fi = y.GetFiles();
                     foreach (FileInfo i in Fi)
                     {
-                        if (i.Name.Contains(DataTJ.CurrentDate))
+                        //if (i.Name.Contains(DataTJ.CurrentDate))
+                        //{
+                        //    Path = i.FullName;
+                        //    break;
+                        //}
+                        if (i.Name.Contains(Data.CurrentDate))
                         {
-                            Path = i.FullName;
-                            break;
+                            Data.Path.Add(i.FullName);
+                            //break;
                         }
                     }
                 }
                 else
                 {
-                    SearchForCurrentLog(y.FullName, ref Path);
+                    SearchForCurrentLog(y.FullName);
                 }
             }
-            return Path;
+            //return true;
         }
-        public static string TJ(ref string Error)
+        private static void GetTJ(string path)
         {
-            using (FileStream FileStream = new FileStream(DataTJ.Path, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
+            using (FileStream FileStream = new FileStream(path, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
             {
                 using (StreamReader Reader = new StreamReader(FileStream))
                 {
@@ -52,138 +99,205 @@ namespace zabbixscr.TJ
                     {
                         if (Reg.IsMatch(line))
                         {
-                            DataTJ.TJ.Add($"{line}\n");
+                            Data.TJ.Add($"{line}\n");
                         }
                         else
                         {
-                            string i = DataTJ.TJ.Last();
-                            i += line;
-                            DataTJ.TJ.Remove(DataTJ.TJ.Last());
-                            DataTJ.TJ.Add($"{i}\n");
+                            string str = Data.TJ.Last();
+                            str += line;
+                            Data.TJ.Remove(Data.TJ.Last());
+                            Data.TJ.Add($"{str}\n");
                         }
                     }
                 }
             }
-            DataTJ.CurrentIndexMessage = DataTJ.TJ.Count;
-            if (CheckXML.ExistsXML(ref DataTJ.ExistsXML) == true)
-            {
-                CheckXML.GetXMLString();
-                if (File.Exists(DataTJ.LogPath))
-                {
-                    if (DataTJ.Path == DataTJ.LogPath)
-                    {
-                        if (DataTJ.IndexMessage < DataTJ.CurrentIndexMessage)
-                        {
-                            if (DataTJ.IndexMessage <= 0)
-                            {
-                                foreach (var i in DataTJ.TJ)
-                                {
-                                    Error += $"{i}\n";
-                                }
-                                CheckXML.RenXML();
-                            }
-                            else
-                            {
-                                DataTJ.TJ.RemoveRange(0, DataTJ.IndexMessage);
-                                foreach (var i in DataTJ.TJ)
-                                {
-                                    Error += $"{i}\n";
-                                    CheckXML.RenXML();
-                                }
-                            }
-                        }
-                        else if (DataTJ.IndexMessage == DataTJ.CurrentIndexMessage)
-                        {
-                            Error = "";
-                        }
-                    }
-                    else
-                    {
-                        using (FileStream FileStream = new FileStream(DataTJ.LogPath, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
-                        {
-                            using (StreamReader Reader = new StreamReader(FileStream))
-                            {
-                                string line;
-                                Regex Reg = new Regex(@"[0-9](\b{2}\.\d{6})");
-                                while ((line = Reader.ReadLine()) != null)
-                                {
-                                    if (Reg.IsMatch(line))
-                                    {
-                                        DataTJ.TempTJ.Add(line);
-                                    }
-                                    else
-                                    {
-                                        string i = DataTJ.TempTJ.Last();
-                                        i += line;
-                                        DataTJ.TempTJ.Remove(DataTJ.TempTJ.Last());
-                                        DataTJ.TempTJ.Add(i);
-                                    }
-                                }
-                            }
-                        }
-                        if (DataTJ.IndexMessage < DataTJ.TempTJ.Count)
-                        {
-                            DataTJ.TempTJ.RemoveRange(0, DataTJ.IndexMessage);
-                            foreach (var i in DataTJ.TempTJ)
-                            {
-                                Error += $"{i}\n";
-                            }
-                            foreach (var i in DataTJ.TJ)
-                            {
-                                Error += $"{i}\n";
-                            }
-                            CheckXML.RenXML();
-                        }
-                        else
-                        {
-                            Error = "101";
-                            CheckXML.RenXML();
-                        }
-                    }
-                }
-                else if (!File.Exists(DataTJ.LogPath))
-                {
-                    try
-                    {
-                        //DataTJ.TempTJ.RemoveRange(0, DataTJ.IndexMessage);
-                        foreach (var i in DataTJ.TempTJ)
-                        {
-                            Error += $"{i}\n";
-                        }
-                        foreach (var i in DataTJ.TJ)
-                        {
-                            Error += $"{i}\n";
-                        }
-                        CheckXML.RenXML();
-                    }
-                    catch (Exception e)
-                    {
-                        Console.WriteLine(e);
-                    }
-                }
-            }
-            else
-            {
-                CheckXML.GenXml();
-                TJ(ref DataTJ.Error);
-            }
-            return Error;
         }
-        class CheckXML : OpenTJ
+        public static void TJ()
         {
-            public static bool ExistsXML(ref bool ExistsXML)
+            DirectoryInfo di = new DirectoryInfo(Data.Message);
+            FileInfo[] fi = di.GetFiles();
+            int ver = 0;
+            foreach (var i in Data.Path)
             {
-                if (File.Exists(DataTJ.MessageNumber))
+                GetTJ(i.ToString());
+                if (fi.Length == 0)
                 {
-                    ExistsXML = true;
+                    ver++;
+                    CheckXML.GenXml($"{Data.Message}\\{Data.CurrentDate}{ver}.xml", i.ToString());
+                    Data.Error += $"---------------{i}---------------\n";
+                    foreach (var y in Data.TJ)
+                    {
+                        Data.Error += $"{y}\n";
+                    }
                 }
                 else
-                {
-                    ExistsXML = false;
+                {                    
+                    foreach (var messagePath in fi)
+                    {
+                        CheckXML.GetXMLString(messagePath.FullName);
+                        if (i == Data.LogPath)
+                        {
+                            if (Data.IndexMessage < Data.TJ.Count)
+                            {
+                                //если передано строк меньше чем текущее
+                                if (Data.IndexMessage <= 0)
+                                {
+                                    //если передано строк меньше или равно 0
+                                    Data.Error += $"---------------{i}---------------\n";
+                                    foreach (var str in Data.TJ)
+                                    {
+                                        Data.Error += $"{str}\n";
+                                    }
+                                    CheckXML.RenXML(messagePath.FullName);
+                                }
+                                else
+                                {
+                                    //передано строк строк больше 0
+                                    Data.TJ.RemoveRange(0, Data.IndexMessage);
+                                    Data.Error += $"---------------{i}---------------\n";
+                                    foreach (var str in Data.TJ)
+                                    {
+                                        Data.Error += $"{i}\n";
+                                        CheckXML.RenXML(messagePath.FullName);
+                                    }
+                                }
+                            }
+                            else if (Data.IndexMessage == Data.TJ.Count)
+                            {
+                                //передано столько же строк
+                                Data.Error = "";
+                            }
+                        }
+
+                    }
                 }
-                return ExistsXML;
             }
-            public static void GenXml()
+        }
+        //public static void TestTJ()
+        //{
+        //    /*
+        //     * прогоняю все файлы из списка с текущей отметкой времени 
+        //     */
+        //    foreach (var path in Data.Path)
+        //    {
+        //        using (FileStream FileStream = new FileStream(path, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
+        //        {
+        //            using (StreamReader Reader = new StreamReader(FileStream))
+        //            {
+        //                string line;
+        //                Regex Reg = new Regex(@"[0-9](\b{2}\.\d{6})");
+        //                while ((line = Reader.ReadLine()) != null)
+        //                {
+        //                    if (Reg.IsMatch(line))
+        //                    {
+        //                        Data.TJ.Add($"{line}\n");
+        //                    }
+        //                    else
+        //                    {
+        //                        string str = Data.TJ.Last();
+        //                        str += line;
+        //                        Data.TJ.Remove(Data.TJ.Last());
+        //                        Data.TJ.Add($"{str}\n");
+        //                    }
+        //                }
+        //            }
+        //        }
+        //        DirectoryInfo di = new DirectoryInfo(Data.Message);
+        //        FileInfo[] fi = di.GetFiles();
+        //        if (fi.Length != 0)
+        //        {
+        //            foreach (var f in fi)
+        //            {
+        //                string pathlog = Data.Message + path + ".xml";
+        //                CheckXML.GetXMLString();
+        //                if (f.FullName == Data.LogPath)
+        //                {
+        //                    if (Data.IndexMessage < Data.TJ.Count)
+        //                    {
+        //                        //если передано строк меньше чем текущее
+        //                        if (Data.IndexMessage <= 0)
+        //                        {
+        //                            //если передано строк меньше или равно 0
+        //                            foreach (var i in Data.TJ)
+        //                            {
+        //                                Data.Error += $"{i}\n";
+        //                            }
+        //                            CheckXML.RenXML(f.FullName);
+        //                        }
+        //                        else
+        //                        {
+        //                            //передано строк строк больше 0
+        //                            DataTJ.TJ.RemoveRange(0, DataTJ.IndexMessage);
+        //                            foreach (var i in DataTJ.TJ)
+        //                            {
+        //                                Data.Error += $"{i}\n";
+        //                                //CheckXML.RenXML();
+        //                            }
+        //                        }
+        //                    }
+        //                    else if (Data.IndexMessage == Data.TJ.Count)
+        //                    {
+        //                        //передано столько же строк
+        //                        Data.Error = "";
+        //                    }
+        //                }
+        //                else
+        //                {
+        //                    //текущей файл лога != прошлому
+        //                    using (FileStream FileStream = new FileStream(Data.LogPath, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
+        //                    {
+        //                        using (StreamReader Reader = new StreamReader(FileStream))
+        //                        {
+        //                            string line;
+        //                            Regex Reg = new Regex(@"[0-9](\b{2}\.\d{6})");
+        //                            while ((line = Reader.ReadLine()) != null)
+        //                            {
+        //                                if (Reg.IsMatch(line))
+        //                                {
+        //                                    Data.TJold.Add(line);
+        //                                }
+        //                                else
+        //                                {
+        //                                    string i = Data.TJold.Last();
+        //                                    i += line;
+        //                                    Data.TJold.Remove(Data.TJold.Last());
+        //                                    Data.TJold.Add(i);
+        //                                }
+        //                            }
+        //                        }
+        //                    }
+        //                    if (Data.IndexMessage < Data.TJold.Count)
+        //                    {
+        //                        Data.TJold.RemoveRange(0, Data.IndexMessage);
+        //                        foreach (var i in Data.TJold)
+        //                        {
+        //                            Data.Error += $"{i}\n";
+        //                        }
+        //                        foreach (var i in Data.TJ)
+        //                        {
+        //                            Data.Error += $"{i}\n";
+        //                        }
+        //                        CheckXML.RenXML(Data.LogPath);
+        //                    }
+        //                    else
+        //                    {
+        //                        Data.Error = "101";
+        //                        CheckXML.RenXML(Data.Message + "\\" + Data.CurrentDate + ".xml");
+        //                    }
+        //                }
+        //            }
+        //        }
+        //        else
+        //        {
+        //            //Файл обмена не существует
+        //            CheckXML.GenXml(path);
+        //            TestTJ();
+        //        }
+        //    }
+        //}
+        class CheckXML
+        { 
+            public static void GenXml(string path, string logPath)
             {
                 XmlDocument XmlMess = new XmlDocument();
                 XmlDeclaration XmlDec = XmlMess.CreateXmlDeclaration("1.0", null, null);
@@ -191,29 +305,113 @@ namespace zabbixscr.TJ
                 XmlElement xOptions = XmlMess.CreateElement("Options");
                 XmlMess.AppendChild(xOptions);
                 XmlElement xFile = XmlMess.CreateElement("File");
-                xFile.InnerText = DataTJ.Path;
+                xFile.InnerText = logPath;
                 xOptions.AppendChild(xFile);
                 XmlElement xNumber = XmlMess.CreateElement("Number");
-                xNumber.InnerText = DataTJ.CurrentIndexMessage.ToString();
+                xNumber.InnerText = Data.CurrentIndexMessage.ToString();
                 xOptions.AppendChild(xNumber);
-                XmlMess.Save(DataTJ.MessageNumber);
-                GetXMLString();
+                XmlMess.Save(path);
             }
-            public static void GetXMLString()
+            public static void GetXMLString(string path)
+            {                
+                XmlDocument XmlMess = new XmlDocument();
+                XmlMess.Load(path);
+                Data.IndexMessage = Convert.ToInt32(XmlMess.SelectSingleNode("Options/Number").InnerText);
+                Data.LogPath = Convert.ToString(XmlMess.SelectSingleNode("Options/File").InnerText);
+            }
+            public static void RenXML(string logPath)
             {
                 XmlDocument XmlMess = new XmlDocument();
-                XmlMess.Load(DataTJ.MessageNumber);
-                DataTJ.IndexMessage = Convert.ToInt32(XmlMess.SelectSingleNode("Options/Number").InnerText);
-                DataTJ.LogPath = Convert.ToString(XmlMess.SelectSingleNode("Options/File").InnerText);
-            }
-            public static void RenXML()
-            {
-                XmlDocument XmlMess = new XmlDocument();
-                XmlMess.Load(DataTJ.MessageNumber);
-                XmlMess.SelectSingleNode($@"Options[Number=""{DataTJ.CurrentIndexMessage}""]");
-                XmlMess.SelectSingleNode($@"Options[File=""{DataTJ.Path}""]");
-                XmlMess.Save(DataTJ.MessageNumber);
+                XmlMess.Load(logPath);
+                XmlMess.SelectSingleNode($@"Options[Number=""{Data.CurrentIndexMessage}""]");
+                XmlMess.SelectSingleNode($@"Options[File=""{Data.Path}""]");
+                XmlMess.Save(logPath);
             }
         }
     }
 }
+//                    if (File.Exists(pathlog))
+//                    {
+//                        CheckXML.GetXMLString(pathlog);
+//                        if (f.FullName == Data.LogPath)
+//                        {
+//                            if (Data.IndexMessage<Data.TJ.Count)
+//                            {
+//                                //если передано строк меньше чем текущее
+//                                if (Data.IndexMessage <= 0)
+//                                {
+//                                    //если передано строк меньше или равно 0
+//                                    foreach (var i in Data.TJ)
+//                                    {
+//                                        Data.Error += $"{i}\n";
+//                                    }
+//                                    CheckXML.RenXML(f.FullName);
+//                                }
+//                                else
+//                                {
+//                                    //передано строк строк больше 0
+//                                    DataTJ.TJ.RemoveRange(0, DataTJ.IndexMessage);
+//                                    foreach (var i in DataTJ.TJ)
+//                                    {
+//                                        Data.Error += $"{i}\n";
+//                                        //CheckXML.RenXML();
+//                                    }
+//                                }
+//                            }
+//                            else if (Data.IndexMessage == Data.TJ.Count)
+//                            {
+//                                //передано столько же строк
+//                                Data.Error = "";
+//                            }
+//                        }
+//                        else
+//                        {
+//                            //текущей файл лога != прошлому
+//                            using (FileStream FileStream = new FileStream(Data.LogPath, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
+//                            {
+//                                using (StreamReader Reader = new StreamReader(FileStream))
+//                                {
+//                                    string line;
+//Regex Reg = new Regex(@"[0-9](\b{2}\.\d{6})");
+//                                    while ((line = Reader.ReadLine()) != null)
+//                                    {
+//                                        if (Reg.IsMatch(line))
+//                                        {
+//                                            Data.TJold.Add(line);
+//                                        }
+//                                        else
+//                                        {
+//                                            string i = Data.TJold.Last();
+//i += line;
+//                                            Data.TJold.Remove(Data.TJold.Last());
+//                                            Data.TJold.Add(i);
+//                                        }
+//                                    }
+//                                }
+//                            }
+//                            if (Data.IndexMessage<Data.TJold.Count)
+//                            {
+//                                Data.TJold.RemoveRange(0, Data.IndexMessage);
+//                                foreach (var i in Data.TJold)
+//                                {
+//                                    Data.Error += $"{i}\n";
+//                                }
+//                                foreach (var i in Data.TJ)
+//                                {
+//                                    Data.Error += $"{i}\n";
+//                                }
+//                                CheckXML.RenXML(Data.LogPath);
+//                            }
+//                            else
+//                            {
+//                                Data.Error = "101";
+//                                CheckXML.RenXML(Data.LogPath);
+//                            }
+//                        }
+//                    }
+//                    else
+//                    {
+//                        //Файл обмена не существует
+//                        CheckXML.GenXml(path);
+//                        TestTJ();
+//                    }

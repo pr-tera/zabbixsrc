@@ -26,15 +26,19 @@ namespace zabbixscr
                 }
                 return Math.Round((double)(CatalogSize / 1024 / 1024 / 1024), 2);
             }
-            catch (DirectoryNotFoundException)
-            {
-                return 0;
-            }
-            catch (UnauthorizedAccessException)
-            {
-                return 0;
-            }
-            catch (Exception)
+            //catch (DirectoryNotFoundException)
+            //{
+            //    return 0;
+            //}
+            //catch (UnauthorizedAccessException)
+            //{
+            //    return 0;
+            //}
+            //catch (Exception)
+            //{
+            //    return 0;
+            //}
+            catch
             {
                 return 0;
             }

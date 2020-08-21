@@ -1,0 +1,5 @@
+zabbixscr.exe
+OpenHardwareMonitorLib.dll
+System.Diagnostics.EventLog.dll
+System.Security.Principal.Windows.dll
+System.ServiceProcess.ServiceController.dll

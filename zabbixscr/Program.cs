@@ -11,21 +11,26 @@ namespace zabbixscr
         static void Main(string[] args)
         {
             Console.OutputEncoding = Encoding.UTF8;
+            if (args.Length == 1 && args[0] == "Test")
+            {
+                _1C.GetInfo.Get_clusterInfo();
+            }
             try
             {
                 if (args.Length == 1 && args[0] == "UserPersonalFolder")
                 {
-                    Thread Task = new Thread(UserPersonalFolder);
-                    Task.Start();
-                    if (Task.Join(TimeSpan.FromSeconds(25)))
-                    {
+                    UserPersonalFolder();
+                    //Thread Task = new Thread(UserPersonalFolder);
+                    //Task.Start();
+                    //if (Task.Join(TimeSpan.FromSeconds(25)))
+                    //{
 
-                    }
-                    else
-                    {
-                        Console.WriteLine(101);
-                        Task.Abort();
-                    }
+                    //}
+                    //else
+                    //{
+                    //    Console.WriteLine(101);
+                    //    Task.Abort();
+                    //}
                 }
                 if (args[0] == "UserPersonalFolberSize" && args[1] != null)
                 {
@@ -657,7 +662,8 @@ namespace zabbixscr
             if (args.Length == 1 && args[0] == "GetTJ1C")
             {
                 TJ.OpenTJ.FindTJ();
-                Console.WriteLine(TJ.OpenTJ.TJ(ref TJ.DataTJ.Error));
+                TJ.OpenTJ.TJ();
+                Console.WriteLine(TJ.Data.Error);
             }
             if (args[0] == "StartService" && args[1] != null)
             {
@@ -665,7 +671,11 @@ namespace zabbixscr
             }
             if (args.Length == 1 && args[0] == "UpdateTC1C")
             {
-                Util.UPTC1C.UpdateTC1C();
+                Util.UPTC1C.UpdateTC1C("Fresh");
+            }
+            if (args.Length == 1 && args[0] == "UpdateTCBO1C")
+            {
+                Util.UPTC1C.UpdateTC1C("BO");
             }
         }
         /*
@@ -690,6 +700,7 @@ namespace zabbixscr
         }
         private static void GetCPUSensorValue(string args)
         {
+            Temperature.Data.argT = args;
             Console.WriteLine(Temperature.Args.GetCPUSensorValue.Value);
         }
         /*
@@ -752,7 +763,7 @@ namespace zabbixscr
         }
         private static void TimeZone()
         {
-            Console.WriteLine(WMIold.TimeZone(ref Data.Temp.TempS).ToString());
+            Console.WriteLine(WMI.TimeZone.Value);
         }
         private static void AutomaticManagedPagefile()
         {
@@ -897,7 +908,7 @@ namespace zabbixscr
         {
             Catalogs catalogs = new Catalogs();
             catalogs.GetUserFolber();
-            string u = string.Join(",", Data.LisrDat.TempL);
+            string u = string.Join(",", Data.LisrDat.BigUser);
             Console.WriteLine($"{{\"data\":[{u}]}}");
         }
     }
