@@ -3,6 +3,7 @@ using System.Threading;
 using System.Text;
 using System.Security.Cryptography.X509Certificates;
 using System.Net.Configuration;
+using System.Management.Instrumentation;
 
 namespace zabbixscr
 {
@@ -11,9 +12,10 @@ namespace zabbixscr
         static void Main(string[] args)
         {
             Console.OutputEncoding = Encoding.UTF8;
-            if (args.Length == 1 && args[0] == "Test")
+            if (args[0] == "test" && args[1] != null)
             {
-                _1C.GetInfo.Get_clusterInfo();
+                PerfCounter.Data.argT = args[1];
+                Console.WriteLine(PerfCounter.Args.AvgDiskReadQueueLength.Value);
             }
             try
             {
@@ -657,7 +659,7 @@ namespace zabbixscr
             }
             catch
             {
-                Console.WriteLine("101");
+                Console.WriteLine(101);
             }
             if (args.Length == 1 && args[0] == "GetTJ1C")
             {
@@ -809,13 +811,13 @@ namespace zabbixscr
         }
         private static void FreeSpaceLD(string args)
         {
-            WMI.Data.argT = args;
-            Console.WriteLine(WMI.Args.FreeSpaceLD.Size);
+            PerfCounter.Data.argT = args;
+            Console.WriteLine(PerfCounter.Args.FreeSpaceLD.Value);
         }
         private static void PercentageFreeSpace(string args)
         {
-            WMI.Data.argT = args;
-            Console.WriteLine(WMI.Args.PercentageFreeSpace.Size);
+            PerfCounter.Data.argT = args;
+            Console.WriteLine(PerfCounter.Args.PercentageFreeSpace.Value);
         }
         private static void ChekDirtyTom(string args)
         {
@@ -824,18 +826,18 @@ namespace zabbixscr
         }
         private static void AvgDiskReadQueueLength(string args)
         {
-            WMI.Data.argT = args;
-            Console.WriteLine(WMI.Args.AvgDiskReadQueueLength.Value);
+            PerfCounter.Data.argT = args;
+            Console.WriteLine(PerfCounter.Args.AvgDiskReadQueueLength.Value);
         }
         private static void AvgDiskWriteQueueLength(string args)
         {
-            WMI.Data.argT = args;
-            Console.WriteLine(WMI.Args.AvgDiskReadQueueLength.Value);
+            PerfCounter.Data.argT = args;
+            Console.WriteLine(PerfCounter.Args.AvgDiskWriteQueueLength.Value);
         }
         private static void SplitIOPerSec(string args)
         {
-            WMI.Data.argT = args;
-            Console.WriteLine(WMI.Args.SplitIOPerSec.Value);
+            PerfCounter.Data.argT = args;
+            Console.WriteLine(PerfCounter.Args.SplitIOSec.Value);
         }
         private static void LoadPercentageP(string args)
         {
@@ -884,8 +886,11 @@ namespace zabbixscr
         }
         private static void OSVersion()
         {
-            Console.WriteLine(Environment.OSVersion);
+            Console.WriteLine(Othe.OSVersion.Value);
         }
+        /*
+        * 1C json
+        */
         /*
          * Othe
          */

@@ -17,7 +17,7 @@ namespace zabbixscr.WMI.Args
         }
         private static string _size()
         {
-            double t = Math.Round(Convert.ToDouble(FreeSpaceLD.Size) / Convert.ToDouble(SizeLD.Size) * 100);
+            double t = Math.Round(Convert.ToDouble(FreeSpaceLD.Value) / Convert.ToDouble(SizeLD.Size) * 100);
             return Convert.ToString(t);
         }
     }

@@ -5,7 +5,7 @@ namespace zabbixscr.WMI.Args
 {
     class FreeSpaceLD
     {
-        internal static string Size
+        internal static string Value
         {
             get
             {

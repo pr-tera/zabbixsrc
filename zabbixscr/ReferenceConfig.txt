@@ -1,0 +1,125 @@
+﻿######
+##CPU
+######
+#Выводит полную информацию о ЦП
+UserParameter=CPUInfo,"C:\Zabbix agent\zabbixscr.exe" CPUInfo
+##
+#обнаружение
+##
+#Обнаружение процессоров, для дальнейшего мониторинга
+UserParameter=ProcessorDetected,"C:\Zabbix agent\zabbixscr.exe" ProcessorDetected
+#Обнаружение датчиков температуры прцоессора (по ядрам)
+UserParameter=GetSensorProcessor,"C:\Zabbix agent\zabbixscr.exe" GetSensorProcessor
+##
+#С параметрами
+##
+#Процент загруженности ЦП $1
+UserParameter=LoadPercentageP[*],"C:\Zabbix agent\zabbixscr.exe" LoadPercentageP "$1"
+#Текущая частота процессора $1
+UserParameter=CurrentClockSpeedP[*],"C:\Zabbix agent\zabbixscr.exe" CurrentClockSpeedP "$1"
+#Поддерживается ли виртуализация процессором $1
+UserParameter=VirtualizationFirmwareEnabled[*],"C:\Zabbix agent\zabbixscr.exe" VirtualizationFirmwareEnabled "$1"
+#Серийный номер процессора $1
+UserParameter=SerialNumberP[*],"C:\Zabbix agent\zabbixscr.exe" SerialNumberP "$1"
+#Информация о температуре ядра $1
+UserParameter=GetCPUSensorValue[*], "C:\Zabbix agent\zabbixscr.exe" GetCPUSensorValue "$1"
+######
+##Inventory
+######
+#NetBios Name
+UserParameter=PCName,"C:\Zabbix agent\zabbixscr.exe" PCName
+#mac адрес устройства
+UserParameter=Mac,"C:\Zabbix agent\zabbixscr.exe" Mac
+#Информация о материнской плате
+UserParameter=BoardMaker,"C:\Zabbix agent\zabbixscr.exe" BoardMaker
+#Серийный номер(для ноутбуков)
+UserParameter=SerialNumber,"C:\Zabbix agent\zabbixscr.exe" SerialNumber
+#Версия установленной ОС
+UserParameter=OSVersion,"C:\Zabbix agent\zabbixscr.exe" OSVersion
+#Часовой пояс
+UserParameter=TimeZone,"C:\Zabbix agent\zabbixscr.exe" TimeZone
+#DNS имя
+UserParameter=DNSHostName,"C:\Zabbix agent\zabbixscr.exe" DNSHostName
+#Домен
+UserParameter=Domain,"C:\Zabbix agent\zabbixscr.exe" Domain
+#роль в домене
+UserParameter=DomainRole,"C:\Zabbix agent\zabbixscr.exe" DomainRole
+######
+##Memory
+######
+#Информация о установленных планках ОЗУ
+UserParameter=MemoryInfo,"C:\Zabbix agent\zabbixscr.exe" MemoryInfo
+#Кэшировано ОЗУ
+UserParameter=CacheBytesM,"C:\Zabbix agent\zabbixscr.exe" CacheBytesM
+#Общий объём установленной ОЗУ + видео
+UserParameter=TotalPhysicalMemory,"C:\Zabbix agent\zabbixscr.exe" TotalPhysicalMemory
+#Использование файла подкачки системой (больше 0 тревога)
+UserParameter=PageSecInDSwap,"C:\Zabbix agent\zabbixscr.exe" PageSecInDSwap
+#Использование файла подкачки
+UserParameter=AutomaticManagedPagefile,"C:\Zabbix agent\zabbixscr.exe" AutomaticManagedPagefile
+#Доступно/свободно ОЗУ
+UserParameter=AvailableMBytesM,"C:\Zabbix agent\zabbixscr.exe" AvailableMBytesM
+######
+##Disk
+######
+#СМАРТ по всем установленным устройствам
+UserParameter=SMART,"C:\Zabbix agent\zabbixscr.exe" SMART
+##
+#Обнаружение
+##
+#Обнаружение физических дисков
+UserParameter=PhysicalDisk,"C:\Zabbix agent\zabbixscr.exe" PhysicalDisk
+#Обнаружение логических дисков(разделов)
+UserParameter=LogicalDisk,"C:\Zabbix agent\zabbixscr.exe" LogicalDisk
+#Обнаружение температурных датчиков дисков
+UserParameter=GetDiskSensorName,"C:\Zabbix agent\zabbixscr.exe" GetDiskSensorName
+##
+#С параметрами
+##
+#Размер физического диска
+UserParameter=PhysicalDiskSize[*],"C:\Zabbix agent\zabbixscr.exe" PhysicalDiskSize "$1"
+#Серийный номер физического диска
+UserParameter=SerialNumberD[*],"C:\Zabbix agent\zabbixscr.exe" SerialNumberD "$1"
+#Название логического диска(раздела)
+UserParameter=SectionNameD[*],"C:\Zabbix agent\zabbixscr.exe" SectionNameD "$1"
+#Серийный номер логического диска
+UserParameter=SerialNumberLD[*],"C:\Zabbix agent\zabbixscr.exe" SerialNumberLD "$1"
+#Сжатие логического диска
+UserParameter=CompressedLD[*],"C:\Zabbix agent\zabbixscr.exe" CompressedLD "$1"
+#Файловая система
+UserParameter=FileSystemLD[*],"C:\Zabbix agent\zabbixscr.exe" FileSystemLD "$1"
+#Размер логического диска
+UserParameter=SizeLD[*],"C:\Zabbix agent\zabbixscr.exe" SizeLD "$1"
+#Свободное место на логическом диске
+UserParameter=FreeSpaceLD[*],"C:\Zabbix agent\zabbixscr.exe" FreeSpaceLD "$1"
+#% свободного места на логическом диске
+UserParameter=PercentageFreeSpace[*],"C:\Zabbix agent\zabbixscr.exe" PercentageFreeSpace "$1"
+#Проверка на грязный том
+UserParameter=ChekDirtyTom[*],"C:\Zabbix agent\zabbixscr.exe" ChekDirtyTom "$1"
+#Средняя очередь чтения с диска
+UserParameter=AvgDiskReadQueueLength[*],"C:\Zabbix agent\zabbixscr.exe" AvgDiskReadQueueLength "$1"
+#Средняя очередь записи на диск
+UserParameter=AvgDiskWriteQueueLength[*],"C:\Zabbix agent\zabbixscr.exe" AvgDiskWriteQueueLength "$1"
+#Количество раздельных операций чтения/записи
+UserParameter=SplitIOPerSec[*],"C:\Zabbix agent\zabbixscr.exe" SplitIOPerSec "$1"
+#Значения температурных датчиков
+UserParameter=GetDiskSensorValue[*],"C:\Zabbix agent\zabbixscr.exe" GetDiskSensorValue "$1"
+######
+##Othe
+######
+##
+#Обнаружение
+##
+#Обнаружение служб
+UserParameter=GetServices,"C:\Zabbix agent\zabbixscr.exe" GetServices
+#Обнаружение личных папок пользователя C:\Users\*
+UserParameter=UserPersonalFolder,"C:\Zabbix agent\zabbixscr.exe" UserPersonalFolder 
+##
+#С параметрами
+##
+#Информация о размере личной папки пользователя
+UserParameter=UserPersonalFolberSize[*],"C:\Zabbix agent\zabbixscr.exe" UserPersonalFolberSize "$1"
+#Обновление тонкого клиента 1С через внешний скрипт
+UserParameter=UpdateTC1C[*],"C:\Zabbix agent\zabbixscr.exe" UpdateTC1C "$1"
+#Статус службы $1
+UserParameter=StatusService[*],"C:\Zabbix agent\zabbixscr.exe" StatusService "$1"
