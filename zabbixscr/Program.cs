@@ -1,21 +1,19 @@
 ﻿using System;
 using System.Threading;
 using System.Text;
-using System.Security.Cryptography.X509Certificates;
-using System.Net.Configuration;
-using System.Management.Instrumentation;
 
 namespace zabbixscr
 {
     class Program
     {
+        internal static string argT = string.Empty;
         static void Main(string[] args)
         {
+            int timeout = 18;
             Console.OutputEncoding = Encoding.UTF8;
-            if (args[0] == "test" && args[1] != null)
+            if (args[0] == "test")
             {
-                PerfCounter.Data.argT = args[1];
-                Console.WriteLine(PerfCounter.Args.AvgDiskReadQueueLength.Value);
+                Util.ClearCache.DellCache();
             }
             try
             {
@@ -34,11 +32,15 @@ namespace zabbixscr
                     //    Task.Abort();
                     //}
                 }
+                if (args.Length == 1 && args[0] == "DellCahe")
+                {
+                    Util.ClearCache.DellCache();
+                }
                 if (args[0] == "UserPersonalFolberSize" && args[1] != null)
                 {
                     Thread Task = new Thread(() => UserPersonalFolberSize(args[1]));
                     Task.Start();
-                    if (Task.Join(TimeSpan.FromSeconds(25)))
+                    if (Task.Join(TimeSpan.FromSeconds(timeout)))
                     {
 
                     }
@@ -52,7 +54,7 @@ namespace zabbixscr
                 {
                     Thread Task = new Thread(Mac);
                     Task.Start();
-                    if (Task.Join(TimeSpan.FromSeconds(25)))
+                    if (Task.Join(TimeSpan.FromSeconds(timeout)))
                     {
 
                     }
@@ -66,7 +68,7 @@ namespace zabbixscr
                 {
                     Thread Task = new Thread(BoardMaker);
                     Task.Start();
-                    if (Task.Join(TimeSpan.FromSeconds(25)))
+                    if (Task.Join(TimeSpan.FromSeconds(timeout)))
                     {
 
                     }
@@ -80,7 +82,7 @@ namespace zabbixscr
                 {
                     Thread Task = new Thread(SerialNumber);
                     Task.Start();
-                    if (Task.Join(TimeSpan.FromSeconds(25)))
+                    if (Task.Join(TimeSpan.FromSeconds(timeout)))
                     {
 
                     }
@@ -94,7 +96,7 @@ namespace zabbixscr
                 {
                     Thread Task = new Thread(PCName);
                     Task.Start();
-                    if (Task.Join(TimeSpan.FromSeconds(25)))
+                    if (Task.Join(TimeSpan.FromSeconds(timeout)))
                     {
 
                     }
@@ -108,7 +110,7 @@ namespace zabbixscr
                 {
                     Thread Task = new Thread(OSVersion);
                     Task.Start();
-                    if (Task.Join(TimeSpan.FromSeconds(25)))
+                    if (Task.Join(TimeSpan.FromSeconds(timeout)))
                     {
 
                     }
@@ -122,7 +124,7 @@ namespace zabbixscr
                 {
                     Thread Task = new Thread(MemoryInfo);
                     Task.Start();
-                    if (Task.Join(TimeSpan.FromSeconds(25)))
+                    if (Task.Join(TimeSpan.FromSeconds(timeout)))
                     {
 
                     }
@@ -136,7 +138,7 @@ namespace zabbixscr
                 {
                     Thread Task = new Thread(CPUInfo);
                     Task.Start();
-                    if (Task.Join(TimeSpan.FromSeconds(25)))
+                    if (Task.Join(TimeSpan.FromSeconds(timeout)))
                     {
 
                     }
@@ -150,7 +152,7 @@ namespace zabbixscr
                 {
                     Thread Task = new Thread(PhysicalDisk);
                     Task.Start();
-                    if (Task.Join(TimeSpan.FromSeconds(25)))
+                    if (Task.Join(TimeSpan.FromSeconds(timeout)))
                     {
 
                     }
@@ -165,7 +167,7 @@ namespace zabbixscr
                 {
                     Thread Task = new Thread(SMART);
                     Task.Start();
-                    if (Task.Join(TimeSpan.FromSeconds(25)))
+                    if (Task.Join(TimeSpan.FromSeconds(timeout)))
                     {
 
                     }
@@ -179,7 +181,7 @@ namespace zabbixscr
                 {
                     Thread Task = new Thread(() => PhysicalDiskSize(args[1]));
                     Task.Start();
-                    if (Task.Join(TimeSpan.FromSeconds(25)))
+                    if (Task.Join(TimeSpan.FromSeconds(timeout)))
                     {
 
                     }
@@ -193,7 +195,7 @@ namespace zabbixscr
                 {
                     Thread Task = new Thread(() => SerialNumberD(args[1]));
                     Task.Start();
-                    if (Task.Join(TimeSpan.FromSeconds(25)))
+                    if (Task.Join(TimeSpan.FromSeconds(timeout)))
                     {
 
                     }
@@ -207,7 +209,7 @@ namespace zabbixscr
                 {
                     Thread Task = new Thread(LogicalDisk);
                     Task.Start();
-                    if (Task.Join(TimeSpan.FromSeconds(25)))
+                    if (Task.Join(TimeSpan.FromSeconds(timeout)))
                     {
 
                     }
@@ -222,7 +224,7 @@ namespace zabbixscr
                 {
                     Thread Task = new Thread(() => SectionNameD(args[1]));
                     Task.Start();
-                    if (Task.Join(TimeSpan.FromSeconds(25)))
+                    if (Task.Join(TimeSpan.FromSeconds(timeout)))
                     {
 
                     }
@@ -236,7 +238,7 @@ namespace zabbixscr
                 {
                     Thread Task = new Thread(() => SerialNumberLD(args[1]));
                     Task.Start();
-                    if (Task.Join(TimeSpan.FromSeconds(25)))
+                    if (Task.Join(TimeSpan.FromSeconds(timeout)))
                     {
 
                     }
@@ -250,7 +252,7 @@ namespace zabbixscr
                 {
                     Thread Task = new Thread(() => CompressedLD(args[1]));
                     Task.Start();
-                    if (Task.Join(TimeSpan.FromSeconds(25)))
+                    if (Task.Join(TimeSpan.FromSeconds(timeout)))
                     {
 
                     }
@@ -264,7 +266,7 @@ namespace zabbixscr
                 {
                     Thread Task = new Thread(() => FileSystemLD(args[1]));
                     Task.Start();
-                    if (Task.Join(TimeSpan.FromSeconds(25)))
+                    if (Task.Join(TimeSpan.FromSeconds(timeout)))
                     {
 
                     }
@@ -278,7 +280,7 @@ namespace zabbixscr
                 {
                     Thread Task = new Thread(() => SizeLD(args[1]));
                     Task.Start();
-                    if (Task.Join(TimeSpan.FromSeconds(25)))
+                    if (Task.Join(TimeSpan.FromSeconds(timeout)))
                     {
 
                     }
@@ -292,7 +294,7 @@ namespace zabbixscr
                 {
                     Thread Task = new Thread(() => FreeSpaceLD(args[1]));
                     Task.Start();
-                    if (Task.Join(TimeSpan.FromSeconds(25)))
+                    if (Task.Join(TimeSpan.FromSeconds(timeout)))
                     {
 
                     }
@@ -306,7 +308,7 @@ namespace zabbixscr
                 {
                     Thread Task = new Thread(() => PercentageFreeSpace(args[1]));
                     Task.Start();
-                    if (Task.Join(TimeSpan.FromSeconds(25)))
+                    if (Task.Join(TimeSpan.FromSeconds(timeout)))
                     {
 
                     }
@@ -320,7 +322,7 @@ namespace zabbixscr
                 {
                     Thread Task = new Thread(() => ChekDirtyTom(args[1]));
                     Task.Start();
-                    if (Task.Join(TimeSpan.FromSeconds(25)))
+                    if (Task.Join(TimeSpan.FromSeconds(timeout)))
                     {
 
                     }
@@ -334,7 +336,7 @@ namespace zabbixscr
                 {
                     Thread Task = new Thread(() => AvgDiskReadQueueLength(args[1]));
                     Task.Start();
-                    if (Task.Join(TimeSpan.FromSeconds(25)))
+                    if (Task.Join(TimeSpan.FromSeconds(timeout)))
                     {
 
                     }
@@ -348,7 +350,7 @@ namespace zabbixscr
                 {
                     Thread Task = new Thread(() => AvgDiskWriteQueueLength(args[1]));
                     Task.Start();
-                    if (Task.Join(TimeSpan.FromSeconds(25)))
+                    if (Task.Join(TimeSpan.FromSeconds(timeout)))
                     {
 
                     }
@@ -362,7 +364,7 @@ namespace zabbixscr
                 {
                     Thread Task = new Thread(() => SplitIOPerSec(args[1]));
                     Task.Start();
-                    if (Task.Join(TimeSpan.FromSeconds(25)))
+                    if (Task.Join(TimeSpan.FromSeconds(timeout)))
                     {
 
                     }
@@ -376,7 +378,7 @@ namespace zabbixscr
                 {
                     Thread Task = new Thread(AvailableMBytesM);
                     Task.Start();
-                    if (Task.Join(TimeSpan.FromSeconds(25)))
+                    if (Task.Join(TimeSpan.FromSeconds(timeout)))
                     {
 
                     }
@@ -390,7 +392,7 @@ namespace zabbixscr
                 {
                     Thread Task = new Thread(CacheBytesM);
                     Task.Start();
-                    if (Task.Join(TimeSpan.FromSeconds(25)))
+                    if (Task.Join(TimeSpan.FromSeconds(timeout)))
                     {
 
                     }
@@ -404,7 +406,7 @@ namespace zabbixscr
                 {
                     Thread Task = new Thread(TotalPhysicalMemory);
                     Task.Start();
-                    if (Task.Join(TimeSpan.FromSeconds(25)))
+                    if (Task.Join(TimeSpan.FromSeconds(timeout)))
                     {
 
                     }
@@ -418,7 +420,7 @@ namespace zabbixscr
                 {
                     Thread Task = new Thread(PageSecInDSwap);
                     Task.Start();
-                    if (Task.Join(TimeSpan.FromSeconds(25)))
+                    if (Task.Join(TimeSpan.FromSeconds(timeout)))
                     {
 
                     }
@@ -432,7 +434,7 @@ namespace zabbixscr
                 {
                     Thread Task = new Thread(ProcessorDetected);
                     Task.Start();
-                    if (Task.Join(TimeSpan.FromSeconds(25)))
+                    if (Task.Join(TimeSpan.FromSeconds(timeout)))
                     {
 
                     }
@@ -447,7 +449,7 @@ namespace zabbixscr
                 {
                     Thread Task = new Thread(() => LoadPercentageP(args[1]));
                     Task.Start();
-                    if (Task.Join(TimeSpan.FromSeconds(25)))
+                    if (Task.Join(TimeSpan.FromSeconds(timeout)))
                     {
 
                     }
@@ -461,7 +463,7 @@ namespace zabbixscr
                 {
                     Thread Task = new Thread(() => CurrentClockSpeedP(args[1]));
                     Task.Start();
-                    if (Task.Join(TimeSpan.FromSeconds(25)))
+                    if (Task.Join(TimeSpan.FromSeconds(timeout)))
                     {
 
                     }
@@ -475,7 +477,7 @@ namespace zabbixscr
                 {
                     Thread Task = new Thread(() => VirtualizationFirmwareEnabled(args[1]));
                     Task.Start();
-                    if (Task.Join(TimeSpan.FromSeconds(25)))
+                    if (Task.Join(TimeSpan.FromSeconds(timeout)))
                     {
 
                     }
@@ -489,7 +491,7 @@ namespace zabbixscr
                 {
                     Thread Task = new Thread(() => SerialNumberP(args[1]));
                     Task.Start();
-                    if (Task.Join(TimeSpan.FromSeconds(25)))
+                    if (Task.Join(TimeSpan.FromSeconds(timeout)))
                     {
 
                     }
@@ -503,7 +505,7 @@ namespace zabbixscr
                 {
                     Thread Task = new Thread(TimeZone);
                     Task.Start();
-                    if (Task.Join(TimeSpan.FromSeconds(25)))
+                    if (Task.Join(TimeSpan.FromSeconds(timeout)))
                     {
 
                     }
@@ -517,7 +519,7 @@ namespace zabbixscr
                 {
                     Thread Task = new Thread(AutomaticManagedPagefile);
                     Task.Start();
-                    if (Task.Join(TimeSpan.FromSeconds(25)))
+                    if (Task.Join(TimeSpan.FromSeconds(timeout)))
                     {
 
                     }
@@ -531,7 +533,7 @@ namespace zabbixscr
                 {
                     Thread Task = new Thread(DNSHostName);
                     Task.Start();
-                    if (Task.Join(TimeSpan.FromSeconds(25)))
+                    if (Task.Join(TimeSpan.FromSeconds(timeout)))
                     {
 
                     }
@@ -545,7 +547,7 @@ namespace zabbixscr
                 {
                     Thread Task = new Thread(Domain);
                     Task.Start();
-                    if (Task.Join(TimeSpan.FromSeconds(25)))
+                    if (Task.Join(TimeSpan.FromSeconds(timeout)))
                     {
 
                     }
@@ -559,7 +561,7 @@ namespace zabbixscr
                 {
                     Thread Task = new Thread(DomainRole);
                     Task.Start();
-                    if (Task.Join(TimeSpan.FromSeconds(25)))
+                    if (Task.Join(TimeSpan.FromSeconds(timeout)))
                     {
 
                     }
@@ -573,7 +575,7 @@ namespace zabbixscr
                 {
                     Thread Task = new Thread(GetSensorProcessor);
                     Task.Start();
-                    if (Task.Join(TimeSpan.FromSeconds(25)))
+                    if (Task.Join(TimeSpan.FromSeconds(timeout)))
                     {
 
                     }
@@ -588,7 +590,7 @@ namespace zabbixscr
                 {
                     Thread Task = new Thread(() => GetCPUSensorValue(args[1]));
                     Task.Start();
-                    if (Task.Join(TimeSpan.FromSeconds(25)))
+                    if (Task.Join(TimeSpan.FromSeconds(timeout)))
                     {
 
                     }
@@ -602,7 +604,7 @@ namespace zabbixscr
                 {
                     Thread Task = new Thread(GetDiskSensorName);
                     Task.Start();
-                    if (Task.Join(TimeSpan.FromSeconds(25)))
+                    if (Task.Join(TimeSpan.FromSeconds(timeout)))
                     {
 
                     }
@@ -617,7 +619,7 @@ namespace zabbixscr
                 {
                     Thread Task = new Thread(() => GetDiskSensorValue(args[1]));
                     Task.Start();
-                    if (Task.Join(TimeSpan.FromSeconds(25)))
+                    if (Task.Join(TimeSpan.FromSeconds(timeout)))
                     {
 
                     }
@@ -631,7 +633,7 @@ namespace zabbixscr
                 {
                     Thread Task = new Thread(GetServices);
                     Task.Start();
-                    if (Task.Join(TimeSpan.FromSeconds(25)))
+                    if (Task.Join(TimeSpan.FromSeconds(timeout)))
                     {
 
                     }
@@ -646,7 +648,7 @@ namespace zabbixscr
                 {
                     Thread Task = new Thread(() => StatusService(args[1]));
                     Task.Start();
-                    if (Task.Join(TimeSpan.FromSeconds(25)))
+                    if (Task.Join(TimeSpan.FromSeconds(timeout)))
                     {
 
                     }
@@ -670,14 +672,6 @@ namespace zabbixscr
             if (args[0] == "StartService" && args[1] != null)
             {
                 Services.Services.StartService(args[1]);
-            }
-            if (args.Length == 1 && args[0] == "UpdateTC1C")
-            {
-                Util.UPTC1C.UpdateTC1C("Fresh");
-            }
-            if (args.Length == 1 && args[0] == "UpdateTCBO1C")
-            {
-                Util.UPTC1C.UpdateTC1C("BO");
             }
         }
         /*
@@ -721,43 +715,43 @@ namespace zabbixscr
          */
         private static void DomainRole()
         {
-            Console.WriteLine(WMI.DomainRole.Role);
+            Console.WriteLine(Standart.DomainRole.Value);
         }
         private static void Domain()
         {
-            Console.WriteLine(WMI.Domain.Name);
+            Console.WriteLine(Standart.Domain.Value);
         }
         private static void DNSHostName()
         {
-            Console.WriteLine(WMI.DNSHostName.Name);
+            Console.WriteLine(Standart.DNSHostName.Value);
         }
         private static void BoardMaker()
         {
-            Console.WriteLine(WMI.BoardMaker.Info);
+            Console.WriteLine(Standart.BoardMaker.Value);
         }
         private static void SerialNumber()
         {
-            Console.WriteLine(WMI.SerialNumber.Info);
+            Console.WriteLine(Standart.SerialNumber.Value);
         }
         private static void MemoryInfo()
         {
-            Console.WriteLine(WMI.MemoryInfo.Info);
+            Console.WriteLine(Standart.MemoryInfo.Value);
         }
         private static void CPUInfo()
         {
-            Console.WriteLine(WMI.CPUInfo.Info);
+            Console.WriteLine(Standart.CPUInfo.Value);
         }
         private static void CacheBytesM()
         {
-            Console.WriteLine(WMI.CacheBytesM.Value);
+            Console.WriteLine(Standart.CacheBytesM.Value);
         }
         private static void TotalPhysicalMemory()
         {
-            Console.WriteLine(WMI.TotalPhysicalMemory.Value);
+            Console.WriteLine(Standart.TotalPhysicalMemory.Value);
         }
         private static void PageSecInDSwap()
         {
-            Console.WriteLine(WMI.PageSecInDSwap.Value);
+            Console.WriteLine(Standart.PageSecInDSwap.Value);
         }
         private static void ProcessorDetected()
         {
@@ -765,99 +759,99 @@ namespace zabbixscr
         }
         private static void TimeZone()
         {
-            Console.WriteLine(WMI.TimeZone.Value);
+            Console.WriteLine(Standart.TimeZone.Value);
         }
         private static void AutomaticManagedPagefile()
         {
-            Console.WriteLine(WMI.AutomaticManagedPagefile.Value);
+            Console.WriteLine(Standart.AutomaticManagedPagefile.Value);
         }
         /*
          * WMI args
          */
         private static void PhysicalDiskSize(string args)
         {
-            WMI.Data.argT = args;
-            Console.WriteLine(WMI.Args.PhysicalDiskSize.Size);
+            argT = args;
+            Console.WriteLine(Args.PhysicalDiskSize.Value);
         }
         private static void SerialNumberD(string args)
         {
-            WMI.Data.argT = args;
-            Console.WriteLine(WMI.Args.SerialNumberD.Serial);
+            argT = args;
+            Console.WriteLine(Args.SerialNumberD.Value);
         }
         private static void SectionNameD(string args)
         {
-            WMI.Data.argT = args;
-            Console.WriteLine(WMI.Args.SectionNameD.Name);
+            argT = args;
+            Console.WriteLine(Args.SectionNameD.Value);
         }
         private static void SerialNumberLD(string args)
         {
-            WMI.Data.argT = args;
-            Console.WriteLine(WMI.Args.SerialNumberLD.Number);
+            argT = args;
+            Console.WriteLine(Args.SerialNumberLD.Value);
         }
         private static void CompressedLD(string args)
         {
-            WMI.Data.argT = args;
-            Console.WriteLine(WMI.Args.CompressedLD.Value);
+            argT = args;
+            Console.WriteLine(Args.CompressedLD.Value);
         }
         private static void FileSystemLD(string args)
         {
-            WMI.Data.argT = args;
-            Console.WriteLine(WMI.Args.FileSystemLD.Value);
+            argT = args;
+            Console.WriteLine(Args.FileSystemLD.Value);
         }
         private static void SizeLD(string args)
         {
-            WMI.Data.argT = args;
-            Console.WriteLine(WMI.Args.SizeLD.Size);
+            argT = args;
+            Console.WriteLine(Args.SizeLD.Value);
         }
         private static void FreeSpaceLD(string args)
         {
-            PerfCounter.Data.argT = args;
-            Console.WriteLine(PerfCounter.Args.FreeSpaceLD.Value);
+            argT = args;
+            Console.WriteLine(Args.FreeSpaceLD.Value);
         }
         private static void PercentageFreeSpace(string args)
         {
-            PerfCounter.Data.argT = args;
-            Console.WriteLine(PerfCounter.Args.PercentageFreeSpace.Value);
+            argT = args;
+            Console.WriteLine(Args.PercentageFreeSpace.Value);
         }
         private static void ChekDirtyTom(string args)
         {
-            WMI.Data.argT = args;
-            Console.WriteLine(WMI.Args.ChekDirtyTom.Value);
+            argT = args;
+            Console.WriteLine(Args.ChekDirtyTom.Value);
         }
         private static void AvgDiskReadQueueLength(string args)
         {
-            PerfCounter.Data.argT = args;
-            Console.WriteLine(PerfCounter.Args.AvgDiskReadQueueLength.Value);
+            argT = args;
+            Console.WriteLine(Args.AvgDiskReadQueueLength.Value);
         }
         private static void AvgDiskWriteQueueLength(string args)
         {
-            PerfCounter.Data.argT = args;
-            Console.WriteLine(PerfCounter.Args.AvgDiskWriteQueueLength.Value);
+            argT = args;
+            Console.WriteLine(Args.AvgDiskWriteQueueLength.Value);
         }
         private static void SplitIOPerSec(string args)
         {
-            PerfCounter.Data.argT = args;
-            Console.WriteLine(PerfCounter.Args.SplitIOSec.Value);
+            argT = args;
+            Console.WriteLine(Args.SplitIOPerSec.Value);
         }
         private static void LoadPercentageP(string args)
         {
-            WMI.Data.argT = args;
-            Console.WriteLine(WMI.Args.LoadPercentageP.Value);
+            argT = args;
+            Console.WriteLine(Args.LoadPercentageP.Value);
         }
         private static void CurrentClockSpeedP(string args)
         {
-            WMI.Data.argT = args;
-            Console.WriteLine(WMI.Args.CurrentClockSpeedP.Value);
+            argT = args;
+            Console.WriteLine(Args.CurrentClockSpeedP.Value);
         }
         private static void VirtualizationFirmwareEnabled(string args)
         {
-            WMI.Data.argT = args;
-            Console.WriteLine(WMI.Args.VirtualizationFirmwareEnabled.Value);
+            argT = args;
+            Console.WriteLine(Args.VirtualizationFirmwareEnabled.Value);
         }
         private static void SerialNumberP(string args)
         {
-            WMI.Data.argT = args;
-            Console.WriteLine(WMI.Args.SerialNumberP.Value);
+            argT = args;
+            Console.WriteLine(Args.SerialNumberP.Value);
         }
         /*
          * WMI json
@@ -875,7 +869,7 @@ namespace zabbixscr
          */
         private static void AvailableMBytesM()
         {
-            Console.WriteLine(PerfCounter.AvailableMBytesM.Value);
+            Console.WriteLine(Standart.AvailableMBytesM.Value);
         }
         /*
          *  Environment

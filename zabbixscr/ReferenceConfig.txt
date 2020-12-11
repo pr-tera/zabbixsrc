@@ -107,6 +107,8 @@ UserParameter=GetDiskSensorValue[*],"C:\Zabbix agent\zabbixscr.exe" GetDiskSenso
 ######
 ##Othe
 ######
+#Удаление кэша пользователей C:\Users\
+UserParameter=DellCahe,"C:\Zabbix agent\zabbixscr.exe" DellCahe
 ##
 #Обнаружение
 ##

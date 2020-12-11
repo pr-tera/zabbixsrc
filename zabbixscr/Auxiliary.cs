@@ -10,7 +10,7 @@ namespace zabbixscr
      */
     class Auxiliary
     {
-        public static string AvailabilityMB(int Number, ref string CpuStatus)
+        public static string Availability_Motherbord(int Number, ref string CpuStatus)
         {
             string[] Cpu_Status = new string[] { "Other","Unknown","Running/Full Power","Warning","In Test","Not Applicable","Power Off","Off Line","Off Duty","Degraded","Not Installed","Install Error","Power Save - Unknown","Power Save - Low Power Mode","Power Save - Standby","Power Cycle","Power Save - Warning","Paused","Not Ready","Not Configured","Quiesced"};
             return CpuStatus = Cpu_Status[Number - 1];
