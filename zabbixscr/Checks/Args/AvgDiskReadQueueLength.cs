@@ -72,7 +72,9 @@ namespace zabbixscr.Args
                     _ioCounter.CategoryName = "LogicalDisk";
                     _ioCounter.CounterName = "Avg. Disk Read Queue Length";
                     _ioCounter.InstanceName = Program.argT;
-                     t = _ioCounter.NextValue();
+                    t = _ioCounter.NextValue();
+                    System.Threading.Thread.Sleep(1000);
+                    t = _ioCounter.NextValue();
                     _ioCounter.Dispose();
                 }
                 catch

@@ -64,7 +64,7 @@ namespace zabbixscr.Args
         private static object PerfCounter()
         {
             float t;
-            if (string.IsNullOrEmpty(Program.argT))
+            if (!string.IsNullOrEmpty(Program.argT))
             {
                 try
                 {

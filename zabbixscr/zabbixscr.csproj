@@ -48,9 +48,8 @@
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="OpenHardwareMonitorLib, Version=0.7.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>.\OpenHardwareMonitorLib.dll</HintPath>
+    <Reference Include="OpenHardwareMonitorLib, Version=0.8.0.2, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\OpenHardwareMonitorLibCore.1.0.2\lib\net452\OpenHardwareMonitorLib.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -77,6 +76,7 @@
     <Compile Include="Auxiliary.cs" />
     <Compile Include="Catalogs.cs" />
     <Compile Include="Checks\Args\AvgDiskWriteQueueLength.cs" />
+    <Compile Include="Checks\Standart\hasp.cs" />
     <Compile Include="Othe\OSVersion.cs" />
     <Compile Include="Services\Data.cs" />
     <Compile Include="Services\JSON\GetServiceName.cs" />
