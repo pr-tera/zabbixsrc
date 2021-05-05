@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Threading;
 using System.Text;
+using System.Security.Cryptography.X509Certificates;
+using System.Net.Configuration;
 
 namespace zabbixscr
 {
@@ -673,7 +675,7 @@ namespace zabbixscr
             {
                 Services.Services.StartService(args[1]);
             }
-        }
+            }
         /*
          * Services
          */

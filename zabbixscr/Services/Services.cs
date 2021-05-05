@@ -53,7 +53,7 @@ namespace zabbixscr.Services
                     }
                 }
             }
-            catch
+            catch (Exception e)
             {
                 //Status = Convert.ToString(e);
             }
