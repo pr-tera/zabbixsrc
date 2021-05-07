@@ -51,13 +51,13 @@ namespace zabbixscr.Util
                                 directoryInfo1.Delete(true);
                             }
                             catch
-                            { 
+                            {
                                 //
                             }
                         }
                     }
                     catch
-                    { 
+                    {
                         //
                     }
                 }

@@ -66,7 +66,7 @@ namespace zabbixscr.Standart
             }
             catch
             {
-                
+
             }
             if (q == 101 || w == 101)
             {

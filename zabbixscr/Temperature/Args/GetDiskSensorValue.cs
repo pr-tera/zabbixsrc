@@ -6,7 +6,7 @@ namespace zabbixscr.Temperature.Args
     {
         internal static string Value
         {
-            get 
+            get
             {
                 return _value();
             }

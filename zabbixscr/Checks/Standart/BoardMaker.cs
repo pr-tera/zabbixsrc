@@ -26,7 +26,7 @@ namespace zabbixscr.Standart
                 }
                 else
                 {
-                    return "Error"; 
+                    return "Error";
                 }
             }
         }

@@ -1,4 +1,5 @@
 zabbixscr.exe
+Newtonsoft.Json.dll
 OpenHardwareMonitorLib.dll
 System.Diagnostics.EventLog.dll
 System.Security.Principal.Windows.dll

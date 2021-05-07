@@ -1,5 +1,4 @@
-﻿using Microsoft.Win32;
-using System;
+﻿using System;
 
 namespace zabbixscr.Othe
 {
@@ -21,10 +20,10 @@ namespace zabbixscr.Othe
             string version = $"{Environment.OSVersion.Version.Major}.{Environment.OSVersion.Version.Minor}";
             switch (version)
             {
-                case "10,0": 
+                case "10,0":
                     version = $"Windows 10 {version}";
                     break;
-                case "6.3": 
+                case "6.3":
                     version = $"Windows 8.1 {version}";
                     break;
                 case "6.2":

@@ -38,7 +38,7 @@ namespace zabbixscr.Standart
                 {
                     try
                     {
-                        t = Math.Round((double)Convert.ToInt64(y["CacheBytes"]) / 1e+9, 0);
+                        t = Math.Round(Convert.ToInt64(y["CacheBytes"]) / 1e+9, 0);
                     }
                     catch
                     {

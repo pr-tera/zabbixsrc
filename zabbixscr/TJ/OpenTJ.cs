@@ -1,11 +1,9 @@
 ﻿using System;
-using System.Linq;
-using System.Xml;
-using System.IO;
-using System.Text.RegularExpressions;
 using System.Collections.Generic;
-using System.Security;
-using Microsoft.SqlServer.Server;
+using System.IO;
+using System.Linq;
+using System.Text.RegularExpressions;
+using System.Xml;
 
 namespace zabbixscr.TJ
 {
@@ -22,7 +20,7 @@ namespace zabbixscr.TJ
                 return @"C:\LOG1C\Message";
             }
         }
-        internal static int CurrentIndexMessage 
+        internal static int CurrentIndexMessage
         {
             get
             {
@@ -41,7 +39,7 @@ namespace zabbixscr.TJ
                 {
                     return false;
                 }
-                
+
             }
         }
         internal static int IndexMessage { get; set; }
@@ -131,7 +129,7 @@ namespace zabbixscr.TJ
                     }
                 }
                 else
-                {                    
+                {
                     foreach (var messagePath in fi)
                     {
                         CheckXML.GetXMLString(messagePath.FullName);
@@ -296,7 +294,7 @@ namespace zabbixscr.TJ
         //    }
         //}
         class CheckXML
-        { 
+        {
             public static void GenXml(string path, string logPath)
             {
                 XmlDocument XmlMess = new XmlDocument();
@@ -313,7 +311,7 @@ namespace zabbixscr.TJ
                 XmlMess.Save(path);
             }
             public static void GetXMLString(string path)
-            {                
+            {
                 XmlDocument XmlMess = new XmlDocument();
                 XmlMess.Load(path);
                 Data.IndexMessage = Convert.ToInt32(XmlMess.SelectSingleNode("Options/Number").InnerText);

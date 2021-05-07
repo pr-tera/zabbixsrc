@@ -1,6 +1,6 @@
 ﻿using System;
-using System.Text;
 using System.Diagnostics;
+using System.Text;
 
 namespace zabbixscr.Util
 {
@@ -37,7 +37,7 @@ namespace zabbixscr.Util
     struct UPTC
     {
         internal static string UpdateTCScriptPath { get; } = @"C:\Util\auto_upd_tc_1cfresh_1cbo.exe";
-        internal static string Fresh { get; }  = "https://1cfresh.com/a/ea/305321";
+        internal static string Fresh { get; } = "https://1cfresh.com/a/ea/305321";
         internal static string BO { get; } = "https://app.1cbo.ru/a/sbp/131972";
     }
 }

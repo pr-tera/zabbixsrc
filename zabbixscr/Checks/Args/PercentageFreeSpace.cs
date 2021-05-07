@@ -67,10 +67,12 @@ namespace zabbixscr.Args
             {
                 try
                 {
-                    PerformanceCounter _ioCounter = new PerformanceCounter();
-                    _ioCounter.CategoryName = "LogicalDisk";
-                    _ioCounter.CounterName = "% Free Space";
-                    _ioCounter.InstanceName = Program.argT;
+                    PerformanceCounter _ioCounter = new PerformanceCounter
+                    {
+                        CategoryName = "LogicalDisk",
+                        CounterName = "% Free Space",
+                        InstanceName = Program.argT
+                    };
                     t = _ioCounter.NextValue();
                     _ioCounter.Dispose();
                 }
@@ -90,7 +92,7 @@ namespace zabbixscr.Args
             double t;
             try
             {
-               t = Math.Round(Convert.ToDouble(FreeSpaceLD.Value) / Convert.ToDouble(SizeLD.Value) * 100);
+                t = Math.Round(Convert.ToDouble(FreeSpaceLD.Value) / Convert.ToDouble(SizeLD.Value) * 100);
             }
             catch
             {

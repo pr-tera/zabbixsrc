@@ -49,8 +49,8 @@ namespace zabbixscr.Standart
                 i.Dispose();
             }
             catch
-            { 
-            
+            {
+
             }
             if (t != 0)
             {

@@ -68,10 +68,12 @@ namespace zabbixscr.Args
             {
                 try
                 {
-                    PerformanceCounter _ioCounter = new PerformanceCounter();
-                    _ioCounter.CategoryName = "LogicalDisk";
-                    _ioCounter.CounterName = "Avg. Disk Read Queue Length";
-                    _ioCounter.InstanceName = Program.argT;
+                    PerformanceCounter _ioCounter = new PerformanceCounter
+                    {
+                        CategoryName = "LogicalDisk",
+                        CounterName = "Avg. Disk Read Queue Length",
+                        InstanceName = Program.argT
+                    };
                     t = _ioCounter.NextValue();
                     System.Threading.Thread.Sleep(1000);
                     t = _ioCounter.NextValue();
@@ -121,7 +123,7 @@ namespace zabbixscr.Args
             }
             catch
             {
-                t = 101;   
+                t = 101;
             }
             return t;
         }

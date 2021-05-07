@@ -63,15 +63,17 @@ namespace zabbixscr.Args
         }
         private static object PerfCounter()
         {
-            float t = 113; 
+            float t = 113;
             if (!string.IsNullOrEmpty(Program.argT))
             {
                 try
                 {
-                    PerformanceCounter _ioCounter = new PerformanceCounter();
-                    _ioCounter.CategoryName = "LogicalDisk";
-                    _ioCounter.CounterName = "Avg. Disk Write Queue Length";
-                    _ioCounter.InstanceName = "D:";
+                    PerformanceCounter _ioCounter = new PerformanceCounter
+                    {
+                        CategoryName = "LogicalDisk",
+                        CounterName = "Avg. Disk Write Queue Length",
+                        InstanceName = "D:"
+                    };
                     t = _ioCounter.NextValue();
                     System.Threading.Thread.Sleep(1000);
                     t = _ioCounter.NextValue();
@@ -121,7 +123,7 @@ namespace zabbixscr.Args
             }
             catch
             {
-                t = 101;   
+                t = 101;
             }
             return t;
         }

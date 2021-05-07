@@ -8,7 +8,7 @@ namespace zabbixscr
         /*
          *Класс описывает функции рекурсивного поиска для вычисления размера папок 
          */
-         //Поиск по корневому каталогу
+        //Поиск по корневому каталогу
         public static double SizeUserDir(string Folber, ref double CatalogSize)
         {
             try

@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Threading;
 using System.Text;
-using System.Security.Cryptography.X509Certificates;
-using System.Net.Configuration;
+using System.Threading;
 
 namespace zabbixscr
 {
@@ -15,7 +13,7 @@ namespace zabbixscr
             Console.OutputEncoding = Encoding.UTF8;
             if (args[0] == "test")
             {
-                Util.ClearCache.DellCache();
+                Console.WriteLine(Othe.NetHasp.GetHaspLM());
             }
             try
             {
@@ -675,7 +673,7 @@ namespace zabbixscr
             {
                 Services.Services.StartService(args[1]);
             }
-            }
+        }
         /*
          * Services
          */

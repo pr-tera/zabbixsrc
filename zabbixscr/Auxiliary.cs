@@ -12,7 +12,7 @@ namespace zabbixscr
     {
         public static string Availability_Motherbord(int Number, ref string CpuStatus)
         {
-            string[] Cpu_Status = new string[] { "Other","Unknown","Running/Full Power","Warning","In Test","Not Applicable","Power Off","Off Line","Off Duty","Degraded","Not Installed","Install Error","Power Save - Unknown","Power Save - Low Power Mode","Power Save - Standby","Power Cycle","Power Save - Warning","Paused","Not Ready","Not Configured","Quiesced"};
+            string[] Cpu_Status = new string[] { "Other", "Unknown", "Running/Full Power", "Warning", "In Test", "Not Applicable", "Power Off", "Off Line", "Off Duty", "Degraded", "Not Installed", "Install Error", "Power Save - Unknown", "Power Save - Low Power Mode", "Power Save - Standby", "Power Cycle", "Power Save - Warning", "Paused", "Not Ready", "Not Configured", "Quiesced" };
             return CpuStatus = Cpu_Status[Number - 1];
         }
         public static string CpuStatus(int Number, ref string CpuStatus)
@@ -22,7 +22,7 @@ namespace zabbixscr
         }
         public static string AvailabilityCPU(int Number, ref string AvailabilityCPU)
         {
-            string[] Availability_CPU = new string[] { "Other","Unknown","Running/Full Power","Running or Full Power","Warning","In Test","Not Applicable","Power Off","Off Line","Off Duty","Degraded","Not Installed", "Install Error","Power Save - Unknown","Power Save - Low Power Mode","Power Save - Standby","Power Cycle","Power Save - Warning","Paused","Not Ready","Not Configured","Quiesced" };
+            string[] Availability_CPU = new string[] { "Other", "Unknown", "Running/Full Power", "Running or Full Power", "Warning", "In Test", "Not Applicable", "Power Off", "Off Line", "Off Duty", "Degraded", "Not Installed", "Install Error", "Power Save - Unknown", "Power Save - Low Power Mode", "Power Save - Standby", "Power Cycle", "Power Save - Warning", "Paused", "Not Ready", "Not Configured", "Quiesced" };
             return AvailabilityCPU = Availability_CPU[Number - 1];
         }
         public static string ArchitectureCPU(int Number, ref string ArchitectureCPU)
@@ -50,12 +50,12 @@ namespace zabbixscr
         }
         public static string MemoryErrorCorrection(int Number, ref string MemoryErrorCorrection)
         {
-            string[] MemoryError_Correction = new string[] { "Reserved", "Other", "Unknown", "None", "Parity", "Single-bit ECC", "Multi-bit ECC", "CRC"};
+            string[] MemoryError_Correction = new string[] { "Reserved", "Other", "Unknown", "None", "Parity", "Single-bit ECC", "Multi-bit ECC", "CRC" };
             return MemoryErrorCorrection = MemoryError_Correction[Number];
         }
         public static string LocationMemory(int Number, ref string LocationMemory)
         {
-            string[] Location_Memory = new string[] { "Reserved", "Other", "Unknown", "System board or motherboard", "ISA add-on card", "EISA add-on card", "PCI add-on card", "MCA add-on card", "PCMCIA add-on card", "Proprietary add-on card", "NuBus", "PC-98/C20 add-on card", "PC-98/C24 add-on card", "PC-98/E add-on card", "PC-98/Local bus add-on card"};
+            string[] Location_Memory = new string[] { "Reserved", "Other", "Unknown", "System board or motherboard", "ISA add-on card", "EISA add-on card", "PCI add-on card", "MCA add-on card", "PCMCIA add-on card", "Proprietary add-on card", "NuBus", "PC-98/C20 add-on card", "PC-98/C24 add-on card", "PC-98/E add-on card", "PC-98/Local bus add-on card" };
             return LocationMemory = Location_Memory[Number];
         }
         public static string MemoryType(int Number, ref string MemoryType)
@@ -65,7 +65,7 @@ namespace zabbixscr
         }
         public static string FormFactorMemory(int Number, ref string FormFactor)
         {
-            string[] Form_Factor = new string[] { "Unknown", "Other", "SIP", "DIP", "ZIP", "SOJ", "Proprietary", "SIMM", "DIMM", "TSOP", "PGA", "RIMM", "SODIMM", "SRIMM", "SMD", "SSMP", "QFP", "TQFP", "SOIC", "LCC", "PLCC", "BGA", "FPBGA", "LGA"};
+            string[] Form_Factor = new string[] { "Unknown", "Other", "SIP", "DIP", "ZIP", "SOJ", "Proprietary", "SIMM", "DIMM", "TSOP", "PGA", "RIMM", "SODIMM", "SRIMM", "SMD", "SSMP", "QFP", "TQFP", "SOIC", "LCC", "PLCC", "BGA", "FPBGA", "LGA" };
             return FormFactor = Form_Factor[Number];
         }
         public static string TypeDetailMemory(int Number, ref string TypeDetail)
@@ -155,15 +155,17 @@ namespace zabbixscr
         public void SMART()
         {
             try
-            {           
+            {
                 var dicDrives = new Dictionary<int, HDD>();
                 var wdSearcher = new ManagementObjectSearcher("SELECT * FROM Win32_DiskDrive");
                 int iDriveIndex = 0;
                 foreach (ManagementObject drive in wdSearcher.Get())
                 {
-                    var hdd = new HDD();
-                    hdd.Model = drive["Model"].ToString().Trim();
-                    hdd.Type = drive["InterfaceType"].ToString().Trim();
+                    var hdd = new HDD
+                    {
+                        Model = drive["Model"].ToString().Trim(),
+                        Type = drive["InterfaceType"].ToString().Trim()
+                    };
                     dicDrives.Add(iDriveIndex, hdd);
                     iDriveIndex++;
                 }
@@ -176,9 +178,11 @@ namespace zabbixscr
                     dicDrives[iDriveIndex].Serial = drive["SerialNumber"] == null ? "None" : drive["SerialNumber"].ToString().Trim();
                     iDriveIndex++;
                 }
-                var searcher = new ManagementObjectSearcher("Select * from Win32_DiskDrive");
-                searcher.Scope = new ManagementScope(@"\root\wmi");
-                searcher.Query = new ObjectQuery("Select * from MSStorageDriver_FailurePredictStatus");
+                var searcher = new ManagementObjectSearcher("Select * from Win32_DiskDrive")
+                {
+                    Scope = new ManagementScope(@"\root\wmi"),
+                    Query = new ObjectQuery("Select * from MSStorageDriver_FailurePredictStatus")
+                };
                 iDriveIndex = 0;
                 foreach (ManagementObject drive in searcher.Get())
                 {
@@ -189,7 +193,7 @@ namespace zabbixscr
                 iDriveIndex = 0;
                 foreach (ManagementObject data in searcher.Get())
                 {
-                    Byte[] bytes = (Byte[])data.Properties["VendorSpecific"].Value;
+                    byte[] bytes = (byte[])data.Properties["VendorSpecific"].Value;
                     for (int i = 0; i < 30; ++i)
                     {
                         try
@@ -210,7 +214,7 @@ namespace zabbixscr
                         }
                         catch
                         {
-                            
+
                         }
                     }
                     iDriveIndex++;
@@ -219,7 +223,7 @@ namespace zabbixscr
                 iDriveIndex = 0;
                 foreach (ManagementObject data in searcher.Get())
                 {
-                    Byte[] bytes = (Byte[])data.Properties["VendorSpecific"].Value;
+                    byte[] bytes = (byte[])data.Properties["VendorSpecific"].Value;
                     for (int i = 0; i < 30; ++i)
                     {
                         try
@@ -234,7 +238,7 @@ namespace zabbixscr
                         }
                         catch
                         {
-                            
+
                         }
                     }
 

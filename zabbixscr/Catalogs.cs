@@ -1,10 +1,8 @@
-﻿using System;
-
-namespace zabbixscr
+﻿namespace zabbixscr
 {
     /*
      * Класс описывающий функции подготовки информации для вывода
-     */ 
+     */
     class Catalogs
     {
         //Папки пользователя больше 10 гб
@@ -23,7 +21,7 @@ namespace zabbixscr
                 }
             }
         }
-        public void GetSizeUserFolber(string arg, ref Double Out)
+        public void GetSizeUserFolber(string arg, ref double Out)
         {
             string ExUserDir = null;
             ExUserDir = Auxiliary.UserDir(HomeDirUsers + arg, ref ExUserDir);

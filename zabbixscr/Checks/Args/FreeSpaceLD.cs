@@ -68,11 +68,13 @@ namespace zabbixscr.Args
             {
                 try
                 {
-                    PerformanceCounter _ioCounter = new PerformanceCounter();
-                    _ioCounter.CategoryName = "LogicalDisk";
-                    _ioCounter.CounterName = "Free Megabytes";
-                    _ioCounter.InstanceName = Program.argT;
-                     t = _ioCounter.NextValue();
+                    PerformanceCounter _ioCounter = new PerformanceCounter
+                    {
+                        CategoryName = "LogicalDisk",
+                        CounterName = "Free Megabytes",
+                        InstanceName = Program.argT
+                    };
+                    t = _ioCounter.NextValue();
                     _ioCounter.Dispose();
                 }
                 catch

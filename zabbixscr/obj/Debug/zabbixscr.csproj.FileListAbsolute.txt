@@ -16,3 +16,8 @@ D:\Visual Studio\zabbixscr\zabbixscr\obj\Debug\zabbixscr.csproj.CoreCompileInput
 D:\Visual Studio\zabbixscr\zabbixscr\obj\Debug\zabbixscr.exe
 D:\Visual Studio\zabbixscr\zabbixscr\obj\Debug\zabbixscr.pdb
 C:\Users\tera\Source\Repos\jallybally\zabbixscr\zabbixscr\obj\Debug\zabbixscr.csproj.CoreCompileInputs.cache
+D:\Repos\zabbixscr\zabbixscr\bin\Debug\zabbixscr.exe.config
+D:\Repos\zabbixscr\zabbixscr\obj\Debug\zabbixscr.csprojAssemblyReference.cache
+D:\Repos\zabbixscr\zabbixscr\obj\Debug\zabbixscr.csproj.CoreCompileInputs.cache
+D:\Repos\zabbixscr\zabbixscr\obj\Debug\zabbixscr.exe
+D:\Repos\zabbixscr\zabbixscr\obj\Debug\zabbixscr.pdb

@@ -76,7 +76,7 @@ namespace zabbixscr.Standart
             catch
             {
                 t = "101";
-            }   
+            }
             return t;
         }
     }
